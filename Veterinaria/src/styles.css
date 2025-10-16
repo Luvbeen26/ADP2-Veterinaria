@@ -1,1 +1,31 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+*{
+    --bordercolor-input:#A6A2A2;
+    --primary_button_color:#375CE2;
+
+
+    margin:0;
+    font-family:"Inter";
+}
+
+.input{
+    background-color: #FFFF;
+    border:2px solid var(--bordercolor-input);
+    border-radius: 5px;
+}
+
+.flex-column{
+    display: flex;
+    flex-direction: column;
+}
+
+.flex{
+    display: flex;
+}
+
+.primary_button{
+    background-color: var(--primary_button_color);
+    border-radius: 5px;
+
+}
