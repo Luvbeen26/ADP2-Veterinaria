@@ -13,6 +13,9 @@
     background-color: #FFFF;
     border:2px solid var(--bordercolor-input);
     border-radius: 5px;
+    padding: 8px;
+    height: 1.5rem;
+
 }
 
 .flex-column{
@@ -27,5 +30,20 @@
 .primary_button{
     background-color: var(--primary_button_color);
     border-radius: 5px;
+    color: #FFFF;
+    border: none;
+    padding: 20px;
+    font-size:larger;
+    font-weight: bold;
+    
+}
 
+.button_link{
+    color:var(--primary_button_color);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.hide{
+    display:none;
 }

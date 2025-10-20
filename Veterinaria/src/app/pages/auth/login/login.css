@@ -1,3 +1,42 @@
+main{
+    padding: 30px;
+}
+
 .title{
     text-align: center;
+}
+
+.contenedor{
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    
+}
+
+picture.flex{
+    justify-content: center;
+}
+img{
+    width: 450px;
+}
+
+.form.flex-column{
+    width: 60%;
+    gap: 10px;
+    margin: auto;
+}
+
+.campo.flex-column{
+    gap: 10px;
+}
+
+.text.right{
+    text-align: end;
+}
+
+.text.center.flex{
+    justify-content: center;
+    gap: 10px;
+    font-weight: bold;
 }
