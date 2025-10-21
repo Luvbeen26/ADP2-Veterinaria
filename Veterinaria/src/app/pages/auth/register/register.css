@@ -1,0 +1,37 @@
+main{
+    padding: 30px;
+    
+}
+.title{
+    text-align: center;
+}
+.form.flex-column{
+    gap: 10px;
+    padding: 30px;
+    align-items: center;
+}
+
+.campos{
+    justify-content: center;
+    display: grid;
+    margin: auto;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 3;
+    gap: 30px;
+    width: 70rem;
+}
+
+.campo.flex-column{
+    gap:10px;
+}
+
+.text.center.flex{
+    justify-content: center;
+    gap: 10px;
+    font-weight: bold;
+}
+
+.primary_button{
+    margin-top: 20px;
+    width: 70rem;
+}

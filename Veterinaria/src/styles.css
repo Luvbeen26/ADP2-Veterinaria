@@ -42,6 +42,7 @@
     color:var(--primary_button_color);
     font-weight: bold;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .hide{
