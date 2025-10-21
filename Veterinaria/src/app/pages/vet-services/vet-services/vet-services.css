@@ -1,0 +1,9 @@
+.list-service-container{
+    padding: 20px;
+    gap: 20px;
+}
+.list-services{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(300px,100%), 1fr));
+    gap: 50px;
+}

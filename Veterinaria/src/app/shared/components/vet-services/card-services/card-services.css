@@ -1,0 +1,17 @@
+.card{
+    box-shadow: 5px 5px 5px 5px rgba(110, 110, 110, 0.3);
+    padding: 20px;
+    border-radius: 10px;
+    gap: 20px;
+    justify-content: center;
+}
+.image-container{
+    width: 300px;
+    align-self: center;
+}
+.image-service{
+    width: 100%;
+}
+.info-service{
+    gap: 20px;
+}
