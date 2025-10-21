@@ -1,0 +1,16 @@
+.card{
+    justify-content: center;
+    width: fit-content;
+    border: 1px solid #DFDFDF;
+    text-align: center;
+    padding: 20px 80px;
+    border-radius: 10px;
+    background-color: #F0F0F0;
+    gap: 15px;
+}
+.image-pet{
+    width: 120px;
+    height: 120px;
+    border-radius: 150px;
+    border: 1px solid #DFDFDF;
+}
