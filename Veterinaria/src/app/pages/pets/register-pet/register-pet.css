@@ -1,0 +1,71 @@
+main{
+    display: grid;
+    place-items: center;
+    margin-top: 30px;
+}
+.page-container{
+    gap: 30px;
+}
+.register-container{
+    background-color: var(--background-form);
+    border: 1px solid #EEEEEE;
+    padding: 50px;
+    border-radius: 10px;
+}
+.register-pet{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.register-pet-form{
+    gap: 30px;
+}
+.form-group{
+    gap: 15px;
+}
+.radio-group{
+    gap: 20px;
+}
+.column-left{
+    gap: 20px;
+}
+.column-rigth{
+    gap: 20px;
+}
+.input-peso-color{
+    gap: 15px;
+}
+.radio-input{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Efecto al pasar el mouse */
+.radio-input:hover {
+  background-color: #f2f2f2;
+  border-color: #999;
+}
+
+/* Ocultar el radio original y estilizarlo manualmente */
+.radio-input input[type="radio"] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid black;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+/* Cuando está seleccionado */
+.radio-input input[type="radio"]:checked {
+    border-color: var(--primary_button_color);
+  background-color: var(--primary_button_color);
+}
+
+.register-button{
+    align-self: center;
+}
