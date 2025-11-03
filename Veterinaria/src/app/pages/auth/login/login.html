@@ -5,7 +5,6 @@
         <form [formGroup]="loginForm" (ngSubmit)="Login()" action="" class="form flex-column">
             <label for="" class="campo flex-column">
                 <h3>Usuario o correo electronico</h3>
-                <input type="email" class="input" placeholder="Ej: usuario123">
                 <input type="text" class="input" formControlName="usuario_mail" placeholder="Ej: usuario123">
                 @if(loginForm.get('usuario_mail')?.hasError("required") && loginForm.get('usuario_mail')?.touched){
                     <p class="error">Ingrese un usuario o correo</p>
