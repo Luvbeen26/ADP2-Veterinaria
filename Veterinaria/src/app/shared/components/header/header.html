@@ -5,18 +5,29 @@
     </div>
     
     <div class="selected-options flex">
-        <a routerLink="" class="options">Inicio</a>
-        <a routerLink="" class="options">Servicios</a>
-        <a routerLink="" class="options">Contacto</a>
-        <a routerLink="" class="options">Nosotros</a>
-        <a routerLink="" class="options hide">Consultas</a>
-        <a routerLink="" class="options hide">Usuarios</a>
-        <a routerLink="" class="options hide">Estadisticas</a>
+        @if (currentUser?.rol == "V") {    
+            <a routerLink="" class="options">Consultas</a>
+            <a routerLink="" class="options">Usuarios</a>
+            <a routerLink="" class="options">Estadisticas</a>
+        }@else{
+            <a routerLink="" class="options">Inicio</a>
+            <a routerLink="/pets" class="options">Mascotas</a>
+            <a routerLink="" class="options">Servicios</a>
+            <a routerLink="" class="options">Contacto</a>
+            <a routerLink="" class="options">Nosotros</a>
+            <button (click)="log_out()">salir</button>
+        }
     </div>
 
     <div class="another-options flex">
-        <a routerLink="/login" class="options auth">Iniciar Sesion</a>
-        <a routerLink="/register" class="options auth">Registrarse</a>
+        @if (!currentUser) {
+            <a routerLink="/login" class="options auth">Iniciar Sesion</a>
+            <a routerLink="/register" class="options auth">Registrarse</a>
+        }@else {
+            <img src="logo.png" alt="">
+        }
+        
+        
         <!--Inserte imagen de perfil que flojera como hide si no se inicio sesion -->
     </div>
 </nav>
