@@ -1,1 +1,69 @@
-<p>register-pet works!</p>
+<main>
+    <div class="page-container flex-column">
+        <div class="title">
+            <h1>Registrar mascotas</h1>
+            <p>Completa los siguientes campos para que la mascota quede registrada en el sistema</p>
+        </div>
+        <div class="register-container">
+            <form action="" class="register-pet-form flex-column">
+                <div class="register-pet">
+                    <div class="column-left flex-column">
+                        <div class="form-group flex-column">
+                            <label for="name">Nombre</label>
+                            <input type="text" id="name" placeholder="Ej: Luis" class="input-text">
+                        </div>
+                        <div class="form-group flex-column">
+                            <label for="animal">Animal</label>
+                            <div class="radio-group flex">
+                                <div class="radio-input">
+                                    <input type="radio" id="perro" name="animal">
+                                    <label for="perro">Perro</label><br>
+                                </div>
+                                <div class="radio-input">
+                                    <input type="radio" id="gato" name="animal">
+                                    <label for="gato">Gato</label><br>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group flex-column">
+                            <label for="">Raza</label>
+                            <select name="razas" id="razas" class="input-text">
+                                <option value="gato_domestico">Geto domestico</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="column-rigth flex-column">
+                        <div class="form-group flex-column">
+                            <label for="name">Fecha de nacimiento</label>
+                            <input type="date" id="name" placeholder="DD/MM/AA" class="input-text">
+                        </div>
+                        <div class="form-group flex-column">
+                            <label for="animal" class="name-option">Sexo</label>
+                            <div class="radio-group flex">
+                                <div class="radio-input flex">
+                                    <input type="radio" id="hembra" name="sexo">
+                                    <label for="hembra">Hembra</label><br>
+                                </div>
+                                <div class="radio-input flex">
+                                    <input type="radio" id="macho" name="sexo">
+                                    <label for="macho">Macho</label><br>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group flex">
+                            <div class="input-peso-color flex-column">
+                                <label for="color">Color</label>
+                                <input type="text" id="color" class="input-text">
+                            </div>
+                            <div class="input-peso-color flex-column">
+                                <label for="peso">Peso</label>
+                                <input type="text" id="peso" class="input-text">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="register-button primary_button">Registrar mascota</button>
+            </form>
+        </div>
+    </div>
+</main>

@@ -3,6 +3,7 @@
 *{
     --bordercolor-input:#A6A2A2;
     --primary_button_color:#375CE2;
+    --background-form: #F8F8F8;
 
 
     margin:0;
@@ -47,4 +48,12 @@
 
 .hide{
     display:none;
+}
+
+.input-text{
+    background-color: white;
+    border: 1px solid var(--bordercolor-input);
+    border-radius: 10px;
+    padding: 10px;
+
 }
