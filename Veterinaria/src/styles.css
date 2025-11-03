@@ -4,7 +4,7 @@
     --bordercolor-input:#A6A2A2;
     --primary_button_color:#375CE2;
     --background-form: #F8F8F8;
-
+    --primary_button_invalid_color:#6781de;
 
     margin:0;
     font-family:"Inter";
@@ -36,8 +36,15 @@
     padding: 20px;
     font-size:larger;
     font-weight: bold;
-    
+    cursor: pointer;   
 }
+
+
+.primary_button:invalid{
+    background-color: var(--primary_button_invalid_color);
+    cursor:not-allowed;
+}
+
 
 .button_link{
     color:var(--primary_button_color);
@@ -56,4 +63,21 @@
     border-radius: 10px;
     padding: 10px;
 
+}
+
+.alert{
+    background-color: #f8d7da;
+    border-radius: 5px;
+    padding: .75rem 1.25rem;
+    color:#721c24;
+    margin-top: 1rem;
+    justify-content: center;
+    transition: all 0.3s ease;
+
+}
+
+.error{
+    color: red;
+    font-size: small;
+    font-weight: 600;
 }

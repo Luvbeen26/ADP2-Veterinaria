@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth/auth-guard';
+import { authClienteGuard } from './core/guards/auth/auth-cliente-guard';
 
 export const routes: Routes = [
     {
@@ -8,7 +10,6 @@ export const routes: Routes = [
         path: 'services', loadChildren: ()=>import('./pages/vet-services/vet-services.routes').then(m=>m.VET_SERVICES)
     },
     {
-        path: 'pets', loadChildren: ()=>import('./pages/pets/pets.routes').then(m=>m.PETS_ROUTES)
+        path: 'pets',canActivate:[authGuard,authClienteGuard],loadChildren: ()=>import('./pages/pets/pets.routes').then(m=>m.PETS_ROUTES)
     }
-    
 ];
