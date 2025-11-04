@@ -1,4 +1,6 @@
 main{
+    justify-content: center;
+    align-items: center;
     padding: 30px;
     
 }
@@ -33,5 +35,6 @@ main{
 
 .primary_button{
     margin-top: 20px;
-    width: 70rem;
+    width: 100%;
+    max-width: 20rem;
 }
