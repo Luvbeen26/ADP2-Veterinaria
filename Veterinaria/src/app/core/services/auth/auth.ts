@@ -38,7 +38,7 @@ export class Auth {
 
   public register(regis:register):Observable<Token>{
   
-    return this.http.post<Token>(`${this.api}/auth/create_user`,regis).pipe(
+    return this.http.post<Token>(`${this.api}auth/create_user`,regis).pipe(
       tap(response=>{
         this.cookies.set('access_token',response.access_token);
         const userdata=this.decodeToken(response.access_token);

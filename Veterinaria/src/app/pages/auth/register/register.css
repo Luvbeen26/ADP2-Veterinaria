@@ -9,6 +9,7 @@ main{
 }
 .form.flex-column{
     gap: 10px;
+    
     padding: 30px;
     align-items: center;
 }
@@ -20,7 +21,7 @@ main{
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 3;
     gap: 30px;
-    width: 70rem;
+    width: 40rem;
 }
 
 .campo.flex-column{
@@ -37,4 +38,21 @@ main{
     margin-top: 20px;
     width: 100%;
     max-width: 20rem;
+}
+
+@media (max-width:700px){
+    .campos{
+        width: 20rem;
+    }
+
+    .campos h3{
+        font-size: 16px;
+    }
+}
+
+@media (max-width:420px){
+    .campos{
+        grid-template-columns: 1fr;
+        width: 95%;
+    }
 }

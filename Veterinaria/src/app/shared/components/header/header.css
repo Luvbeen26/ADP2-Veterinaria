@@ -8,7 +8,9 @@
     margin-left: 20px;
 }
 
-
+.profile{
+    margin-right: 20px;
+}
 
 .options.auth{
     border-radius: 5px;
@@ -65,6 +67,7 @@
 .Items{
     display: flex;
     gap:10px;
+    
     justify-content: space-between;
     flex:1;
     
@@ -89,6 +92,10 @@
 }
 
 @media (max-width: 790px){
+    .profile{
+        display: none;
+    }
+    
     .Items{
         flex-direction: column;
         justify-content: start;
@@ -96,7 +103,7 @@
         right:0;
         padding-inline: 12px;
         top: 3.75rem;
-        background-color: var(--color-principal);
+        background-color:#ffff;
         height: 100%;
         width: 210px;
         transform: translateX(100%);
@@ -163,6 +170,6 @@
     }
     .Items.open{
         transform: translateX(0) !important;
-        box-shadow: -4px 0 6px rgba(0, 0, 0, 0.2);
+        box-shadow: -4px 0 6px -2px rgba(0, 0, 0, 0.2);
     }
 }

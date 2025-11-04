@@ -34,6 +34,7 @@ export class Register {
   }
 
   Register(){
+    console.log("register")
     this.cdr.detectChanges();
     if(this.RegForm.invalid){
       this.RegForm.markAllAsTouched();

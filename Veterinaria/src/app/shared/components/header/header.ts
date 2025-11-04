@@ -2,25 +2,23 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
 import { UserData } from '../../../core/models/auth';
 import { Auth } from '../../../core/services/auth/auth';
+import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink],
+  imports: [RouterLink,CommonModule],
   templateUrl: './header.html',
   styleUrl: './header.css'
 })
 export class Header {
-  currentUser: UserData | null = null;
+  currentUser$: Observable<UserData | null>; // ✅ Observable directamente
   menuOpen = false;
-  @ViewChild("toggle") toggleRef!:ElementRef;
-  @ViewChild("items") itemsRef!:ElementRef;
+  @ViewChild("toggle") toggleRef!: ElementRef;
+  @ViewChild("items") itemsRef!: ElementRef;
   
-  constructor(private authservice:Auth,private router:Router){}
-
-  ngOnInit(){
-    this.authservice.currentUser$.subscribe(usuario=>{
-      this.currentUser=usuario;
-    })
+  constructor(private authservice: Auth, private router: Router){
+    this.currentUser$ = this.authservice.currentUser$; // ✅ Asignar el observable
   }
 
   closeMenu() {
