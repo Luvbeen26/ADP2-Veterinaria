@@ -11,5 +11,8 @@ export const routes: Routes = [
     },
     {
         path: 'pets',canActivate:[authGuard],loadChildren: ()=>import('./pages/pets/pets.routes').then(m=>m.PETS_ROUTES)
+    },
+    {
+        path: 'vet',loadChildren: ()=>import('./pages/vet/vet.routes').then(m=>m.VET_ROUTES)
     }
 ];
