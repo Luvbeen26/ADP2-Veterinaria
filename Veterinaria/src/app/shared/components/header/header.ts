@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
 import { UserData } from '../../../core/models/auth';
 import { Auth } from '../../../core/services/auth/auth';
@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
   styleUrl: './header.css'
 })
 export class Header {
+  
   currentUser$: Observable<UserData | null>; // ✅ Observable directamente
   menuOpen = false;
   @ViewChild("toggle") toggleRef!: ElementRef;
@@ -27,6 +28,7 @@ export class Header {
 
   log_out(){
     this.authservice.logout();
+    this.router.navigate(["/"]);
   }
 
   toggleMenu() {
