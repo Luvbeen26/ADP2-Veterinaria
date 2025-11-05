@@ -1,16 +1,102 @@
-.card{
-    justify-content: center;
-    width: fit-content;
-    border: 1px solid #DFDFDF;
-    text-align: center;
-    padding: 20px 80px;
-    border-radius: 10px;
-    background-color: #F0F0F0;
-    gap: 15px;
+.card {
+  position: relative;
+  width: 280px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  transition: transform 0.2s;
 }
-.image-pet{
-    width: 120px;
-    height: 120px;
-    border-radius: 150px;
-    border: 1px solid #DFDFDF;
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* Imagen de la mascota */
+.image-pet {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+/* Información de la mascota */
+.card-info {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.name-pet {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.type-pet, .age-pet, .breed-pet, .weight-pet {
+  margin: 0;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+/* Menú superior derecho */
+.card-menu {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.menu-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.menu-dropdown {
+  display: none;
+  position: absolute;
+  top: 25px;
+  right: 0;
+  background-color: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  flex-direction: column;
+  z-index: 10;
+}
+
+.menu-dropdown button {
+  padding: 10px 15px;
+  border: none;
+  background: none;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+}
+
+.menu-btn:hover + .menu-dropdown,
+.menu-dropdown:hover {
+  display: flex;
+}
+
+/* Botón eliminar */
+.delete-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: #ff4d4f;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.delete-btn:hover {
+  background-color: #ff7875;
 }

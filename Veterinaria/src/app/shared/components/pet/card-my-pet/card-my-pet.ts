@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { MascotaOut, MascotaUpdate } from '../../../../core/models/mascota';
 
 @Component({
   selector: 'app-card-my-pet',
@@ -8,6 +9,17 @@ import { Component, Input } from '@angular/core';
 })
 export class CardMyPet {
 
-  @Input() name = '';
-  @Input() especie = '';
+  @Input() mascota?:MascotaOut;
+
+  public editarMascota(){
+
+  }
+  public verDetalles(){
+
+  }
+
+  public eliminarMascota(){
+
+  }
+
 }
