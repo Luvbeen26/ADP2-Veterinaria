@@ -1,5 +1,29 @@
-<div class="card flex-column">
-    <img class="image-pet" src="https://i.pinimg.com/736x/61/17/da/6117da0fb4ed8ed0381ea9eeb4fa04da.jpg" alt="">
-    <h2 class="name-pet">{{name}}</h2>
-    <p class="type-pet">{{especie}}</p>
+<div class="card">
+  <!-- Menú superior derecho -->
+  <div class="card-menu">
+    <button class="menu-btn">⋮</button>
+    <div class="menu-dropdown">
+      <button (click)="editarMascota()">Editar</button>
+      <button (click)="verDetalles()">Detalles</button>
+    </div>
+  </div>
+
+  <!-- Imagen de la mascota -->
+  <img class="image-pet" 
+       [src]="mascota?.especie === 'P' ? 'dog.jpeg' : 'cat.jpg'" 
+       alt="{{mascota?.nombre}}">
+
+  <!-- Información principal -->
+  <div class="card-info">
+    <h2 class="name-pet">{{mascota?.nombre}}</h2>
+    <p class="type-pet">{{mascota?.especie === 'P' ? 'Perro' : 'Gato'}}</p>
+    <p class="age-pet">Edad: {{mascota?.fecha_nacimiento}} años</p>
+    <p class="breed-pet">Raza: {{mascota?.id_raza}}</p>
+    <p class="weight-pet">Peso: {{mascota?.peso}} kg</p>
+  </div>
+
+  <!-- Icono eliminar -->
+  <button class="delete-btn" (click)="eliminarMascota()">
+    🗑️
+  </button>
 </div>
