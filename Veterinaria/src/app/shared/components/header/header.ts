@@ -1,29 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
 import { UserData } from '../../../core/models/auth';
 import { Auth } from '../../../core/services/auth/auth';
+import { CommonModule } from '@angular/common';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink],
+  imports: [RouterLink,CommonModule],
   templateUrl: './header.html',
   styleUrl: './header.css'
 })
 export class Header {
-  currentUser: UserData | null = null;
-  showUserMenu = false;
+  currentUser$: Observable<UserData | null>; // ✅ Observable directamente
   menuOpen = false;
-
-  constructor(private authservice:Auth,private router:Router){}
-
-  ngOnInit(){
-    this.authservice.currentUser$.subscribe(usuario=>{
-      this.currentUser=usuario;
-    })
-  }
-
-  toggleMenu() {
-    this.menuOpen = !this.menuOpen;
+  @ViewChild("toggle") toggleRef!: ElementRef;
+  @ViewChild("items") itemsRef!: ElementRef;
+  
+  constructor(private authservice: Auth, private router: Router){
+    this.currentUser$ = this.authservice.currentUser$; // ✅ Asignar el observable
   }
 
   closeMenu() {
@@ -32,5 +27,10 @@ export class Header {
 
   log_out(){
     this.authservice.logout();
+  }
+
+  toggleMenu() {
+    this.itemsRef.nativeElement.classList.toggle("open");
+    this.toggleRef.nativeElement.classList.toggle("close");
   }
 }

@@ -3,8 +3,12 @@
 *{
     --bordercolor-input:#A6A2A2;
     --primary_button_color:#375CE2;
+    --color-principalbutton-hover:#3f36ba;
     --background-form: #F8F8F8;
     --primary_button_invalid_color:#6781de;
+    --secondary_button_color: #8A8A8A;
+    --secondary_buttonhover_color: #676767;
+
 
     margin:0;
     font-family:"Inter";
@@ -39,10 +43,31 @@
     cursor: pointer;   
 }
 
+.primary_button:hover{
+    background-color: var(--color-principalbutton-hover);
+    transition: .4s;
+}
+
 
 .primary_button:invalid{
     background-color: var(--primary_button_invalid_color);
     cursor:not-allowed;
+}
+
+.seconday_button{
+    background-color: var(--secondary_button_color);
+    border-radius: 5px;
+    border: none;
+    padding: 20px;
+    font-size:larger;
+    font-weight: bold;
+    cursor: pointer;   
+    color:#FFFF;
+}
+
+.seconday_button:hover{
+    background-color: var(--secondary_buttonhover_color);
+    
 }
 
 

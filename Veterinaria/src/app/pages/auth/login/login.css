@@ -1,42 +1,100 @@
-main{
+main {
     padding: 30px;
+    align-items: center;
 }
 
-.title{
+.title {
     text-align: center;
 }
 
-.contenedor{
+/* Contenedor principal en 2 columnas para pantallas grandes */
+.contenedor {
     padding: 20px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
-    
+    gap: 20px;
 }
 
-picture.flex{
+/* Imagen centrada */
+picture.flex {
     justify-content: center;
 }
-img{
+
+img {
     width: 450px;
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
 }
 
-.form.flex-column{
-    width: 60%;
+/* Formulario */
+.form.flex-column {
+    width: 80%;
     gap: 10px;
     margin: auto;
 }
 
-.campo.flex-column{
+.campo.flex-column {
     gap: 10px;
 }
 
-.text.right{
+.text.right {
     text-align: end;
 }
 
-.text.center.flex{
+.text.center.flex {
     justify-content: center;
     gap: 10px;
     font-weight: bold;
+}
+
+.alert.flex {
+    margin-top: 10px;
+    justify-content: center;
+}
+
+.hide {
+    display: none;
+}
+
+@media (max-width: 992px) {
+    .contenedor {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .form.flex-column {
+        width: 90%;
+    }
+
+    picture.flex {
+        order: -1; /* Imagen arriba */
+        margin-bottom: 20px;
+    }
+    .text.center{
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 600px) {
+    main {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    img {
+        width: 300px;
+    }
+
+    .form.flex-column {
+        width: 100%;
+    }
+
+    .text.right {
+        text-align: center;
+    }
 }
