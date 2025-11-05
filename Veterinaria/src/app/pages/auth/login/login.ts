@@ -26,6 +26,7 @@ export class Login {
       usuario_mail:['',Validators.required],
       contra:['',Validators.required]
     });
+    console.log(this.auth.get_userRol()); // DEBUG
   }
 
   Login(){

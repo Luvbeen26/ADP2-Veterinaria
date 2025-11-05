@@ -26,3 +26,13 @@ export interface UserData{
     nombre:string
     exp:number
 }
+
+export interface Entercode{
+    email:string,
+    code:string
+}
+
+export interface ChangePassword{
+    email:string
+    contra:string
+}

@@ -28,12 +28,14 @@
 }
 
 
-
 .header{
     background-color: var(--color-principal);   
     font-weight: 550;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-
+    width: 100%;
+    top: 0;
+    position: sticky;     
+    background-color: #ffff;
     align-items: center;
     height: 3.75rem;
     display: flex;
