@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, signal} from '@angular/core';
 import { CardMyPet } from "../../../shared/components/pet/card-my-pet/card-my-pet";
+import { MascotaOut } from '../../../core/models/mascota';
+import { Mascota } from '../../../core/services/mascota/mascota';
 
 @Component({
   selector: 'app-my-pets',
@@ -8,5 +10,21 @@ import { CardMyPet } from "../../../shared/components/pet/card-my-pet/card-my-pe
   styleUrl: './my-pets.css'
 })
 export class MyPets {
+  mascotas = signal<MascotaOut[]>([]);
+  //mascotas:MascotaOut[] = [];
+
+  constructor(private mascotasService: Mascota) {
+  }
+
+  ngOnInit():void{
+    this.getMascotas();
+  }
+
+  getMascotas() {
+    this.mascotasService.getMascotas().subscribe({
+      next: (data) => this.mascotas.set(data),
+      error: (err) => console.log(err)
+    });
+  }
 
 }

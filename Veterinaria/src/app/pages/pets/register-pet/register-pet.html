@@ -1,69 +1,112 @@
 <main>
-    <div class="page-container flex-column">
-        <div class="title">
-            <h1>Registrar mascotas</h1>
-            <p>Completa los siguientes campos para que la mascota quede registrada en el sistema</p>
-        </div>
-        <div class="register-container">
-            <form action="" class="register-pet-form flex-column">
-                <div class="register-pet">
-                    <div class="column-left flex-column">
-                        <div class="form-group flex-column">
-                            <label for="name">Nombre</label>
-                            <input type="text" id="name" placeholder="Ej: Luis" class="input-text">
-                        </div>
-                        <div class="form-group flex-column">
-                            <label for="animal">Animal</label>
-                            <div class="radio-group flex">
-                                <div class="radio-input">
-                                    <input type="radio" id="perro" name="animal">
-                                    <label for="perro">Perro</label><br>
-                                </div>
-                                <div class="radio-input">
-                                    <input type="radio" id="gato" name="animal">
-                                    <label for="gato">Gato</label><br>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group flex-column">
-                            <label for="">Raza</label>
-                            <select name="razas" id="razas" class="input-text">
-                                <option value="gato_domestico">Geto domestico</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="column-rigth flex-column">
-                        <div class="form-group flex-column">
-                            <label for="name">Fecha de nacimiento</label>
-                            <input type="date" id="name" placeholder="DD/MM/AA" class="input-text">
-                        </div>
-                        <div class="form-group flex-column">
-                            <label for="animal" class="name-option">Sexo</label>
-                            <div class="radio-group flex">
-                                <div class="radio-input flex">
-                                    <input type="radio" id="hembra" name="sexo">
-                                    <label for="hembra">Hembra</label><br>
-                                </div>
-                                <div class="radio-input flex">
-                                    <input type="radio" id="macho" name="sexo">
-                                    <label for="macho">Macho</label><br>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group flex">
-                            <div class="input-peso-color flex-column">
-                                <label for="color">Color</label>
-                                <input type="text" id="color" class="input-text">
-                            </div>
-                            <div class="input-peso-color flex-column">
-                                <label for="peso">Peso</label>
-                                <input type="text" id="peso" class="input-text">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button class="register-button primary_button">Registrar mascota</button>
-            </form>
-        </div>
+  <div class="page-container flex-column">
+    <div class="title">
+      <h1>Registrar mascotas</h1>
+      <p>Completa los siguientes campos para que la mascota quede registrada en el sistema</p>
     </div>
+
+    <div class="register-container">
+      <form [formGroup]="mascotaForm" class="register-pet-form flex-column" (ngSubmit)="onSubmit()">
+        <div class="register-pet">
+          <!-- ================== COLUMNA IZQUIERDA ================== -->
+          <div class="column-left flex-column">
+            
+            <!-- Nombre -->
+            <div class="form-group flex-column">
+              <label for="name">Nombre</label>
+              <input type="text" id="name" placeholder="Ej: Luis" class="input-text" formControlName="nombre">
+              @if (mascotaForm.get('nombre')?.hasError('required') && mascotaForm.get('nombre')?.touched) {
+                <p class="error">Ingrese el nombre de la mascota</p>
+              }
+              @if (mascotaForm.get('nombre')?.hasError('minlength') && mascotaForm.get('nombre')?.touched) {
+                <p class="error">El nombre debe tener al menos 2 caracteres</p>
+              }
+            </div>
+
+            <!-- Especie -->
+            <div class="form-group flex-column">
+              <label for="animal">Animal</label>
+              <div class="radio-group flex">
+                <div class="radio-input">
+                  <input type="radio" id="perro" name="especie" formControlName="especie" (change)="onEspecieChange('P')" value="P">
+                  <label for="perro">Perro</label><br>
+                </div>
+                <div class="radio-input">
+                  <input type="radio" id="gato" name="especie" formControlName="especie" (change)="onEspecieChange('G')" value="G">
+                  <label for="gato">Gato</label><br>
+                </div>
+              </div>
+              @if (mascotaForm.get('especie')?.hasError('required') && mascotaForm.get('especie')?.touched) {
+                <p class="error">Seleccione una especie</p>
+              }
+            </div>
+            <div class="form-group flex-column">
+              <label for="razas">Raza</label>
+              <select formControlName="id_raza" name="razas" id="razas" class="input-text">
+                <option value="" disabled selected>Seleccione una raza</option>
+                @for (raza of razas; track $index) {
+                  <option [value]="raza.id_raza">{{ raza.descripcion }}</option>
+                }
+              </select>
+              @if (mascotaForm.get('id_raza')?.hasError('required') && mascotaForm.get('id_raza')?.touched) {
+                <p class="error">Seleccione una raza</p>
+              }
+            </div>
+
+          </div>
+          <div class="column-rigth flex-column">
+
+            <!-- Fecha de nacimiento -->
+            <div class="form-group flex-column">
+              <label for="fecha_nacimiento">Fecha de nacimiento</label>
+              <input type="date" id="fecha_nacimiento" placeholder="DD/MM/AA" class="input-text" formControlName="fecha_nacimiento">
+              @if (mascotaForm.get('fecha_nacimiento')?.hasError('required') && mascotaForm.get('fecha_nacimiento')?.touched) {
+                <p class="error">Ingrese la fecha de nacimiento</p>
+              }
+            </div>
+
+            <!-- Sexo -->
+            <div class="form-group flex-column">
+              <label for="animal" class="name-option">Sexo</label>
+              <div class="radio-group flex">
+                <div class="radio-input flex">
+                  <input type="radio" id="hembra" name="sexo" formControlName="sexo" value="H">
+                  <label for="hembra">Hembra</label><br>
+                </div>
+                <div class="radio-input flex">
+                  <input type="radio" id="macho" name="sexo" formControlName="sexo" value="M">
+                  <label for="macho">Macho</label><br>
+                </div>
+              </div>
+              @if (mascotaForm.get('sexo')?.hasError('required') && mascotaForm.get('sexo')?.touched) {
+                <p class="error">Seleccione el sexo de la mascota</p>
+              }
+            </div>
+
+            <!-- Color y Peso -->
+            <div class="form-group flex">
+              <div class="input-peso-color flex-column">
+                <label for="color">Color</label>
+                <input type="text" id="color" class="input-text" formControlName="color">
+                @if (mascotaForm.get('color')?.hasError('required') && mascotaForm.get('color')?.touched) {
+                  <p class="error">Ingrese el color</p>
+                }
+              </div>
+              <div class="input-peso-color flex-column">
+                <label for="peso">Peso en KG</label>
+                <input type="number" id="peso" class="input-text" formControlName="peso">
+                @if (mascotaForm.get('peso')?.hasError('required') && mascotaForm.get('peso')?.touched) {
+                  <p class="error">Ingrese el peso</p>
+                }
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <button class="register-button primary_button">Registrar mascota</button>
+      </form>
+      <app-toast [message]="messageSuccess" [show]="showToast"></app-toast>
+    </div>
+  </div>
 </main>
