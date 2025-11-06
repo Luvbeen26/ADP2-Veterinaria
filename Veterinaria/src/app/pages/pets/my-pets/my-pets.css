@@ -41,7 +41,8 @@
   position: fixed;       /* Fijo en la pantalla */
   bottom: 20px;          /* 20px desde el borde inferior */
   right: 20px;           /* 20px desde el borde derecho */
-  padding: 12px 20px;
+  width: 70px;
+  height: 70px;
   background-color: var(--primary_button_color); /* Verde */
   color: white;
   border: none;

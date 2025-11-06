@@ -1,3 +1,5 @@
+import { Raza } from "./raza";
+
 export interface MascotaBase {
   nombre: string;
   fecha_nacimiento: string;
@@ -25,4 +27,8 @@ export interface MascotaUpdate {
 export interface MascotaOut extends MascotaBase {
   id_usuario: number;
   id_mascota: number;
+  raza_mascota?: Raza | null;
+}
+export interface MascotaDeleteResponse{
+  detail: string;
 }

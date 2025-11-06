@@ -3,27 +3,24 @@
   <div class="card-menu">
     <button class="menu-btn">⋮</button>
     <div class="menu-dropdown">
-      <button (click)="editarMascota()">Editar</button>
+      <button (click)="editarMascota(mascota?.id_mascota!)">Editar</button>
       <button (click)="verDetalles()">Detalles</button>
     </div>
   </div>
 
-  <!-- Imagen de la mascota -->
   <img class="image-pet" 
        [src]="mascota?.especie === 'P' ? 'dog.jpeg' : 'cat.jpg'" 
        alt="{{mascota?.nombre}}">
 
-  <!-- Información principal -->
   <div class="card-info">
     <h2 class="name-pet">{{mascota?.nombre}}</h2>
     <p class="type-pet">{{mascota?.especie === 'P' ? 'Perro' : 'Gato'}}</p>
-    <p class="age-pet">Edad: {{mascota?.fecha_nacimiento}} años</p>
-    <p class="breed-pet">Raza: {{mascota?.id_raza}}</p>
+    <p class="age-pet">Edad: {{calcularEdad(mascota?.fecha_nacimiento!)}} años</p>
+    <p class="breed-pet">Raza: {{mascota?.raza_mascota?.descripcion}}</p>
     <p class="weight-pet">Peso: {{mascota?.peso}} kg</p>
   </div>
 
-  <!-- Icono eliminar -->
   <button class="delete-btn" (click)="eliminarMascota()">
-    🗑️
+    <mat-icon>delete</mat-icon>
   </button>
 </div>

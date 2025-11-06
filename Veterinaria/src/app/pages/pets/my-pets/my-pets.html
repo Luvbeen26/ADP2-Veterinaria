@@ -2,7 +2,7 @@
     <h1>Mis mascotas</h1>
     <div class="container-list-pets">
         @for (mascota of mascotas(); track $index) {
-            <app-card-my-pet [mascota]="mascota"></app-card-my-pet>
+            <app-card-my-pet [mascota]="mascota" (mascotaEliminada)="onMascotaEliminada($event)"></app-card-my-pet>
         }@empty {
             <div class="empty-message">
                 <div class="empty-icon">
@@ -15,7 +15,7 @@
         }
     </div>
     <button class="fixed-button" (click)="navigateRegisterPet()">
-    + Agregar Mascota
+        <mat-icon>add</mat-icon>
     </button>
 
 </div>

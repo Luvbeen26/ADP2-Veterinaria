@@ -1,7 +1,7 @@
 <main>
   <div class="page-container flex-column">
-    <div class="title">
-      <h1>Registrar mascotas</h1>
+    <div class="title flex-column">
+      <h1>{{titulo}}</h1>
       <p>Completa los siguientes campos para que la mascota quede registrada en el sistema</p>
     </div>
 
@@ -104,7 +104,7 @@
           </div>
         </div>
 
-        <button class="register-button primary_button">Registrar mascota</button>
+        <button class="register-button primary_button">{{titulo}}</button>
       </form>
       <app-toast [message]="messageSuccess" [show]="showToast"></app-toast>
     </div>

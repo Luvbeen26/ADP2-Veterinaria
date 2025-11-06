@@ -81,22 +81,30 @@
 .menu-dropdown:hover {
   display: flex;
 }
-
-/* Botón eliminar */
 .delete-btn {
-  position: absolute;
+  position: absolute;         /* Si está dentro de una card */
   bottom: 10px;
   right: 10px;
-  background: #ff4d4f;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;         /* Hace el botón redondo */
+  background-color: #f44336;  /* Rojo Material */
+  color: white;
   border: none;
-  border-radius: 50%;
-  padding: 10px;
-  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  font-size: 1.2rem;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s, transform 0.2s;
+  z-index: 10;
 }
 
 .delete-btn:hover {
-  background-color: #ff7875;
+  background-color: #d32f2f; /* Rojo más oscuro al pasar el mouse */
+  transform: scale(1.1);
+}
+
+.delete-btn mat-icon {
+  font-size: 24px;
 }
