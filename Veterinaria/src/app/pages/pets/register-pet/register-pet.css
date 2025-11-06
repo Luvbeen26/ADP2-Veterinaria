@@ -6,6 +6,9 @@ main{
 .page-container{
     gap: 30px;
 }
+.title{
+    gap: 10px;
+}
 .register-container{
     background-color: var(--background-form);
     border: 1px solid #EEEEEE;
