@@ -4,6 +4,7 @@ import { MascotaOut } from '../../../core/models/mascota';
 import { Mascota } from '../../../core/services/mascota/mascota';
 import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { Auth } from '../../../core/services/auth/auth';
 
 @Component({
   selector: 'app-my-pets',
@@ -15,11 +16,15 @@ export class MyPets {
   mascotas = signal<MascotaOut[]>([]);
   //mascotas:MascotaOut[] = [];
 
-  constructor(private mascotasService: Mascota, private router:Router) {
+  constructor(private mascotasService: Mascota, private router:Router, private authService:Auth) {
   }
 
-  ngOnInit():void{
-    this.getMascotas();
+  ngOnInit(): void {
+    this.authService.currentUser$.subscribe(user => {
+      if (user) {
+        this.getMascotas();
+      }
+    });
   }
 
   getMascotas() {

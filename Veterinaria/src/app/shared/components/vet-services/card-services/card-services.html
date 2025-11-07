@@ -1,10 +1,10 @@
 <div class="card flex-column">
     <div class="image-container">
-        <img class="image-service" src="https://i.pinimg.com/736x/85/31/c8/8531c89575222bd2085c9f7dfb33f437.jpg" alt="">
+        <img class="image-service" [src]="service.image" alt="">
     </div>
     <div class="info-service flex-column">
-        <h2 class="name-service">Consulta medica</h2>
-        <p class="description-service">Consulta con un profesional en el ambito veterinario, tambien se condieran vacunas y desparacitaciones.</p>
+        <h2 class="name-service">{{service.name}}</h2>
+        <p class="description-service">{{service.description}}</p>
     </div>
-    <button class="primary_button">Agendar</button>
+    <a class="primary_button" [routerLink]="service.route" [queryParams]="service.query">Agendar</a>
 </div>

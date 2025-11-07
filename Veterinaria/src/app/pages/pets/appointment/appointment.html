@@ -1,0 +1,92 @@
+<main>
+    <div class="title flex-column">
+        <h1>Agendar cita</h1>
+        <p>Selecciona tu mascota, la fecha y hora que mas te convenga</p>
+    </div>
+    <form class="container" [formGroup]="citaForm" (ngSubmit)="onSubmit()">
+        <div class="container-appointment flex">
+            <div class="selects">
+                <div class="select flex-column">
+                    <label for="servicio">Seleccionar servicio</label>
+                    <select name="servicio" id="servicio" formControlName="servicio">
+                        @for (service of services; track $index) {
+                            <option [value]="service.id">{{service.name}}</option>
+                        }
+                    </select>
+                </div>
+                 @if(citaForm.get('servicio')?.value != 'adoptar'){
+                    <div class="select flex-column">
+                        <label for="mascota">Seleccionar Mascota</label>
+                        <select name="mascota" id="mascota" formControlName="mascota">
+                            @for (mascota of mascotas; track $index) {
+                                <option [value]="mascota.id_mascota">{{mascota.nombre}}</option>
+                            }
+                        </select>
+                    </div>
+                 }
+                @if(citaForm.get('servicio')?.value == 'consulta'){
+                    <div class="select flex-column">
+                        <label for="servicio">Seleccionar veterinario</label>
+                        <select name="veterinario" id="veterinario" formControlName="veterinario">
+                        @for (veterinario of veterinarios; track $index) {
+                            <option [value]="veterinario.id">{{veterinario.nombre}}</option>
+                        }
+                        </select>
+                    </div>
+                }
+            </div>
+            <div class="calendar">
+                <div class="card">
+                    <calendar-date months="1" (change)="onFechaSeleccionada($event)" [attr.min]="todayISO" [attr.value]="todayISO" locale="es-MX">
+                        <svg
+                            slot="previous"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            height="24"
+                            style="cursor:pointer"
+                        >
+                            <path d="M15.75 19.5 8.25 12l7.5-7.5" stroke="currentColor" fill="none" stroke-width="2"/>
+                        </svg>
+                        <svg
+                            slot="next"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            height="24"
+                            style="cursor:pointer"
+                        >
+                            <path d="m8.25 4.5 7.5 7.5-7.5 7.5" stroke="currentColor" fill="none" stroke-width="2"/>
+                        </svg>
+
+                        <calendar-month></calendar-month>
+                    </calendar-date>
+                </div>
+            </div>
+        </div>
+        @if (horasDisponibles.length > 0) {
+            <div class="container-hours">
+                <strong>Horarios disponibles para el 19 de septiembre</strong>
+                <div class="hours">
+                @for (hour of horasDisponibles; track $index) {
+                    <div 
+                    class="hour"
+                    [class.selected]="hour === selectedHour"
+                    (click)="seleccionarHora(hour)"
+                    >
+                    <p>{{ hour }}</p>
+                    </div>
+                }
+                </div>
+
+                <button 
+                class="primary_button" 
+                [disabled]="!selectedHour || citaForm.invalid"
+                >
+                Agendar cita
+                </button>
+            </div>
+        }
+
+    </form>
+</main>
