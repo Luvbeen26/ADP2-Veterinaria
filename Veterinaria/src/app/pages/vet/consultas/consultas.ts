@@ -8,5 +8,5 @@ import { CardConsulta } from '../../../shared/components/vet/card-consulta/card-
   styleUrl: './consultas.css'
 })
 export class Consultas {
-
+  date="Martes 30 de Septiembre de 2025"
 }

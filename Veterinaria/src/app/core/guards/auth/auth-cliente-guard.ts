@@ -20,9 +20,14 @@ export const authGuard: CanActivateFn = (route, state) => {
   // Validación síncrona inmediata
   const isAuth = authservice.isAuthenticated();
   const rol = authservice.get_userRol();
+  if(isAuth && rol == 'V'){
+    router.navigate(["vet"]);
+    return false;
+  }
+
 
   if (!isAuth || rol !== 'C') {
-    router.navigate(['/']);
+    router.navigate(['']);
     return false;
   }
 

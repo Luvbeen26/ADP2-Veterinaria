@@ -3,3 +3,25 @@
     gap: 30px;
     justify-content: center;
 }
+
+.container-cards{
+    padding:5px ;
+    display: flex;
+    gap: 20px;
+    overflow-x: auto; /* permite el scroll horizontal */
+    scroll-snap-type: x mandatory; /* opcional: “encaje” suave al deslizar */
+    -webkit-overflow-scrolling: touch; /* suaviza el scroll en móviles */
+    padding-bottom: 10px;
+}
+
+.container-cards::-webkit-scrollbar {
+  display: none;
+}
+.container-cards {
+  -ms-overflow-style: none;  /* IE y Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+.Container-bydate{
+  gap: 10px;
+}

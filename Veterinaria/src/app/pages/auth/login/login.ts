@@ -40,7 +40,7 @@ export class Login {
     this.auth.login(this.loginForm.value).subscribe({
       next: (response) =>{
         console.log("login exitoso")
-        this.router.navigate(["/"]);
+        //this.router.navigate(["/"]);
 
       },
       error: (err) =>{
