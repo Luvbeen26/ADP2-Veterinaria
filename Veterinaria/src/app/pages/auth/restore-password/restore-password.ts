@@ -33,7 +33,7 @@ export class RestorePassword {
     this.auth.send_email(correo).subscribe({
       next: (response) =>{
         console.log("mandado")
-        this.router.navigate(["/confirm-code"], { 
+        this.router.navigate(["/auth/confirm-code"], { 
           state: { correo: correo } 
         });
       },

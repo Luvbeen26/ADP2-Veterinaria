@@ -6,6 +6,7 @@ import { ChangePassword, Entercode, login, register, Token, UserData } from '../
 import { environment } from '../../../../environments/environment';
 import { jwtDecode } from 'jwt-decode';
 import { isPlatformBrowser } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ import { isPlatformBrowser } from '@angular/common';
 export class Auth {
   private api = environment.apiurl;
   private platformId = inject(PLATFORM_ID);
+  private router=inject(Router)
   private isBrowser: boolean;
 
   private currentUserSubject = new BehaviorSubject<UserData | null>(null);
@@ -39,6 +41,10 @@ export class Auth {
           if (userdata) {
             this.currentUserSubject.next(userdata);
           }
+          if(userdata?.rol == "C")
+            this.router.navigate(["/"])
+          else if(userdata?.rol == "V")
+            this.router.navigate(["/vet"])
         }
       })
     );
@@ -57,6 +63,8 @@ export class Auth {
           if (userdata) {
             this.currentUserSubject.next(userdata);
           }
+
+          
         }
       })
     );

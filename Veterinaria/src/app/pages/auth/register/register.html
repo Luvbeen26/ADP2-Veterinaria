@@ -51,7 +51,7 @@
             </label>     
         </section>
         <button type="submit" class="primary_button">Registrarse</button>
-        <span class="text center flex">¿Ya tienes una cuenta?<a routerLink="/login" class="button_link">Iniciar Sesion</a></span>
+        <span class="text center flex">¿Ya tienes una cuenta?<a routerLink="/auth/login" class="button_link">Iniciar Sesion</a></span>
 
         <div class="alert flex" [ngClass]="{'hide': !(error$ | async)}">
             <span class="error-msg">{{ error$ | async }}</span>

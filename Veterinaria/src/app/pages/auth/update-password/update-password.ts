@@ -28,7 +28,7 @@ export class UpdatePassword {
   ngOnInit(){
     if (!this.correo) {
       console.warn('No se recibió correo, redirigiendo...');
-      this.router.navigate(["/restore"]);
+      this.router.navigate(["/auth/restore"]);
     }
   }
 
@@ -41,7 +41,7 @@ export class UpdatePassword {
 
     this.auth.change_password(this.passwordForm.get('contra')?.value,this.correo).subscribe({
       next: (response) =>{
-        this.router.navigate(["/login"])
+        this.router.navigate(["/auth/login"])
         console.log("cambiado")
       },
       error: (err) =>{

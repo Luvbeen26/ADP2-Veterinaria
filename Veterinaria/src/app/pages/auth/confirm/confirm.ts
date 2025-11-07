@@ -28,7 +28,7 @@ export class Confirm {
   ngOnInit(){
     if (!this.correo) {
       console.warn('No se recibió correo, redirigiendo...');
-      this.router.navigate(["/restore"]);
+      this.router.navigate(["/auth/restore"]);
     }
   }
 
@@ -54,7 +54,7 @@ export class Confirm {
       next: (response) =>{
 
         console.log("chequeado")
-        this.router.navigate(["update_password"], { 
+        this.router.navigate(["/auth/update_password"], { 
           state: { correo: this.correo } 
         });
       },

@@ -37,10 +37,14 @@
     border-radius: 5px;
     color: #FFFF;
     border: none;
-    padding: 20px;
+    padding-inline: 20px;
+    padding-block: 10px;
     font-size:larger;
     font-weight: bold;
     cursor: pointer;   
+    display: flex;
+    align-items: center;
+    width: 165px;
 }
 
 .primary_button:hover{
@@ -58,11 +62,15 @@
     background-color: var(--secondary_button_color);
     border-radius: 5px;
     border: none;
-    padding: 20px;
+    padding-inline: 20px;
+    padding-block: 10px;
     font-size:larger;
     font-weight: bold;
     cursor: pointer;   
     color:#FFFF;
+    display: flex;
+    align-items: center;
+    width: 165px;
 }
 
 .seconday_button:hover{
@@ -70,6 +78,24 @@
     
 }
 
+.third_button{
+    background-color: #FFFF;
+    border-radius: 5px;
+    border: 2px solid var(--primary_button_color);
+    padding-inline: 20px;
+    padding-block: 10px;
+    font-size:larger;
+    font-weight: bold;
+    cursor: pointer;   
+    color:var(--primary_button_color);
+    display: flex;
+    align-items: center;
+    width: 165px;
+}
+
+.third_button:hover{
+    background-color: #f3f5ff;
+}
 
 .button_link{
     color:var(--primary_button_color);
