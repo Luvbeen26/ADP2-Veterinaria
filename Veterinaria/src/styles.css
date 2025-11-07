@@ -42,6 +42,9 @@
     font-size:larger;
     font-weight: bold;
     cursor: pointer;   
+    justify-content: center;
+    text-decoration: none;
+    text-align: center;
     display: flex;
     align-items: center;
     width: 165px;

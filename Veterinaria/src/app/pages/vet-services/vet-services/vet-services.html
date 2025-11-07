@@ -1,8 +1,8 @@
 <div class="list-service-container flex-column">
     <h1>Servicios</h1>
-    <div class="list-services"> 
-        <app-card-services></app-card-services>
-        <app-card-services></app-card-services>
-        <app-card-services></app-card-services>
+    <div class="list-services">
+        @for (service of services; track $index) {
+        <app-card-services [service]="service"></app-card-services>
+        }
     </div>
 </div>
