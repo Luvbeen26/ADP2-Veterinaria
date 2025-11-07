@@ -105,7 +105,7 @@ export class Auth {
   }
 
   public getToken(): string | null {
-    if (!this.isBrowser) return null; // ← FALTABA: Protección en servidor
+    if (!this.isBrowser) return null; 
     return this.cookies.get("access_token") || null;
   }
 
