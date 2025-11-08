@@ -14,8 +14,7 @@ import { Auth } from '../../../core/services/auth/auth';
 })
 export class MyPets {
   mascotas = signal<MascotaOut[]>([]);
-  //mascotas:MascotaOut[] = [];
-
+  
   constructor(private mascotasService: Mascota, private router:Router, private authService:Auth) {
   }
 

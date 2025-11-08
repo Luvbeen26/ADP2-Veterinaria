@@ -17,6 +17,13 @@ export interface login{
     contra:string
 }
 
+export interface UserOut {
+  usuario: string;
+  nombre: string;
+  apellidos: string;
+  correo: string;
+}
+
 
 export interface UserData{
     id:number,
