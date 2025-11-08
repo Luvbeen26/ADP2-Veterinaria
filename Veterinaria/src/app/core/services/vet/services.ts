@@ -13,7 +13,7 @@ import { ServiceModel } from '../../models/service';
         name: 'Consulta médica',
         description:
           'Consulta con un profesional en el ámbito veterinario, también se consideran vacunas y desparasitaciones.',
-        image: 'https://i.pinimg.com/736x/85/31/c8/8531c89575222bd2085c9f7dfb33f437.jpg',
+        image: '/consulta.png',
         route: '/pets/appointment',
         query: {service:'consulta'}
       },
@@ -22,7 +22,7 @@ import { ServiceModel } from '../../models/service';
         name: 'Salon de cuidados',
         description:
           'Servicio completo de baño, corte de pelo, limpieza dental y de oídos para tu mascota.',
-        image: 'https://i.pinimg.com/736x/85/31/c8/8531c89575222bd2085c9f7dfb33f437.jpg',
+        image: '/salon.png',
         route: '/pets/appointment',
         query: {service:'salon'}
       },
@@ -30,8 +30,8 @@ import { ServiceModel } from '../../models/service';
         id:'adoptar',
         name: 'Adopcion',
         description:
-          'Servicio completo de adopcion',
-        image: 'https://i.pinimg.com/736x/85/31/c8/8531c89575222bd2085c9f7dfb33f437.jpg',
+          'Adopcion de mascotas que no cuentan con hogar y les gustaria tener uno.',
+        image: '/adopcion.png',
         route: '/pets/appointment',
         query: {service:'adoptar'}
       }

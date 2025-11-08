@@ -29,7 +29,7 @@
                         <label for="servicio">Seleccionar veterinario</label>
                         <select name="veterinario" id="veterinario" formControlName="veterinario">
                         @for (veterinario of veterinarios; track $index) {
-                            <option [value]="veterinario.id">{{veterinario.nombre}}</option>
+                            <option [value]="veterinario.id_veterinario">{{veterinario.usuario?.nombre}}</option>
                         }
                         </select>
                     </div>
@@ -65,8 +65,8 @@
             </div>
         </div>
         @if (horasDisponibles.length > 0) {
-            <div class="container-hours">
-                <strong>Horarios disponibles para el 19 de septiembre</strong>
+            <div class="container-hours flex-column">
+                <strong>Horarios disponibles para el {{ fechaFormateada }}</strong>
                 <div class="hours">
                 @for (hour of horasDisponibles; track $index) {
                     <div 

@@ -84,6 +84,7 @@ select:focus {
   padding: 1.5rem 2rem;
   border-radius: 1rem;
   border: 1px solid #EEEEEE;
+  align-items: center;
   text-align: center;
 }
 
@@ -107,9 +108,9 @@ select:focus {
   padding: 0.55rem 1rem;
   border-radius: 0.5rem;
   cursor: pointer;
-  font-weight: 500;
   width: 100%;
   width: fit-content;
+  font-size: 0.65rem;
   text-align: center;
   transition: all 0.2s ease;
   border: 1px solid transparent;
