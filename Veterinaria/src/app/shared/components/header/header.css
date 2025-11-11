@@ -40,6 +40,7 @@
     height: 3.75rem;
     display: flex;
     font-size: 18px;
+    z-index: 10000;
 }
 
 .nav_toggle{
@@ -54,10 +55,14 @@
 
 
 
-.Nologin-options,.User-options{
+.Nologin-options,.User-options,.login{
     display: flex;
     align-items: center;
     gap: 5px;
+}
+
+.Nologin-options,.User-options{
+    align-items: center; 
 }
 
 .User-options{
@@ -101,6 +106,8 @@
     .Items{
         flex-direction: column;
         justify-content: start;
+        align-items: center;      
+
         position: fixed;
         right:0;
         padding-inline: 12px;

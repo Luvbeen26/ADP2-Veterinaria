@@ -16,7 +16,6 @@
                 <a routerLink="/services" class="options">Servicios</a>
                 
             }
-            <button (click)="log_out()"></button>
         </div>
         @if (!(currentUser$ | async)) {
             <div class="Nologin-options hide">
@@ -24,7 +23,12 @@
                 <a routerLink="/auth/register" class="options auth flex">Registrarse</a>
             </div>   
         }@else {
-            <img src="logo.png" alt="" class="profile">
+            <div class="login">
+                <a (click)="log_out()" class="options">Cerrar Sesion</a>
+                
+                <img src="logo.png" alt="" class="profile">
+            </div>
+            
         }
         
     </div>  
