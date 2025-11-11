@@ -18,11 +18,14 @@
                     <p class="error">Ingrese su contraseña</p>
                 }
             </label>
-            <span class="text right"><a routerLink="/auth/restore" class="button_link">¿Olvidaste tu Contraseña?</a></span>
+            <div class="downForm flex-column">
+                <span class="text right"><a routerLink="/auth/restore" class="button_link">¿Olvidaste tu Contraseña?</a></span>
 
             <button type="submit"  class="primary_button">Iniciar Sesión</button>
 
             <span class="text center flex">¿Aun no tienes una cuenta?<a routerLink="/auth/register" class="button_link">Crea una</a></span>
+            </div>
+            
             
            <div class="alert flex" [ngClass]="{'hide': !(error$ | async)}">
                 <span class="error-msg">{{ error$ | async }}</span>

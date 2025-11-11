@@ -17,7 +17,9 @@ export class Consultas {
   consultaService=inject(Consulta)
   citas:citas[]=[];
   dates$!: Observable<any[]>;
-
+  status="P"
+  empty_title="No hay Consultas Pendientes"
+  empty_description="En este momento no tienes consultas programadas. Las nuevas consultas aparecerán aquí."
 
   meses = [
     "Enero", "Febrero", "Marzo", "Abril",
@@ -29,10 +31,21 @@ export class Consultas {
 
   }
 
+  changeStatus(newStatus: string) {
+    this.status = newStatus;
+    if(this.status == "A" || this.status=="N"){
+      this.empty_title="No hay Consultas"
+      this.empty_description="En este momento no tienes consultas marcadas con asistencia o no."
+    }else if(this.status == "P"){
+      this.empty_title="No hay Consultas Pendientes"
+      this.empty_description="En este momento no tienes consultas programadas. Las nuevas consultas aparecerán aquí."
+    }
+    this.get_pendients();
+  }
+
   get_pendients() {
-    this.dates$ = this.consultaService.get_pendient_citas().pipe(
+    this.dates$ = this.consultaService.get_pendient_citas(this.status).pipe(
       map((response: citas[]) => {
-        // Agrupar por fecha
         const agrupadas: { [fecha: string]: citas[] } = {};
 
         response.forEach((cita) => {
