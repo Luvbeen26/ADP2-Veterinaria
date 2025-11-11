@@ -3,6 +3,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Consulta } from '../../../../core/services/vet/consulta';
 import { Router } from '@angular/router';
+import { citas } from '../../../../core/models/consultas';
 
 @Component({
   selector: 'app-card-consulta',
@@ -13,20 +14,18 @@ import { Router } from '@angular/router';
 export class CardConsulta {
   consultService=inject(Consulta)
   router=inject(Router)
-  @Input() id_cita!:number
-  @Input() service!:string
-  @Input() usuario!:string
-  @Input() hora!:string
-  @Input() id_pet!:number
-  @Input() mascota!:string
-  @Input() especie!:string
-
+  @Input() cardconsulta!:citas
+  @Input() status!:string
   
 
   servicio="Consulta General"
 
+  ngOnInit(){
+    console.log(this.cardconsulta.servicio)
+  }
+
   Mark_Asistido(){
-    this.consultService.Mark_accept_cita(this.id_cita).subscribe({
+    this.consultService.Mark_accept_cita(this.cardconsulta.id_cita).subscribe({
       next: (res) => {
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
           this.router.navigate(['/vet']);
@@ -37,7 +36,7 @@ export class CardConsulta {
   }
   
   Mark_NOAsistido(){
-    this.consultService.Mark_refuse_cita(this.id_cita).subscribe({
+    this.consultService.Mark_refuse_cita(this.cardconsulta.id_cita).subscribe({
       next: (res) => {
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
           this.router.navigate(['/vet']);
