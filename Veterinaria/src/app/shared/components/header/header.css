@@ -40,7 +40,7 @@
     height: 3.75rem;
     display: flex;
     font-size: 18px;
-    z-index: 10000;
+    z-index: 1000;
 }
 
 .nav_toggle{
