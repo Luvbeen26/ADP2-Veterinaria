@@ -195,4 +195,11 @@ export class Appointment {
       console.warn('No se recibió fecha del calendario:', event);
     }
   }
+
+  formatearHora(hora: string): string {
+    const [horas, minutos] = hora.split(':');
+    const fecha = new Date();
+    fecha.setHours(+horas, +minutos);
+    return fecha.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+  }
 }

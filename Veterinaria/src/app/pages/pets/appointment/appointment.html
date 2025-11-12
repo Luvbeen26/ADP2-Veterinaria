@@ -29,7 +29,7 @@
                         <label for="servicio">Seleccionar veterinario</label>
                         <select name="veterinario" id="veterinario" formControlName="veterinario">
                         @for (veterinario of veterinarios; track $index) {
-                            <option [value]="veterinario.id_veterinario">{{veterinario.usuario?.nombre}}</option>
+                            <option [value]="veterinario.id_veterinario">Dr.{{veterinario.usuario?.nombre}}</option>
                         }
                         </select>
                     </div>
@@ -42,8 +42,8 @@
                             slot="previous"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
-                            width="24"
-                            height="24"
+                            width="30"
+                            height="30"
                             style="cursor:pointer"
                         >
                             <path d="M15.75 19.5 8.25 12l7.5-7.5" stroke="currentColor" fill="none" stroke-width="2"/>
@@ -52,8 +52,8 @@
                             slot="next"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
-                            width="24"
-                            height="24"
+                            width="30"
+                            height="30"
                             style="cursor:pointer"
                         >
                             <path d="m8.25 4.5 7.5 7.5-7.5 7.5" stroke="currentColor" fill="none" stroke-width="2"/>
@@ -74,7 +74,7 @@
                     [class.selected]="hour === selectedHour"
                     (click)="seleccionarHora(hour)"
                     >
-                    <p>{{ hour }}</p>
+                    <p class="hour-p">{{ formatearHora(hour) }}</p>
                     </div>
                 }
                 </div>

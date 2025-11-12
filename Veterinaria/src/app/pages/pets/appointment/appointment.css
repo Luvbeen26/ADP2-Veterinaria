@@ -85,12 +85,12 @@ select:focus {
   border-radius: 1rem;
   border: 1px solid #EEEEEE;
   align-items: center;
+  font-size: 1rem;
   text-align: center;
 }
 
 .container-hours strong {
   display: block;
-  font-size: 1rem;
   margin-bottom: 1rem;
 }
 
@@ -110,11 +110,14 @@ select:focus {
   cursor: pointer;
   width: 100%;
   width: fit-content;
-  font-size: 0.65rem;
   text-align: center;
   transition: all 0.2s ease;
   border: 1px solid transparent;
   user-select: none;
+}
+
+.hour-p{
+  font-size: 13px;
 }
 
 .hour:hover {
@@ -129,10 +132,91 @@ select:focus {
   box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
 }
 
-.hour p {
-  margin: 0;
-  font-size: 0.95rem;
+.card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(55, 92, 226, 0.2);
+  padding: 1rem;
+  max-width: 400px;
+  margin: auto;
+  transition: all 0.3s ease;
 }
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(55, 92, 226, 0.25);
+}
+
+calendar-date {
+  display: block;
+  width: 100%;
+  border-radius: 12px;
+  background-color: #f8f9ff;
+  padding: 1rem;
+  color: #2b2b2b;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+}
+
+calendar-date::part(header) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #375CE2;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+calendar-date svg {
+  transition: transform 0.2s ease, color 0.2s ease;
+  color: #375CE2;
+  border-radius: 10px;
+}
+
+calendar-date svg:hover {
+  transform: scale(1.15);
+  color: #2b48b6;
+}
+
+calendar-month::part(day) {
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  margin: 4px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+calendar-month::part(today) {
+  background-color: rgba(55, 92, 226, 0.15);
+  color: #375CE2;
+  font-weight: 600;
+}
+
+calendar-month::part(selected) {
+  background-color: #375CE2;
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 0 0 3px rgba(55, 92, 226, 0.25);
+}
+
+calendar-month::part(day):hover {
+  background-color: rgba(55, 92, 226, 0.1);
+  color: #375CE2;
+}
+
+calendar-month::part(disabled) {
+  color: #c5c5c5;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+
 
 @media (max-width: 600px) {
   .hours {
