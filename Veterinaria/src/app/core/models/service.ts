@@ -6,3 +6,9 @@ export interface ServiceModel {
   route: string;
   query?: Record<string, any>;
 }
+
+export interface cardService{
+  service:string,
+  title:string,
+  description:string
+}
