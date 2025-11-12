@@ -30,8 +30,9 @@
                     <h2>{{cita_date.fecha}}</h2>
                     <div class="container-cards flex">
                         @for (cita of cita_date.citas; track $index) {
-                            <app-card-consulta [id_cita]="cita.id_cita" [service]="cita.servicio" [usuario]="cita.nombre_usuario" 
-                            [hora]="cita.hora" [id_pet]="cita.id_mascota" [mascota]="cita.nombre_mascota" [especie]="cita.especie"></app-card-consulta>
+                            <app-card-consulta [cardconsulta]="cita" [status]="status"></app-card-consulta>
+                            
+                            
                         } 
                     </div>
                 }

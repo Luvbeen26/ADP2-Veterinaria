@@ -1,1 +1,53 @@
-<p>home works!</p>
+<div class="Contenedor flex-column">
+    <section class="services flex-column">
+        <h2>Nuestros Servicios</h2>
+        <div class="service-cards flex">
+            @for (servicio of servicios; track $index) {
+                <app-service-home [cardService]="servicio"></app-service-home>
+            }
+        </div>
+    </section>
+
+    <section class="Contact-Us">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>Contactanos</h2>
+                
+                <div class="contact-item">
+                    <div class="contact-icon phone-icon">
+                        <mat-icon>call</mat-icon>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Telefono</h4>
+                        <p>+52 668 137 5871</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon email-icon">
+                        <mat-icon>mail_outline</mat-icon>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Correo</h4>
+                        <p>Mascotas_felicesLM@gmail.com</p>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon location-icon">
+                       <mat-icon>location_on</mat-icon>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Ubicacion</h4>
+                        <p>Av. Reforma 123, Col. Centro</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-image">
+                <img src="image6.jpeg" alt="Veterinarios con mascotas">
+            </div>
+        </div>
+    </section>
+    
+</div>
