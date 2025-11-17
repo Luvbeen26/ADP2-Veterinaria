@@ -7,7 +7,7 @@ export interface MascotaBase {
   especie: string;
   sexo: string;
   id_raza?: number;
-  color?: string;
+  id_color?: number;
   peso?: number;
   activo?: boolean;
 }
@@ -20,7 +20,7 @@ export interface MascotaUpdate {
   especie?: string;
   sexo?: string;
   id_raza?: number;
-  color?: ColorOut | null;
+  id_color?: number;
   peso?: number;
   activo?: boolean;
 }
@@ -29,6 +29,7 @@ export interface MascotaOut extends MascotaBase {
   id_usuario: number;
   id_mascota: number;
   raza_mascota?: Raza | null;
+  color?: ColorOut | null;
 }
 export interface MascotaDeleteResponse{
   detail: string;

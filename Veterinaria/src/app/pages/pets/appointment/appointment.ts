@@ -13,6 +13,8 @@ import localeEs from '@angular/common/locales/es';
 import { CitaService } from '../../../core/services/vet/cita-service';
 import { CitaCreate, HorasDisponiblesResponse } from '../../../core/models/cita';
 import { Toast } from "../../../shared/components/toast/toast";
+import { Color } from '../../../core/services/mascota/color';
+import { ColorOut } from '../../../core/models/color';
 
 
 @Component({
@@ -29,6 +31,7 @@ export class Appointment {
   mascotas:MascotaOut[] = [];
   services:ServiceModel[] = [];
   veterinarios:VeterinarioBase[] = [];
+  colors:ColorOut[]=[];
   selectedHour: string | null = null;
   todayISO = new Date().toISOString().split('T')[0];
 
@@ -145,6 +148,7 @@ export class Appointment {
     })
   }
 
+
   getServices(){
     this.services = this.servicesService.getServices();
   }
@@ -176,7 +180,7 @@ export class Appointment {
     this.citaService.createCita(cita).subscribe({
       next:(data)=>{
         console.log(data);
-        this.router.navigate(['/pets']);
+        this.router.navigate(['/pets/myappointments']);
       },
       error:(err)=>{
         console.log(err);

@@ -20,6 +20,12 @@
                 (click)="changeStatus('N')">
                 No Asistidas
             </button>
+              <button 
+                class="filter-btn" 
+                [class.active]="status === 'C'"
+                (click)="changeStatus('C')">
+                Canceladas
+            </button>
         </div>
     </div>
 
