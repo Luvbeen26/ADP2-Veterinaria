@@ -1,13 +1,17 @@
 <div class="card-container flex-column">
     <div class="head flex">
+        @if (cardconsulta.servicio == "consulta" || cardconsulta.servicio =="salon") {
         <div class="imgSpecie">
-            <img [src]="cardconsulta.especie==='G' ? 'cat.jpg' : 'dog.jpeg'" alt="" class="img_animal">
+            <img [src]="cardconsulta.mascota?.raza_mascota?.especie==='G' ? 'cat.jpg' : 'dog.jpeg'" alt="" class="img_animal">
         </div>
         <div class="names flex-column">
-            <h4>{{cardconsulta.nombre_mascota}}</h4>
-            <p>Dueño: {{cardconsulta.nombre_usuario}}</p>
+            <h4>{{cardconsulta.mascota?.nombre}}</h4>
+            <p>Dueño: {{cardconsulta.usuario?.nombre}} {{cardconsulta.usuario?.apellidos}}</p>
 
         </div>
+    }@else{
+        <h3>Cita para adopcion</h3>
+    }
     </div>
     <div class="service flex">
         <div class="info flex">
@@ -27,10 +31,21 @@
     </div>
 
     @if (status == "P") {
-        <div class="buttons flex">
-            <button class="primary_button" (click)="Mark_Asistido()"><mat-icon>check_circle</mat-icon> Asistio</button>
-            <button class="third_button" (click)="Mark_NOAsistido()"><mat-icon>cancel</mat-icon>No asistio</button>
-        </div>
+        @if (authService.get_userRol() == 'V'){
+            <div class="buttons flex">
+                <button class="primary_button" (click)="Mark_Asistido()"><mat-icon>check_circle</mat-icon> Asistio</button>
+                <button class="third_button" (click)="Mark_NOAsistido()"><mat-icon>cancel</mat-icon>No asistio</button>
+            </div>
+        }@else if(authService.get_userRol() == 'C') {
+            <div class="buttons flex">
+                <button class="primary_button"><mat-icon>edit</mat-icon> Editar</button>
+                <button class="third_button red"><mat-icon>cancel</mat-icon>Cancelar</button>
+            </div>
+        }
+    }@else{
+        <div class="button">
+            <button class="primary_button">Ver detalles</button>
+        </div>    
     }
     
 </div>

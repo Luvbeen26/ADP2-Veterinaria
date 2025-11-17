@@ -1,3 +1,4 @@
+import { ColorOut } from "./color";
 import { Raza } from "./raza";
 
 export interface MascotaBase {
@@ -19,7 +20,7 @@ export interface MascotaUpdate {
   especie?: string;
   sexo?: string;
   id_raza?: number;
-  color?: string;
+  color?: ColorOut | null;
   peso?: number;
   activo?: boolean;
 }

@@ -4,6 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Consulta } from '../../../../core/services/vet/consulta';
 import { Router } from '@angular/router';
 import { citas } from '../../../../core/models/consultas';
+import { Auth } from '../../../../core/services/auth/auth';
 
 @Component({
   selector: 'app-card-consulta',
@@ -13,6 +14,7 @@ import { citas } from '../../../../core/models/consultas';
 })
 export class CardConsulta {
   consultService=inject(Consulta)
+  authService=inject(Auth)
   router=inject(Router)
   @Input() cardconsulta!:citas
   @Input() status!:string

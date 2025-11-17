@@ -39,16 +39,22 @@
 
 .buttons{
     justify-content: space-between;
+    gap: 10px;
+}
+  .button{
+    flex: 1;          /* Se expande */
+    width: 100%;      /* Asegura el 100% */
 }
 
+
 .service{
-    justify-content: space-between;
     padding-inline: 8px;
 }
 
 .primary_button,.third_button{
     gap: 10px;
-    justify-content: start;
+    justify-content: center;
+    width: 100%;
 }
 
 @media (max-width: 768px) {
@@ -88,7 +94,6 @@
     justify-content: center;
     
   }
-
  
   .buttons {
     flex-direction: column;
