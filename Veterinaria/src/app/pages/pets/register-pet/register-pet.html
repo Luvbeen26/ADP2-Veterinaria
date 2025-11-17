@@ -8,13 +8,10 @@
     <div class="register-container">
       <form [formGroup]="mascotaForm" class="register-pet-form flex-column" (ngSubmit)="onSubmit()">
         <div class="register-pet">
-          <!-- ================== COLUMNA IZQUIERDA ================== -->
           <div class="column-left flex-column">
-            
-            <!-- Nombre -->
             <div class="form-group flex-column">
               <label for="name">Nombre</label>
-              <input type="text" id="name" placeholder="Ej: Luis" class="input-text" formControlName="nombre">
+              <input type="text" id="name" placeholder="Ej: Maruka" class="input-text" formControlName="nombre">
               @if (mascotaForm.get('nombre')?.hasError('required') && mascotaForm.get('nombre')?.touched) {
                 <p class="error">Ingrese el nombre de la mascota</p>
               }
@@ -87,8 +84,13 @@
             <div class="form-group flex">
               <div class="input-peso-color flex-column">
                 <label for="color">Color</label>
-                <input type="text" id="color" class="input-text" formControlName="color">
-                @if (mascotaForm.get('color')?.hasError('required') && mascotaForm.get('color')?.touched) {
+                <select name="color" id="color" class="input-text" formControlName="id_color">
+                  <option value="" disabled selected>Seleccione un color</option>
+                  @for (color of colors; track $index) {
+                    <option [value]="color.id_color">{{color.descripcion}}</option>
+                  }
+                </select>
+                @if (mascotaForm.get('id_color')?.hasError('required') && mascotaForm.get('id_color')?.touched) {
                   <p class="error">Ingrese el color</p>
                 }
               </div>

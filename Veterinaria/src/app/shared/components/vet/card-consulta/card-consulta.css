@@ -48,7 +48,8 @@
 
 
 .service{
-    padding-inline: 8px;
+  padding-inline: 8px;
+    justify-content: space-between;
 }
 
 .primary_button,.third_button{
@@ -91,7 +92,7 @@
 
   .service {
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     
   }
  
