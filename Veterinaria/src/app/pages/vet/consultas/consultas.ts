@@ -6,6 +6,7 @@ import { citas } from '../../../core/models/consultas';
 import { MatIconModule } from '@angular/material/icon';
 import { catchError, map, Observable, of } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { Auth } from '../../../core/services/auth/auth';
 
 @Component({
   selector: 'app-consultas',
@@ -15,6 +16,7 @@ import { CommonModule } from '@angular/common';
 })
 export class Consultas {
   consultaService=inject(Consulta)
+  authService=inject(Auth)
   citas:citas[]=[];
   dates$!: Observable<any[]>;
   status="P"
@@ -27,8 +29,12 @@ export class Consultas {
     "Septiembre", "Octubre", "Noviembre", "Diciembre"
   ];
   ngOnInit(){
-    this.get_pendients()
 
+    this.authService.currentUser$.subscribe(user => {
+      if (user) {
+        this.get_pendients()
+      }
+    });
   }
 
   changeStatus(newStatus: string) {
@@ -66,7 +72,7 @@ export class Consultas {
           console.warn('Token no disponible todavía o sin conexión.');
           return of([])
         }
-        console.error("ERROR AL OBTENER CITAS")
+        console.error("ERROR AL OBTENER CITAS", err)
         return of([])
       }
 

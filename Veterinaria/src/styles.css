@@ -96,6 +96,10 @@
     align-items: center;
     width: 165px;
 }
+.third_button.red{
+    border-color: rgb(222, 49, 49);
+    color:rgb(222, 49, 49);
+}
 
 .third_button:hover{
     background-color: #f3f5ff;

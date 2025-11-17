@@ -1,15 +1,16 @@
+import { UserOut } from "./auth";
+import { MascotaOut } from "./mascota";
+import { VeterinarioOut } from "./veterinario";
 
 
 export interface citas{
     servicio:string,
-    id_usuario:number,
-    nombre_usuario:string,
+    usuario?: UserOut | null,
     fecha:string,
     hora:string,
     id_cita:number,
-    id_mascota:number,
-    nombre_mascota:string,
-    especie:string,
-    status:string
+    mascota?: MascotaOut | null,
+    veterinario?: VeterinarioOut | null,
+    estado:string
 };
 
