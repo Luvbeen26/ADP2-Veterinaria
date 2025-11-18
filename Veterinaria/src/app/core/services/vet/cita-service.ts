@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { CitaCreate, HorasDisponiblesResponse } from '../../models/cita';
+import { CitaCreate, CitaUpdate, HorasDisponiblesResponse } from '../../models/cita';
 import { Observable } from 'rxjs';
+import { citas } from '../../models/consultas';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +19,14 @@ export class CitaService {
   obtenerHorasDisponibles(servicio: string, fecha: string): Observable<HorasDisponiblesResponse> {
     const url = `${this.api}citas/horas-disponibles/${servicio}?fecha=${fecha}`;
     return this.http.get<HorasDisponiblesResponse>(url);
+  }
+  getCitaById(id_cita:number) : Observable<citas>{
+    return this.http.get<citas>(`${this.api}citas/${id_cita}`);
+  }
+  updateCita(id_cita:number, cita:CitaUpdate):Observable<citas>{
+    return this.http.patch<citas>(`${this.api}citas/update/${id_cita}`, cita);
+  }
+  cancelarCita(id_cita:number):Observable<citas>{
+    return this.http.patch<citas>(`${this.api}citas/cancelarCita/${id_cita}`,{});
   }
 }

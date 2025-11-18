@@ -38,8 +38,8 @@
             </div>
         }@else if(authService.get_userRol() == 'C') {
             <div class="buttons flex">
-                <button class="primary_button"><mat-icon>edit</mat-icon> Editar</button>
-                <button class="third_button red"><mat-icon>cancel</mat-icon>Cancelar</button>
+                <a class="primary_button" [routerLink]="'/pets/edit-appointment/'+cardconsulta.id_cita.toString()"><mat-icon>calendar_month</mat-icon>Reagendar</a>
+                <button class="third_button red" (click)="cancelarCita(cardconsulta.id_cita)"><mat-icon>cancel</mat-icon>Cancelar</button>
             </div>
         }
     }@else{
