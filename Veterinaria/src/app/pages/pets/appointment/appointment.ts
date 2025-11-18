@@ -11,10 +11,11 @@ import { VeterinarioBase } from '../../../core/models/veterinario';
 import { DatePipe, formatDate } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { CitaService } from '../../../core/services/vet/cita-service';
-import { CitaCreate, HorasDisponiblesResponse } from '../../../core/models/cita';
+import { CitaCreate, CitaUpdate, HorasDisponiblesResponse } from '../../../core/models/cita';
 import { Toast } from "../../../shared/components/toast/toast";
 import { Color } from '../../../core/services/mascota/color';
 import { ColorOut } from '../../../core/models/color';
+import { citas } from '../../../core/models/consultas';
 
 
 @Component({
@@ -28,6 +29,9 @@ export class Appointment {
   citaForm!: FormGroup;
   loadingMascotas = false;
   loadingVeterinarios = false;
+  idappointment?:number;
+  citaEdit!:citas;
+  titulo:string='';
   mascotas:MascotaOut[] = [];
   services:ServiceModel[] = [];
   veterinarios:VeterinarioBase[] = [];
@@ -47,7 +51,19 @@ export class Appointment {
       fecha: [this.todayISO, Validators.required],
       hora: ['', Validators.required]
     });
-  
+    this.idappointment = Number(this.route.snapshot.paramMap.get('id'));
+    if (this.idappointment){
+      this.citaForm.get('servicio')?.disable();
+      this.citaForm.get('mascota')?.disable();
+      this.citaForm.get('veterinario')?.disable();
+      this.citaForm.get('fecha')?.enable();
+      this.citaForm.get('hora')?.enable();
+      this.titulo = "Reagendar Cita"
+      
+      this.getCita(this.idappointment);
+    }else{
+      this.titulo = "Agendar cita"
+    }
     this.authService.currentUser$.subscribe(user=>{
       if (user){
         this.getMascotas();
@@ -135,6 +151,27 @@ export class Appointment {
     });
   }
 
+  getCita(id_appointment:number){
+    this.citaService.getCitaById(id_appointment).subscribe({
+      next:(data)=>{
+        console.log(data)
+        this.citaEdit = data;
+        this.citaForm.patchValue({
+        servicio: data.servicio,
+        mascota: data.mascota?.id_mascota,
+        veterinario: data.veterinario?.id_veterinario,
+        fecha: data.fecha,     
+        hora: data.hora           
+      });
+      this.citaForm.get('servicio')?.disable({ emitEvent: false });
+      this.citaForm.get('mascota')?.disable({ emitEvent: false });
+      this.citaForm.get('veterinario')?.disable({ emitEvent: false });
+      },
+      error:(err)=>{
+        console.log(err)
+      }
+    })
+  }
 
   getVeterinarios(){
     this.vetService.getVeterinarios().subscribe({
@@ -167,6 +204,7 @@ export class Appointment {
       this.citaForm.markAllAsTouched();
       return;
     }
+    if (!this.idappointment){
     console.log('Datos de la cita:', this.citaForm.value);
     const cita: CitaCreate = {
       servicio: this.citaForm.get('servicio')?.value,
@@ -186,6 +224,22 @@ export class Appointment {
         console.log(err);
       }
     });
+  }else{
+
+    const citaUpdate: CitaUpdate = {
+      fecha: new Date(this.citaForm.get('fecha')?.value).toISOString().split('T')[0],
+      hora: this.citaForm.get('hora')?.value
+    }
+    this.citaService.updateCita(this.idappointment, citaUpdate).subscribe({
+      next:(data)=>{
+        console.log(data)
+        this.router.navigate(['/pets/myappointments']);
+      },
+      error:(err)=>{
+        console.log(err)
+      }
+    })
+  }
   }
   onFechaSeleccionada(event: any) {
     const fechaSeleccionada =

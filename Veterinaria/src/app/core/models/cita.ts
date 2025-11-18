@@ -8,6 +8,11 @@ export interface CitaCreate {
 }
 
 
+export interface CitaUpdate {
+  fecha: string; 
+  hora: string;  
+}
+
 export interface HorasDisponiblesResponse {
   servicio: string;
   fecha: string;

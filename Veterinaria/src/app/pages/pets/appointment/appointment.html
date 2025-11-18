@@ -1,6 +1,6 @@
 <main>
     <div class="title flex-column">
-        <h1>Agendar cita</h1>
+        <h1>{{titulo}}</h1>
         <p>Selecciona tu mascota, la fecha y hora que mas te convenga</p>
     </div>
     <form class="container" [formGroup]="citaForm" (ngSubmit)="onSubmit()">
@@ -83,7 +83,7 @@
                 class="primary_button" 
                 [disabled]="!selectedHour || citaForm.invalid"
                 >
-                Agendar cita
+                {{titulo}}
                 </button>
             </div>
         }

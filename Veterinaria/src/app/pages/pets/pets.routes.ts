@@ -10,6 +10,7 @@ export const PETS_ROUTES : Routes = [
     {path:'register-pet', component: RegisterPet},
     {path: 'edit-pet/:id', component: RegisterPet },
     {path: 'appointment', component:Appointment},
+    {path: 'edit-appointment/:id', component:Appointment},
     {path: 'myappointments', component:Consultas}
 
 ]
