@@ -1,6 +1,5 @@
-@if (show) {
+@if (toastService.toastMessage()) {
     <div class="toast-container">
-    <span class="toast-message">{{ message }}</span>
-    <button (click)="close()" class="toast-close">✕</button>
+    <span class="toast-message">{{ toastService.toastMessage() }}</span>
     </div>
 }

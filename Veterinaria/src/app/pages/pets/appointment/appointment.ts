@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, AfterViewInit, afterEveryRender, ChangeDetectorRef } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, AfterViewInit, afterEveryRender, ChangeDetectorRef, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, ɵInternalFormsSharedModule } from '@angular/forms';
 import { MascotaOut } from '../../../core/models/mascota';
 import { Mascota } from '../../../core/services/mascota/mascota';
@@ -17,6 +17,7 @@ import { Color } from '../../../core/services/mascota/color';
 import { ColorOut } from '../../../core/models/color';
 import { citas } from '../../../core/models/consultas';
 import { MatIconModule } from '@angular/material/icon';
+import { ToastService } from '../../../core/services/extra/toast-service';
 
 
 @Component({
@@ -39,6 +40,7 @@ export class Appointment {
   colors:ColorOut[]=[];
   selectedHour: string | null = null;
   todayISO = new Date().toISOString().split('T')[0];
+  toast=inject(ToastService)
 
   horasDisponibles: string[] = [];
 
@@ -258,6 +260,7 @@ export class Appointment {
     this.citaService.updateCita(this.idappointment, citaUpdate).subscribe({
       next:(data)=>{
         console.log(data)
+        this.toast.showAfterRedirect('Cita editada correctamente');
         this.router.navigate(['/pets/myappointments']);
       },
       error:(err)=>{

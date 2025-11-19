@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { ToastService } from '../../../core/services/extra/toast-service';
 
 @Component({
   selector: 'app-toast',
@@ -7,10 +8,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './toast.css'
 })
 export class Toast {
-  @Input() message = '';
-  @Input() show = false;
-
-  close() {
-    this.show = false;
-  }
+ constructor(public toastService: ToastService) {}
 }

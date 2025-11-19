@@ -8,10 +8,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Color } from '../../../core/services/mascota/color';
 import { ColorOut } from '../../../core/models/color';
 import { Auth } from '../../../core/services/auth/auth';
+import { ToastService } from '../../../core/services/extra/toast-service';
 
 @Component({
   selector: 'app-register-pet',
-  imports: [ɵInternalFormsSharedModule, ReactiveFormsModule, Toast],
+  imports: [ɵInternalFormsSharedModule, ReactiveFormsModule],
   templateUrl: './register-pet.html',
   styleUrl: './register-pet.css'
 })
@@ -19,6 +20,7 @@ export class RegisterPet {
   mascotaForm!: FormGroup;
   colorService=inject(Color)
   authService=inject(Auth)
+  toast=inject(ToastService)
   razas: Raza[] = [];
   colors:ColorOut[] = [];
   isRazaDisabled = true;
@@ -119,21 +121,20 @@ onEspecieChange(especie: string) {
 
     if (this.idMascota) {
       if (!this.mascotaForm.dirty) {
-        this.showSuccess('No se detectaron cambios para actualizar 🐶');
         return;
       }
       this.mascotaService.updateMascota(this.idMascota, mascotaData).subscribe({
         next: () => {
-          this.showSuccess('Mascota actualizada correctamente 🐾');
-          setTimeout(() => this.router.navigate(['/pets']), 2500);
+          this.toast.showAfterRedirect('Mascota editada correctamente 🐾');
+          this.router.navigate(['/pets']);
         },
         error: (err) => console.error(err)
       });
     } else {
       this.mascotaService.RegisterMascota(mascotaData).subscribe({
         next: () => {
-          this.showSuccess('Mascota registrada correctamente 🐾');
-          setTimeout(() => this.router.navigate(['/pets']), 2500);
+          this.toast.showAfterRedirect('Mascota registrada correctamente 🐾');
+          this.router.navigate(['/pets']);
         },
         error: (err) => console.error(err)
       });
@@ -156,19 +157,5 @@ onEspecieChange(especie: string) {
       }
     })
   }
-
-  showSuccess(message: string) {
-    this.zone.run(() => {
-      this.messageSuccess = message;
-      this.showToast = true;
-      this.cdr.detectChanges();
-
-      setTimeout(() => {
-        this.showToast = false;
-        this.cdr.detectChanges();
-      }, 3000);
-    });
-  }
-
 
 }

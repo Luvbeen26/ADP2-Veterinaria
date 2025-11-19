@@ -5,6 +5,7 @@ import { CitaCreate } from '../../../core/models/cita';
 import { CommonModule } from '@angular/common';
 import { CitaService } from '../../../core/services/vet/cita-service';
 import { FormsModule } from '@angular/forms';
+import { ToastService } from '../../../core/services/extra/toast-service';
 
 @Component({
   selector: 'app-confirm-appointment',
@@ -16,6 +17,7 @@ export class ConfirmAppointment {
 
   private citasService = inject(CitaService);
   private router = inject(Router);
+  private toast=inject(ToastService)
   datos?: any;
 
   ngOnInit(): void {
@@ -49,6 +51,7 @@ export class ConfirmAppointment {
   this.citasService.createCita(cita).subscribe({
     next: (resp) => {
       console.log("Cita creada", resp);
+      this.toast.showAfterRedirect('Cita creada correctamente para la fecha '+cita.fecha);
       this.router.navigate(['/pets/myappointments'], {
         state: { cita: resp }
       });

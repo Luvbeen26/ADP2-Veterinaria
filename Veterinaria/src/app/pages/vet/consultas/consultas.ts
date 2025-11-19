@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { catchError, map, Observable, of } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Auth } from '../../../core/services/auth/auth';
+import { ToastService } from '../../../core/services/extra/toast-service';
 
 @Component({
   selector: 'app-consultas',
@@ -17,6 +18,7 @@ import { Auth } from '../../../core/services/auth/auth';
 export class Consultas {
   consultaService=inject(Consulta)
   authService=inject(Auth)
+  toast=inject(ToastService)
   citas:citas[]=[];
   dates$!: Observable<any[]>;
   status="P"
@@ -35,6 +37,7 @@ export class Consultas {
         this.get_pendients()
       }
     });
+    this.toast.checkRedirectMessage();
   }
 
   changeStatus(newStatus: string) {
