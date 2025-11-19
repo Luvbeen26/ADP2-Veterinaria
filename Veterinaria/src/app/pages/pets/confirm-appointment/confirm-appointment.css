@@ -1,0 +1,121 @@
+
+.resumen-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+.resumen-container h1 {
+    margin-bottom: 2rem;
+    font-size: 28px;
+    font-weight: 700;
+}
+.item-card{
+    align-items: flex-start;
+}
+
+.info-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+/* Mascota */
+.pet-section {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 1.5rem;
+    background: #f8f8f8;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+
+.pet-img {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.pet-info .label {
+    color: #7e7e7e;
+    font-size: 14px;
+}
+
+.pet-info .value {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Cuadrícula de datos */
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Cajitas */
+.detail-box {
+    background: #f8f8f8;
+    border-radius: 10px;
+    padding: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.icon-circle {
+    width: 45px;
+    height: 45px;
+    background: #e8edff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary_button_color);
+}
+
+.icon-circle img {
+    width: 22px;
+    height: 22px;
+}
+
+/* Textos */
+.label {
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 3px;
+}
+
+.value {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Notas */
+.notes textarea {
+    width: 100%;
+    height: 110px;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--bordercolor-input);
+    resize: none;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Botón final */
+.btn-confirm {
+    margin-top: 2rem;
+    width: 220px;
+    height: 44px;
+    font-size: 16px;
+    align-self: center;
+}
+.notes p{
+    align-self: flex-start
+}

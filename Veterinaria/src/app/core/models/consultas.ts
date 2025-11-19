@@ -12,5 +12,6 @@ export interface citas{
     mascota?: MascotaOut | null,
     veterinario?: VeterinarioOut | null,
     estado:string
+    notas:string
 };
 

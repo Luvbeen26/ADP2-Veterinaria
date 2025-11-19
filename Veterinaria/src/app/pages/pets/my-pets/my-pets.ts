@@ -13,6 +13,7 @@ import { Auth } from '../../../core/services/auth/auth';
   styleUrl: './my-pets.css'
 })
 export class MyPets {
+  
   mascotas = signal<MascotaOut[]>([]);
   
   constructor(private mascotasService: Mascota, private router:Router, private authService:Auth) {

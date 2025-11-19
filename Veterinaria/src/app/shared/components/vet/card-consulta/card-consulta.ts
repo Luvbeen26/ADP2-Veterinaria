@@ -5,6 +5,8 @@ import { Router, RouterLink, RouterModule } from '@angular/router';
 import { citas } from '../../../../core/models/consultas';
 import { Auth } from '../../../../core/services/auth/auth';
 import { CitaService } from '../../../../core/services/vet/cita-service';
+import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-card-consulta',
@@ -22,12 +24,13 @@ export class CardConsulta {
   @Output() citaCancelada = new EventEmitter<number>();
 
   
-
+  constructor(private dialog:MatDialog){}
   servicio="Consulta General"
 
   ngOnInit(){
     console.log(this.cardconsulta.servicio)
   }
+
 
   Mark_Asistido(){
     this.consultService.Mark_accept_cita(this.cardconsulta.id_cita).subscribe({
@@ -52,16 +55,29 @@ export class CardConsulta {
   }
 
   cancelarCita(id_cita:number){
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+          width: '320px',
+          data: {
+            title: 'Confirmar cancelación',
+            message: `¿Estás seguro de cancelar esta cita?`
+          },
+          enterAnimationDuration: '200ms',
+          exitAnimationDuration: '200ms'
+        });
+            dialogRef.afterClosed().subscribe(result => {
+      if (result && id_cita) {
    this.citaService.cancelarCita(id_cita).subscribe({
-    next:(data)=>{
+      next:(data)=>{
       console.log(data)
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-          this.router.navigate(['/pets/myappointments']);
-      });
+      this.router.navigate(['/pets/myappointments']);
+    });
     },
-    error:(err)=>{
+      error:(err)=>{
       console.log(err)
+      }
+    });
     }
-   });
-  }
+    })
+}
 }

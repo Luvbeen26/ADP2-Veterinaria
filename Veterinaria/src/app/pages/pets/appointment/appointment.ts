@@ -16,11 +16,12 @@ import { Toast } from "../../../shared/components/toast/toast";
 import { Color } from '../../../core/services/mascota/color';
 import { ColorOut } from '../../../core/models/color';
 import { citas } from '../../../core/models/consultas';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @Component({
   selector: 'app-appointment',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, MatIconModule],
   templateUrl: './appointment.html',
   styleUrl: './appointment.css',
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
@@ -205,6 +206,29 @@ export class Appointment {
       return;
     }
     if (!this.idappointment){
+      const raw = this.citaForm.getRawValue();
+      const mascota = this.mascotas.find(m => m.id_mascota == raw.mascota);
+      const veterinario = this.veterinarios.find(v => v.id_veterinario == raw.veterinario);
+      const servicio = this.services.find(s => s.id === raw.servicio);
+      const datosConfirmacion = {
+      servicio: raw.servicio,
+      servicio_nombre: servicio?.name || '',
+      id_mascota: raw.mascota,
+      mascota_nombre: mascota?.nombre || '',
+      id_veterinario: raw.veterinario,
+      veterinario_nombre: veterinario?.usuario?.nombre || '',
+      fecha: raw.fecha,
+      hora: raw.hora,
+      estado:'P'
+    };
+
+    this.router.navigate(
+      ['/pets/confirm-appointment'],
+      {
+        state: { datos: datosConfirmacion }
+      }
+    );
+      /*
     console.log('Datos de la cita:', this.citaForm.value);
     const cita: CitaCreate = {
       servicio: this.citaForm.get('servicio')?.value,
@@ -224,6 +248,7 @@ export class Appointment {
         console.log(err);
       }
     });
+    */
   }else{
 
     const citaUpdate: CitaUpdate = {
@@ -241,6 +266,7 @@ export class Appointment {
     })
   }
   }
+
   onFechaSeleccionada(event: any) {
     const fechaSeleccionada =
     event.detail?.value || event.detail || event.target?.value || null;
@@ -260,4 +286,6 @@ export class Appointment {
     fecha.setHours(+horas, +minutos);
     return fecha.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
   }
+
+  
 }

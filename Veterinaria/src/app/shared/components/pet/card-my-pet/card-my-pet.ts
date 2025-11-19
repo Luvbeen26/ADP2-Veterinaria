@@ -27,7 +27,7 @@ export class CardMyPet {
 
   }
 
-    public eliminarMascota() {
+  public eliminarMascota() {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '320px',
       data: {

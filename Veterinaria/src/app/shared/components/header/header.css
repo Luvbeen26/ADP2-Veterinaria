@@ -30,7 +30,7 @@
 
 .header{
     background-color: var(--color-principal);   
-    font-weight: 550;
+    font-weight: 500;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     width: 100%;
     top: 0;
@@ -39,7 +39,7 @@
     align-items: center;
     height: 3.75rem;
     display: flex;
-    font-size: 18px;
+    font-size: 16px;
     z-index: 1000;
 }
 
