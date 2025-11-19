@@ -1,10 +1,11 @@
-import { Component, signal} from '@angular/core';
+import { Component, inject, signal} from '@angular/core';
 import { CardMyPet } from "../../../shared/components/pet/card-my-pet/card-my-pet";
 import { MascotaOut } from '../../../core/models/mascota';
 import { Mascota } from '../../../core/services/mascota/mascota';
 import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { Auth } from '../../../core/services/auth/auth';
+import { ToastService } from '../../../core/services/extra/toast-service';
 
 @Component({
   selector: 'app-my-pets',
@@ -15,6 +16,7 @@ import { Auth } from '../../../core/services/auth/auth';
 export class MyPets {
   
   mascotas = signal<MascotaOut[]>([]);
+  toast=inject(ToastService)
   
   constructor(private mascotasService: Mascota, private router:Router, private authService:Auth) {
   }
@@ -25,6 +27,7 @@ export class MyPets {
         this.getMascotas();
       }
     });
+    this.toast.checkRedirectMessage();
   }
 
   getMascotas() {
