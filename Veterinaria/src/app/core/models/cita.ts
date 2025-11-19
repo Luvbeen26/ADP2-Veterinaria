@@ -5,6 +5,7 @@ export interface CitaCreate {
   hora: string;  
   id_veterinario: number;
   estado: string; // 'P', 'A' o 'N'
+  notas:string;
 }
 
 
