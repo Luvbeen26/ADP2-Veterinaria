@@ -34,3 +34,10 @@ export interface MascotaOut extends MascotaBase {
 export interface MascotaDeleteResponse{
   detail: string;
 }
+
+
+export interface MascotasGetByUser{
+  id:number,
+  nombre:string
+  especie:string
+}

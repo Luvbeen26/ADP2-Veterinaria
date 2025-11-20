@@ -8,7 +8,7 @@
         <div class="User-options">
              @if ((currentUser$ | async)?.rol == "V") {    
                 <a routerLink="/vet" class="options">Consultas</a>
-                <a routerLink="" class="options">Usuarios</a>
+                <a routerLink="/vet/users-list" class="options">Usuarios</a>
                 <a routerLink="/vet/statistics" class="options">Estadisticas</a>
             }@else{
                 <a routerLink="/" class="options">Inicio</a>
