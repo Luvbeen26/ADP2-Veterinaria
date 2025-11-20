@@ -9,7 +9,7 @@
              @if ((currentUser$ | async)?.rol == "V") {    
                 <a routerLink="/vet" class="options">Consultas</a>
                 <a routerLink="" class="options">Usuarios</a>
-                <a routerLink="" class="options">Estadisticas</a>
+                <a routerLink="/vet/statistics" class="options">Estadisticas</a>
             }@else{
                 <a routerLink="/" class="options">Inicio</a>
                 <a routerLink="/pets" class="options">Mascotas</a>
