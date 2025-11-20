@@ -122,7 +122,9 @@ export class Appointment {
       next: (data) => {
         this.mascotas = data;
         this.loadingMascotas = false;
-        this.citaForm.get('mascota')?.enable();
+          if (!this.idappointment) {
+            this.citaForm.get('mascota')?.enable();
+          }
       },
       error: (err) => {
         console.error(err);
@@ -180,7 +182,9 @@ export class Appointment {
     this.vetService.getVeterinarios().subscribe({
       next:(data)=>{
         this.veterinarios = data;
-        this.citaForm.get('veterinario')?.enable();
+          if (!this.idappointment) {
+            this.citaForm.get('veterinario')?.enable();
+          }
       },
       error:(err)=>{
         console.log(err);
@@ -230,27 +234,6 @@ export class Appointment {
         state: { datos: datosConfirmacion }
       }
     );
-      /*
-    console.log('Datos de la cita:', this.citaForm.value);
-    const cita: CitaCreate = {
-      servicio: this.citaForm.get('servicio')?.value,
-      id_mascota: this.citaForm.get('mascota')?.value || null,
-      fecha: new Date(this.citaForm.get('fecha')?.value).toISOString().split('T')[0],
-      hora: this.citaForm.get('hora')?.value,    // debe ser 'HH:mm:ss'
-      id_veterinario: this.citaForm.get('veterinario')?.value || null,
-      estado: 'P'
-    };
-    console.log('JSON enviado:', JSON.stringify(cita, null, 2));
-    this.citaService.createCita(cita).subscribe({
-      next:(data)=>{
-        console.log(data);
-        this.router.navigate(['/pets/myappointments']);
-      },
-      error:(err)=>{
-        console.log(err);
-      }
-    });
-    */
   }else{
 
     const citaUpdate: CitaUpdate = {

@@ -51,7 +51,7 @@ export class ConfirmAppointment {
   this.citasService.createCita(cita).subscribe({
     next: (resp) => {
       console.log("Cita creada", resp);
-      this.toast.showAfterRedirect('Cita creada correctamente para la fecha '+cita.fecha);
+      this.toast.showAfterRedirect('Su cita se ha agendado correctamente para la fecha '+cita.fecha);
       this.router.navigate(['/pets/myappointments'], {
         state: { cita: resp }
       });

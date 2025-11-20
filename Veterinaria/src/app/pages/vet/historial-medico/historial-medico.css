@@ -1,0 +1,128 @@
+main {
+    padding: 30px;
+    display: grid;
+}
+
+.container-principal {
+    margin: 0 auto;
+}
+
+.title {
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.title h1 {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.resumen-ia {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 20px 25px;
+    border: 1px solid #e5e5e5;
+    margin-bottom: 30px;
+}
+
+.resumen-ia h2 {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.resumen-ia p {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #444;
+}
+
+.table-consultas {
+    background: white;
+    border-radius: 10px;
+    padding: 0;
+    border: 1px solid #e5e5e5;
+    overflow: hidden;
+}
+
+.table-consultas table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-consultas th {
+    background: #fafafa;
+    font-weight: 600;
+    padding: 14px 10px;
+    text-align: left;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 15px;
+}
+
+.table-consultas td {
+    padding: 16px 10px;
+    font-size: 14px;
+    color: #333;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.table-consultas tr:last-child td {
+    border-bottom: none;
+}
+
+.table-consultas tr:nth-child(even) {
+    background-color: #fcfcfc;
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.tag.vacuna {
+    background-color: #d9f7e7;
+    color: #14864d;
+}
+
+.tag.medicamento {
+    background-color: #e3e8ff;
+    color: #375ce2;
+}
+
+.tag.desparasitante {
+    background-color: #fff5d6;
+    color: #c79416;
+}
+.tratamiento {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 12px;
+    border: 1px solid;
+    font-size: 14px;
+}
+
+/* VACUNA */
+.tratamiento.vacuna {
+    background-color: #DBFCE7;
+    color: #016630;
+    border-color: #BAF8D0;
+}
+
+.tratamiento.medicamento {
+    background-color: #E3E8FF;
+    color: #193392;
+    border-color: #C7D0FF;
+}
+
+.tratamiento.desparasitante {
+    background-color: #FFF5D6;
+    color: #C79416;
+    border-color: #F6E0A4;
+}
