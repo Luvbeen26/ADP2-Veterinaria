@@ -1,0 +1,105 @@
+<div class="dashboard">
+
+    <h2 class="titulo">Estadísticas</h2>
+
+    <!-- Tarjetas superiores -->
+    <div class="stats-grid">
+
+        <div class="stat-card verde">
+            <div class="header">
+                <span>Ingresos totales</span>
+                <button class="icon-btn">$</button>
+            </div>
+            <h3>$370,000</h3>
+            <p class="sub">Este mes</p>
+            <div class="trend up">+12.5% vs mes anterior</div>
+        </div>
+
+        <div class="stat-card verde">
+            <div class="header">
+                <span>Clientes activos</span>
+                <button class="icon-btn">👤</button>
+            </div>
+            <h3>652</h3>
+            <p class="sub">Últimos 6 meses</p>
+            <div class="trend up">+8.3% vs mes anterior</div>
+        </div>
+
+        <div class="stat-card verde">
+            <div class="header">
+                <span>Total de mascotas</span>
+                <button class="icon-btn">🐾</button>
+            </div>
+            <h3>652</h3>
+            <p class="sub">En sistema</p>
+            <div class="trend up">+15.2% vs mes anterior</div>
+        </div>
+
+        <div class="stat-card rojo">
+            <div class="header">
+                <span>Promedio por cliente</span>
+                <button class="icon-btn">📈</button>
+            </div>
+            <h3>$2,450</h3>
+            <p class="sub">Por mes</p>
+            <div class="trend down">-12.5% vs mes anterior</div>
+        </div>
+
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+        <button class="tab active">Financiero</button>
+        <button class="tab">Clientes</button>
+        <button class="tab">Servicios</button>
+    </div>
+
+    <!-- Contenedores de gráficos -->
+    <div class="charts-grid">
+
+        <div class="chart-card">
+            <h4><mat-icon>calendar_month</mat-icon> Nuevos clientes por mes</h4>
+            <canvas id="chartClientes"></canvas>
+            <div class="chart-footer">
+                <div>
+                    <span class="label">Promedio mensual:</span>
+                    <strong>24 clientes</strong>
+                </div>
+                <div>
+                    <span class="label">Total en 6 meses:</span>
+                    <strong>24 clientes</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <h4>🐾 Mascotas por especie</h4>
+            <canvas id="chartEspecies"></canvas>
+        </div>
+
+    </div>
+
+    <!-- Secciones inferiores -->
+    <div class="bottom-stats">
+
+        <div class="bottom-card">
+            <h3>Frecuencia promedio de visitas</h3>
+            <p class="value">3.2 visitas</p>
+            <p class="label">Por mascota al año</p>
+        </div>
+
+        <div class="bottom-card">
+            <h3>Tasa de retención</h3>
+            <p class="value">87.5%</p>
+            <p class="label">Clientes recurrentes</p>
+        </div>
+
+        <div class="bottom-card">
+            <h3>Frecuencia promedio de visitas</h3>
+            <p class="value">3.2 visitas</p>
+            <p class="label">Por mascota al año</p>
+        </div>
+
+    </div>
+
+</div>
