@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, inject, NgZone } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ɵInternalFormsSharedModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ɵInternalFormsSharedModule, ReactiveFormsModule, NumberValueAccessor } from '@angular/forms';
 import { Raza } from '../../../core/models/raza';
 import { RazaService } from '../../../core/services/mascota/raza';
 import { Mascota } from '../../../core/services/mascota/mascota';
@@ -12,6 +12,7 @@ import { ToastService } from '../../../core/services/extra/toast-service';
 
 @Component({
   selector: 'app-register-pet',
+  standalone: true,
   imports: [ɵInternalFormsSharedModule, ReactiveFormsModule],
   templateUrl: './register-pet.html',
   styleUrl: './register-pet.css'
@@ -28,6 +29,9 @@ export class RegisterPet {
   messageSuccess = '';
   titulo = 'Registrar Mascota';
   idMascota?: number;
+  mode!: 'register' | 'register-byuser' | 'edit' ;
+  id_user:number | null = null;
+
 
   constructor(private fb: FormBuilder, private razaService: RazaService, private mascotaService:Mascota, private zone: NgZone, private cdr: ChangeDetectorRef, private router:Router, private route:ActivatedRoute) {}
 
@@ -42,6 +46,9 @@ export class RegisterPet {
       id_color: [{ value: '', disabled: true }, Validators.required],
       peso: ['', Validators.required]
     });
+
+    this.mode=this.route.snapshot.data["mode"];
+    console.log(this.mode)
 
     this.idMascota = Number(this.route.snapshot.paramMap.get('id'));
     this.getColors();

@@ -8,8 +8,9 @@ import { ConfirmAppointment } from "./confirm-appointment/confirm-appointment";
 
 export const PETS_ROUTES : Routes = [
     {path:'', component: MyPets},   
-    {path:'register-pet', component: RegisterPet},
-    {path: 'edit-pet/:id', component: RegisterPet },
+    {path:'register-pet', component: RegisterPet, data: { mode: 'register' } },
+    {path:'register-pet/:id', component: RegisterPet, data: { mode: 'register-byuser' } },
+    {path: 'edit-pet/:id', component: RegisterPet,data: { mode: 'edit' }},
     {path: 'appointment', component:Appointment},
     {path: 'edit-appointment/:id', component:Appointment},
     {path: 'myappointments', component:Consultas},
