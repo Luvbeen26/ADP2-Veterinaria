@@ -29,10 +29,10 @@
                 <div class="mascotas-item flex">
                     <img [src]="p.especie == 'P' ? 'dog.jpeg' : 'cat.jpg'" alt="Max Fierro" class="mascotas-pet-image">
                     <span class="mascotas-pet-name">{{p.nombre}}</span>
-                    <button class="primary_button mascotas-history-button">
+                    <a class="primary_button mascotas-history-button" [routerLink]="'/vet/medical-history/'+p.id">
                         <mat-icon>menu_book</mat-icon>
                         Ver Historial
-                    </button>
+                    </a>
                 </div>  
             }
         </div>

@@ -10,6 +10,7 @@ export interface MascotaBase {
   id_color?: number;
   peso?: number;
   activo?: boolean;
+  resumen_IA:string;
 }
 
 export interface MascotaCreate extends MascotaBase {}
@@ -23,6 +24,7 @@ export interface MascotaUpdate {
   id_color?: number;
   peso?: number;
   activo?: boolean;
+  resumen_IA?:string;
 }
 
 export interface MascotaOut extends MascotaBase {
