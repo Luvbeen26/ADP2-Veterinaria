@@ -15,3 +15,31 @@ export interface citas{
     notas:string
 };
 
+
+export interface ConsultaBase {
+  id_cita: number;
+  motivo: string;
+  diagnostico?: string | null;
+  observaciones?: string | null;
+  tratamiento?: string | null;
+  medicacion?: string | null;
+}
+
+export interface ConsultaCreate extends ConsultaBase {}
+
+export interface ConsultaUpdate {
+  motivo?: string | null;
+  diagnostico?: string | null;
+  observaciones?: string | null;
+  tratamiento?: string | null;
+  medicacion?: string | null;
+}
+
+export interface ConsultaResponse extends ConsultaBase {
+  id_consulta: number;
+  cita?: citas | null;
+}
+export interface ResumenResponse{
+    resumen:string
+}
+

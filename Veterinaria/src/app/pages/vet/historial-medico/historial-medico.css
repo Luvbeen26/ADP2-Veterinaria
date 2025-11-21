@@ -5,6 +5,7 @@ main {
 
 .container-principal {
     margin: 0 auto;
+    width: 100%;
 }
 
 .title {
@@ -125,4 +126,85 @@ main {
     background-color: #FFF5D6;
     color: #C79416;
     border-color: #F6E0A4;
+}
+
+.empty-state {
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    text-align: center;
+    gap: 24px;
+    min-height: 500px;
+}
+
+.empty-icon {
+    width: 140px;
+    height: 140px;
+    background: #F3F4F6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+.empty-icon svg {
+    opacity: 0.5;
+}
+
+.empty-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1F2937;
+    margin: 0;
+}
+
+.empty-description {
+    font-size: 16px;
+    color: #6B7280;
+    max-width: 400px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.empty-suggestions {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+}
+.title-button{
+    justify-content: space-between;
+    align-items: center;
+}
+.title-button button{
+    margin-bottom: 20px;
+}
+.primary_button{
+    width: fit-content;
+}
+
+@media (max-width: 768px) {
+    .empty-state {
+        padding: 20px 20px;
+        min-height: 400px;
+    }
+
+    .empty-icon {
+        width: 100px;
+        height: 100px;
+    }
+
+    .empty-icon svg {
+        height: 80px;
+        width: 80px;
+    }
+
+    .empty-title {
+        font-size: 20px;
+    }
+
+    .empty-description {
+        font-size: 14px;
+    }
 }

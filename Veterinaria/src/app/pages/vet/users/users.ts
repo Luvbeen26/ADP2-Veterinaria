@@ -7,11 +7,11 @@ import { Users as UserService } from '../../../core/services/vet/users';
 import { CommonModule } from '@angular/common';
 import { MascotasGetByUser } from '../../../core/models/mascota';
 import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
-import { RouterLink } from "@angular/router";
+import { RouterLink, RouterModule } from "@angular/router";
 
 @Component({
   selector: 'app-users',
-  imports: [MatIconModule, Usercard, CommonModule, MatTooltipModule, RouterLink],
+  imports: [MatIconModule, Usercard, CommonModule, MatTooltipModule, RouterModule],
   templateUrl: './users.html',
   styleUrl: './users.css'
 })
