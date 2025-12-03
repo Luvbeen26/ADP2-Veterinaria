@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { MatIcon, MatIconModule } from "@angular/material/icon";
 import { NgChartsModule } from 'ng2-charts';
 import { ChartConfiguration, ChartData, ChartOptions } from 'chart.js';
+import { Statistics } from '../../../core/services/vet/statistics';
+import { DashboardResponse } from '../../../core/models/statistics';
 
 @Component({
   selector: 'app-estadisticas',
@@ -11,6 +13,21 @@ import { ChartConfiguration, ChartData, ChartOptions } from 'chart.js';
 })
 export class Estadisticas {
   selectedChart = 'finanzas';
+  statisticsService = inject(Statistics);
+  statistics = signal<DashboardResponse | null>(null);
+  ngOnInit(){
+    this.statisticsService.getStatistics().subscribe({
+      next:(data)=>{
+        console.log(data);
+        this.statistics.set(data);
+        this.updateCharts(data);
+      },
+        error:(err)=>{
+          console.log(err);
+        }
+    })
+  }
+
    lineChartData: ChartConfiguration['data'] = {
     labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
     datasets: [
@@ -41,7 +58,7 @@ export class Estadisticas {
     labels: ['Perro', 'Gato'],
     datasets: [
       {
-        data: [150, 120],
+        data: [100,200],
         backgroundColor: [
           'rgba(255, 99, 132, 0.7)',
           'rgba(54, 162, 235, 0.7)'
@@ -181,6 +198,65 @@ export class Estadisticas {
       }
     }
   };
+
+    updateCharts(data: DashboardResponse) {
+
+  // ------------------ LINE CHART ------------------
+  this.lineChartData.labels = data.clientes_mascotas.nuevos_clientes_6_meses.map(c => c.mes);
+  this.lineChartData.datasets[0].data = data.clientes_mascotas.nuevos_clientes_6_meses.map(c => c.total);
+
+  // ------------------ PIE MASCOTAS ------------------
+  this.pieChartData.labels = data.clientes_mascotas.mascotas_por_especie.map(m => m.especie);
+  this.pieChartData.datasets[0].data = data.clientes_mascotas.mascotas_por_especie.map(m => m.total);
+
+  // ------------------ BAR FINANZAS ------------------
+  this.barFinanceData.labels = data.finanzas.ingreso_mensual_por_servicio.map(s => s.mes);
+
+  this.barFinanceData.datasets = data.finanzas.ingreso_mensual_por_servicio.map(s => ({
+    label: s.servicio,
+    data: [s.total]
+  }));
+
+  // ------------------ PIE EGRESOS ------------------
+  this.pieExpensesData.labels = data.finanzas.distribucion_egresos.map(e => e.motivo ?? 'Desconocido');
+  this.pieExpensesData.datasets[0].data = data.finanzas.distribucion_egresos.map(e => e.total ?? 0);
+
+  // ------------------ TOP SERVICIOS ------------------
+  const totalVisitas = data.servicios.mas_solicitados
+    .reduce((sum, s) => sum + s.visitas, 0);
+
+  const colors = ['#1F4FFF', '#1DB954', '#D82C2C', '#F8A52A'];
+
+  this.topServices = data.servicios.mas_solicitados.map((s, i) => ({
+    name: s.servicio,
+    visits: s.visitas,
+    percent: totalVisitas > 0 ? Math.round((s.visitas / totalVisitas) * 100) : 0,
+    color: colors[i % colors.length]
+  }));
+
+  // ------------------ RENTABILIDAD ------------------
+  this.profitability = data.finanzas.rentabilidad_servicios.map(r => ({
+    name: r.servicio,
+    percent: r.porcentaje,
+    ingresos: `$${r.ingresos}`,
+    costos: `$${r.costos}`
+  }));
+
+  // ------------------ TENDENCIA SERVICIOS ------------------
+  this.serviceTrendData.labels = data.servicios.tendencia_6_meses.map(t => t.mes);
+
+  this.serviceTrendData.datasets = [
+    {
+      label: 'Ingresos últimos 6 meses',
+      data: data.servicios.tendencia_6_meses.map(t => t.total),
+      fill: false,
+      borderColor: '#1F4FFF',
+      pointBackgroundColor: '#1F4FFF',
+      tension: 0.35
+    }
+  ];
+}
+
 
 
 
