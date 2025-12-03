@@ -41,6 +41,18 @@
     color: #707070;
     font-size: 14px;
 }
+.chart-wrapper {
+  display: flex;
+  justify-content: center; /* centra horizontal */
+  align-items: center;     /* centra vertical (opcional) */
+  width: 100%;
+}
+
+.chart-container {
+  width: 50%;   /* tamaño de la gráfica */
+  height: 50%;
+}
+
 
 .icon-btn {
     background: #f5f5f5;
@@ -75,8 +87,8 @@
 .tabs {
     margin: 15px 0 25px;
     background-color: #E7E7E7;
-    width: fit-content;
     padding: 5px;
+    width: fit-content;
     border-radius: 20px;
 }
 
@@ -106,6 +118,7 @@
     padding: 20px;
     border: 1px solid #e5e7eb;
     border-radius: 14px;
+    margin-bottom: 20px;
 }
 
 .chart-card h4 {
@@ -150,4 +163,107 @@
 
 .bottom-card .label {
     color: #707070;
+}
+
+.chart-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.chart-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.08);
+    height: fit-content;
+}
+
+.chart-finanzas{
+    grid-template-columns: 1fr;
+}
+
+.chart-card.wide {
+    grid-template-columns: 1fr;
+}
+
+.chart-card.small {
+    height: auto;
+}
+
+.progress-bar {
+    background: #eaeaea;
+    height: 8px;
+    width: 100%;
+    border-radius: 10px;
+    margin: 5px 0 12px;
+}
+
+.progress-fill {
+    background: #4CAF50;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.profit-item {
+    margin-bottom: 18px;
+}
+
+.small-label {
+    margin: 0;
+    font-size: 13px;
+    color: #555;
+}
+
+.total-egresos {
+    margin-top: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.services-card {
+    background: #fff;
+    padding: 22px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+}
+
+.service-item {
+    display: grid;
+    grid-template-columns: 160px 1fr 100px;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.service-name {
+    font-weight: 500;
+    color: #333;
+}
+
+.bar-container {
+    background: #eee;
+    height: 6px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    border-radius: 10px;
+}
+
+.service-visits {
+    text-align: right;
+    color: #444;
+    font-size: 14px;
+}
+
+.chart-finanzas {
+    width: 3000px !important;
+    height: 300px !important;
+    max-width: 300px !important;
+    max-height: 300px !important;
+    display: block;
+    margin: 0 auto; /* para centrar */
 }
