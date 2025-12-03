@@ -48,18 +48,43 @@
     </div>
 
     <!-- Tabs -->
-    <div class="tabs">
-        <button class="tab active">Financiero</button>
-        <button class="tab">Clientes</button>
-        <button class="tab">Servicios</button>
-    </div>
+<div class="tabs">
+    <button 
+        class="tab" 
+        [class.active]="selectedChart === 'finanzas'"
+        (click)="activeSelected('finanzas')">
+        Financiero
+    </button>
+
+    <button 
+        class="tab" 
+        [class.active]="selectedChart === 'clientes'"
+        (click)="activeSelected('clientes')">
+        Clientes
+    </button>
+
+    <button 
+        class="tab" 
+        [class.active]="selectedChart === 'services'"
+        (click)="activeSelected('services')">
+        Servicios
+    </button>
+</div>
+
 
     <!-- Contenedores de gráficos -->
     <div class="charts-grid">
-
+        @if (selectedChart == 'clientes') {
         <div class="chart-card">
             <h4><mat-icon>calendar_month</mat-icon> Nuevos clientes por mes</h4>
-            <canvas id="chartClientes"></canvas>
+            <div style="display: block;">
+                <canvas baseChart 
+                    [data]="lineChartData"
+                    [options]="lineChartOptions"
+                    [type]="'line'">
+                </canvas>
+            </div>
+
             <div class="chart-footer">
                 <div>
                     <span class="label">Promedio mensual:</span>
@@ -74,13 +99,144 @@
 
         <div class="chart-card">
             <h4>🐾 Mascotas por especie</h4>
-            <canvas id="chartEspecies"></canvas>
+            <div class="chart-wrapper">
+                <div class="chart-container">
+                    <canvas class="chart-pastel"
+                    baseChart
+                    [data]="pieChartData"
+                    [options]="pieChartOptions"
+                    [type]="'pie'">
+                    </canvas>
+                </div>
+            </div>
         </div>
+        }@else if (selectedChart == 'finanzas') {
+            
+                <div class="chart-card">
+                    <h4>Ingresos mensuales por servicio</h4>
+                    <div style="display: block; height: 350px;">
+                        <canvas
+                            baseChart
+                            [data]="barFinanceData"
+                            [options]="barFinanceOptions"
+                            [type]="'bar'">
+                        </canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+
+                    <div class="chart-card small">
+                        <h4>Distribución de egresos</h4>
+                        <div>
+                            <canvas class="chart-finanzas"
+                                baseChart
+                                [data]="pieExpensesData"
+                                [options]="pieExpensesOptions"
+                                [type]="'pie'">
+                            </canvas>
+                        </div>
+                        <p class="total-egresos">Total de egresos: $420,000</p>
+                    </div>
+
+                    <div class="chart-card small">
+                        <h4>Rentabilidad por servicio</h4>
+                        @for (item of profitability; track $index) {
+                            <div class="profit-item">
+                                <div class="profit-title">{{ item.name }} — {{ item.percent }}%</div>
+
+                                <div class="progress-bar">
+                                    <div class="progress-fill" [style.width.%]="item.percent"></div>
+                                </div>
+
+                                <p class="small-label">Ingresos: {{ item.ingresos }}</p>
+                                <p class="small-label">Costos: {{ item.costos }}</p>
+                            </div>
+                        }
+
+                    </div>
+                    
+
+                </div>
+                
+            
+
+        }@else if (selectedChart == 'services') {
+
+<div class="services-grid">
+
+    <!-- ────────────────────────
+        Servicios más solicitados
+    ──────────────────────────── -->
+    <div class="chart-card">
+        <h4>Servicios más solicitados</h4>
+        @for (s of topServices; track $index) {
+            <div class="service-item">
+                <span class="service-name">{{ s.name }}</span>
+
+                <div class="bar-container">
+                    <div class="bar-fill"
+                        [style.width.%]="s.percent"
+                        [style.background]="s.color">
+                    </div>
+                </div>
+
+                <span class="service-visits">{{ s.visits }} visitas</span>
+            </div>
+        }
+
+    </div>
+
+
+    <!-- ───────────────────────────────
+        Promedio de gasto por cliente
+    ─────────────────────────────────-->
+    <div class="chart-card">
+        <h4>Promedio de gasto por cliente</h4>
+
+        <div class="avg-grid">
+            <div class="avg-box">
+                <span class="avg-label">Por visita</span>
+                <strong class="avg-value">$548</strong>
+            </div>
+
+            <div class="avg-box">
+                <span class="avg-label">Mensual</span>
+                <strong class="avg-value">$2,450</strong>
+            </div>
+
+            <div class="avg-box">
+                <span class="avg-label">Anual</span>
+                <strong class="avg-value">$6,890</strong>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- ───────────────────────────────
+     Tendencia de servicios 6 meses
+─────────────────────────────────── -->
+<div class="chart-card large">
+    <h4>Tendencia de servicios (6 meses)</h4>
+
+    <div style="display: block; height: 350px;">
+        <canvas baseChart
+            [data]="serviceTrendData"
+            [options]="serviceTrendOptions"
+            [type]="'line'">
+        </canvas>
+    </div>
+</div>
+
+}
+
 
     </div>
 
     <!-- Secciones inferiores -->
-    <div class="bottom-stats">
+     <div class="bottom-stats">
 
         <div class="bottom-card">
             <h3>Frecuencia promedio de visitas</h3>
