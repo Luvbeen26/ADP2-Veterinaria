@@ -10,7 +10,7 @@
                 <span>Ingresos totales</span>
                 <button class="icon-btn">$</button>
             </div>
-            <h3>$370,000</h3>
+            <h3>${{statistics()?.estadisticas?.ingresos_totales}}</h3>
             <p class="sub">Este mes</p>
             <div class="trend up">+12.5% vs mes anterior</div>
         </div>
@@ -20,7 +20,7 @@
                 <span>Clientes activos</span>
                 <button class="icon-btn">👤</button>
             </div>
-            <h3>652</h3>
+            <h3>{{statistics()?.estadisticas?.clientes_activos}}</h3>
             <p class="sub">Últimos 6 meses</p>
             <div class="trend up">+8.3% vs mes anterior</div>
         </div>
@@ -30,7 +30,7 @@
                 <span>Total de mascotas</span>
                 <button class="icon-btn">🐾</button>
             </div>
-            <h3>652</h3>
+            <h3>{{statistics()?.estadisticas?.total_mascotas}}</h3>
             <p class="sub">En sistema</p>
             <div class="trend up">+15.2% vs mes anterior</div>
         </div>
@@ -40,7 +40,7 @@
                 <span>Promedio por cliente</span>
                 <button class="icon-btn">📈</button>
             </div>
-            <h3>$2,450</h3>
+            <h3>{{statistics()?.estadisticas?.promedio_por_cliente}}</h3>
             <p class="sub">Por mes</p>
             <div class="trend down">-12.5% vs mes anterior</div>
         </div>
@@ -71,7 +71,7 @@
     </button>
 </div>
 
-
+    @if (statistics()) {
     <!-- Contenedores de gráficos -->
     <div class="charts-grid">
         @if (selectedChart == 'clientes') {
@@ -233,7 +233,7 @@
 }
 
 
-    </div>
+    </div>}
 
     <!-- Secciones inferiores -->
      <div class="bottom-stats">
