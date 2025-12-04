@@ -1,16 +1,17 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { citas, ConsultaCreate, ConsultaResponse, ResumenResponse } from '../../models/consultas';
 import { Auth } from '../auth/auth';
-import { MascotaOut } from '../../models/mascota';
+import { Getspecie, MascotaOut } from '../../models/mascota';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Consulta {
   private api=environment.apiurl
+  
   tratamientosJson={
     "perro": {
       "medicamentos": [
@@ -96,11 +97,16 @@ export class Consulta {
   }
 
   createConsulta(data: ConsultaCreate) {
-    return this.http.post<ConsultaResponse>(`${this.api}consultas`, data);
+    return this.http.post<ConsultaResponse>(`${this.api}consultas/create`, data);
   }
 
   GetTratamientos(especie:"gato" | "perro"){
     return especie == "gato" ? this.tratamientosJson.gato : this.tratamientosJson.perro
   }
 
+  GetSpecie(id:number):Observable <Getspecie>{
+    return this.http.get<Getspecie>(`${this.api}pet/get/specie?id=${id}`)
+  }
+
+  
 }

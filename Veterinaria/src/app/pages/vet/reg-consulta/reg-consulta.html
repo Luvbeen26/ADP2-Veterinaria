@@ -6,110 +6,106 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="veterinarian">Veterinario</label>
-                    <input 
-                        type="text" 
-                        id="veterinarian" 
-                        formControlName="veterinarian" 
-                        readonly 
-                        placeholder="Dr. Zavala Ruiz"
-                        class="form-control" 
-                    />
+                    <input type="text" id="veterinarian" readonly placeholder="Dr. Zavala Ruiz"class="form-control" />
                 </div>
 
                 <div class="form-group">
                     <label for="date">Fecha</label>
-                    <input 
-                        type="date" 
-                        id="date" 
-                        formControlName="fecha" 
-                        class="form-control" 
-                        readonly
-                    />
+                    <input type="date" id="date" formControlName="fecha" class="form-control" readonly/>
                 </div>
             </div>
 
+            <div class="form-group full-width">
+                <label for="observations">Motivo</label>
+                <textarea id="observations" formControlName="motivo" rows="6" class="form-control" 
+                    placeholder="Escribe motivo sobre la consulta..."
+                ></textarea>
+            </div>
             <!-- Observaciones -->
             <div class="form-group full-width">
                 <label for="observations">Observaciones</label>
-                <textarea 
-                    id="observations" 
-                    formControlName="observations" 
-                    rows="6" 
-                    class="form-control" 
+                <textarea id="observations" formControlName="observaciones" rows="6" class="form-control" 
                     placeholder="Escribe observaciones sobre la consulta..."
                 ></textarea>
             </div>
 
-            <!-- Sección de Medicamentos y Tratamientos -->
+            <div class="form-group full-width">
+                <label for="observations">Diagnostico</label>
+                <textarea id="observations" formControlName="diagnostico" rows="6" class="form-control" 
+                    placeholder="Escribe Diagnostico sobre la consulta...">
+                </textarea>
+            </div>
+
+            
             <div class="treatments-section">
                 <h2 class="section-title">Medicamentos y Tratamientos</h2>
 
-                <!-- Tratamiento como checkbox -->
-                <div class="treatment-option" formGroupName="treatments">
+                <!-- Desparasitantes -->
+                <div class="treatment-option">
                     <label class="checkbox-container">
                         <input 
                             type="checkbox" 
-                            formControlName="desparasitante"
+                            [checked]="isTratamientoSelected('desparasitante', 'desparasitate')"
+                            (change)="toggleTratamiento('desparasitante', 'desparasitate')"
                         />
-                        <span class="checkbox-label">Desparasitante</span>
+                        <span class="checkbox-label">Desparasintate </span>
                     </label>
                 </div>
 
-
+                <!-- Vacunas -->
                 <div class="vaccine-section">
                     <h3 class="subsection-title">Vacunas</h3>
-                    <div formGroupName="obligatoryVaccines">
                         <div class="checkbox-grid">
-                            @for (vaccine of obligatoryVaccines; track vaccine.value) {
+                            @for (v of vacunas(); track $index) {
                                 <label class="checkbox-container">
                                     <input 
                                         type="checkbox" 
-                                        [formControlName]="vaccine.value"
+                                        [checked]="isTratamientoSelected('vacuna', v)"
+                                        (change)="toggleTratamiento('vacuna', v)"
                                     />
-                                    <span class="checkbox-label">{{ vaccine.name }}</span>
+                                    <span class="checkbox-label">{{ v }}</span>
                                 </label>
                             }
                         </div>
                     </div>
-                </div>
-
-                <!-- Medicamentos como checkbox -->
+                <!-- Medicamentos-->
                 <div class="vaccine-section">
-                    <label class="checkbox-container">
-                        <input 
-                            type="checkbox" 
-                            formControlName="hasMedicines"
-                        />
-                        <span class="checkbox-label">Medicamentos</span>
-                    </label>
+                    <h3 class="subsection-title">Medicamentos</h3>
                     
-                    <textarea 
-                        *ngIf="recordForm.get('hasMedicines')?.value"
-                        formControlName="medicines" 
-                        rows="3" 
-                        class="form-control mt-2"
-                        placeholder="Escriba los medicamentos utilizados"
-                    ></textarea>
+                    <div class="checkbox-grid">
+                        @for (m of medicamentos(); track $index) {
+                            <label class="checkbox-container">
+                                <input 
+                                    type="checkbox" 
+                                    [checked]="isTratamientoSelected('medicamento', m)"
+                                    (change)="toggleTratamiento('medicamento', m)"
+                                />
+                                <span class="checkbox-label">{{ m }}</span>
+                            </label>
+                        }
+                    </div>
+                
                 </div>
+            
             </div>
 
             <!-- Sección de Cuidados -->
             <div class="treatments-section">
                 <h2 class="section-title">Cuidados</h2>
                 
-                <div formGroupName="cuidados">
-                    <div class="checkbox-grid">
-                        @for (cuidado of cuidadosList; track cuidado.id) {
-                            <label class="checkbox-container">
-                                <input 
-                                    type="checkbox" 
-                                    [formControlName]="cuidado.id"
-                                />
-                                <span class="checkbox-label">{{ cuidado.name }}</span>
-                            </label>
-                        }
-                    </div>
+                <div class="checkbox-grid">
+                    @for (cuidado of cuidadosLst(); track cuidado.id) {
+                        <label class="checkbox-container">
+                            <input 
+                                type="checkbox" 
+                                [checked]="isCuidadoSelected(cuidado.id)"
+                                (change)="toggleCuidado(cuidado.id)"
+                            />
+                            <span class="checkbox-label">{{ cuidado.descripcion }}</span>
+                        </label>
+                    }
                 </div>
+            
             </div>
 
             <!-- Botón de Submit -->

@@ -19,4 +19,5 @@ export const VET_ROUTES:Routes = [
         data: { mode: 'register-byuser' }
     },
     {path:'registrar-consulta',component:RegConsulta},
+    {path:'registrar-consulta/:id',component:RegConsulta},
 ]

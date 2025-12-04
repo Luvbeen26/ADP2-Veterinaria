@@ -77,3 +77,7 @@ export interface CartillaMascotaOut {
   propietario: Propietario;
   consultas: ConsultaItem[];
 }
+
+export interface Getspecie{
+  especie:string;
+}

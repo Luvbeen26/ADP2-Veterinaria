@@ -1,13 +1,10 @@
-import { Component, Inject, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormArray } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Consulta } from '../../../core/services/vet/consulta';
+import { ConsultaCreate, cuidadosWithSpecie } from '../../../core/models/consultas';
 
-interface Vaccine {
-  name: string;
-  value: string;
-}
 
 @Component({
   selector: 'app-reg-consulta',
@@ -17,12 +14,15 @@ interface Vaccine {
 })
 export class RegConsulta {
   recordForm!: FormGroup;
+  petId: string = '';
   petName: string = '';
-  consultService=Inject(Consulta)
+  consultService=inject(Consulta)
   
-  vacunas:string[]=[]
-  medicamentos:string[]=[]
+  vacunas = signal<string[]>([]);
 
+  medicamentos= signal<string[]>([]);
+  desparasitantes =signal<string[]>([]);
+  cuidadosLst=signal<cuidadosWithSpecie[]>([]);
   /*
   Observaciones (que funcione como notas) // que aparezca en modal?
 
@@ -37,20 +37,20 @@ export class RegConsulta {
   
   
   cuidadosList = [
-    { id: '1', name: 'Aplicar nebulizaciones' },
-    { id: '2', name: 'Colocar arena adecuada' },
-    { id: '3', name: 'Limpiar entorno' },
-    { id: '4', name: 'Alimento con proteina' },
-    { id: '5', name: 'Evitar alimentos grasosos' },
-    { id: '6', name: 'Dar alimentos suaves' },
-    { id: '7', name: 'Controlar Raciones' },
-    { id: '8', name: 'Aumentar Raciones' },
-    { id: '9', name: 'Desparasitar' },
-    { id: '10', name: 'Hidratar mas' },
-    { id: '11', name: 'Ofrecer sueros orales' },
-    { id: '12', name: 'Revisar signos de deshidratacion' },
-    { id: '13', name: 'Estimular con juguetes' },
-    { id: '14', name: 'Realizar actividad fisica' }
+    { "id": 1,  "descripcion": "Aplicar nebulizaciones","especie": "PG" },
+    { "id": 2,  "descripcion": "Colocar arena adecuada","especie": "G"  },
+    { "id": 3,  "descripcion": "Limpiar entorno","especie": "PG" },
+    { "id": 4,  "descripcion": "Alimento con proteina","especie": "PG" },
+    { "id": 5,  "descripcion": "Evitar alimentos grasosos","especie": "PG" },
+    { "id": 6,  "descripcion": "Dar alimentos suaves","especie": "PG" },
+    { "id": 7,  "descripcion": "Controlar Raciones","especie": "PG" },
+    { "id": 8,  "descripcion": "Aumentar Raciones","especie": "PG" },
+    { "id": 9,  "descripcion": "Desparasitar","especie": "PG" },
+    { "id": 10, "descripcion": "Hidratar mas","especie": "PG" },
+    { "id": 11, "descripcion": "Ofrecer sueros orales","especie": "PG" },
+    { "id": 12, "descripcion": "Revisar signos de deshidratacion","especie": "PG" },
+    { "id": 13, "descripcion": "Estimular con juguetes","especie": "G"  },
+    { "id": 14, "descripcion": "Realizar actividad fisica","especie": "PG" }
   ];
 
   constructor(
@@ -60,65 +60,46 @@ export class RegConsulta {
   ) {}
 
   ngOnInit(): void {
-    this.petName = this.route.snapshot.paramMap.get('petName') || 'la Mascota';
+    
+    this.petId = this.route.snapshot.paramMap.get('id') || '0';
 
     this.recordForm = this.fb.group({
-      veterinarian: ['', [Validators.required, Validators.minLength(3)]],
+      id_mascota: [this.petId, Validators.required],
       fecha: [this.getTodayDate(), Validators.required],
-      observations: ['', [Validators.maxLength(500)]],
+      motivo: ['', [Validators.required, Validators.maxLength(500)]],
+      diagnostico: ['', [Validators.required, Validators.maxLength(255)]],
+      observaciones: ['', Validators.maxLength(1000)],
+//      peso_actual: ['', [Validators.min(0.1), Validators.max(200)]],
       
+      // Arrays para tratamientos
+      tratamientos: this.fb.array([]),
       
-      treatments: this.fb.group({
-        desparasitante: [false],
-        // Puedes agregar más tratamientos aquí
-      }),
-      
-      obligatoryVaccines: this.fb.group({
-        rinotraqueitis: [false],
-        leucemia: [false],
-        calicivirus: [false],
-        rabia: [false],
-        panleucopenia: [false],
-        esterilizacion: [false]
-      }),
-      
-      // Checkbox para activar el textarea de vacunas no obligatorias
-      hasNonObligatoryVaccines: [false],
-      nonObligatoryVaccines: [''],
-      
-      // Checkbox para activar el textarea de medicamentos
-      hasMedicines: [false],
-      medicines: ['']
+      // Array para cuidados seleccionados
+      cuidados: this.fb.array([])
     });
 
-    
-    this.recordForm.get('hasNonObligatoryVaccines')?.valueChanges.subscribe(checked => {
-      const control = this.recordForm.get('nonObligatoryVaccines');
-      if (checked) {
-        control?.setValidators([Validators.required]);
-      } else {
-        control?.clearValidators();
-        control?.setValue(''); // Limpia el valor cuando se desmarca
+    this.consultService.GetSpecie(Number(this.petId)).subscribe({
+      next: (res) => {
+        const especieMascota: "gato" | "perro" =
+          res.especie === "G" ? "gato" : "perro";
+
+        const data = this.consultService.GetTratamientos(especieMascota);
+
+        this.vacunas.set(data.vacunas);
+        this.medicamentos.set(data.medicamentos);
+        
+        
+        const cuidadosFiltrados = this.cuidadosList.filter(c =>
+          c.especie === especieMascota || c.especie === "PG"
+        );
+
+        
+        this.cuidadosLst.set(cuidadosFiltrados);
+      },
+      error: (error) => {
+        console.log(error);
       }
-      control?.updateValueAndValidity();
     });
-
-    
-    this.recordForm.get('hasMedicines')?.valueChanges.subscribe(checked => {
-      const control = this.recordForm.get('medicines');
-      if (checked) {
-        control?.setValidators([Validators.required]);
-      } else {
-        control?.clearValidators();
-        control?.setValue(''); // Limpia el valor cuando se desmarca
-      }
-      control?.updateValueAndValidity();
-    });
-
-    const data=this.
-    this.vacunas=
-
-
   }
 
   private getTodayDate(): string {
@@ -129,23 +110,94 @@ export class RegConsulta {
     return `${year}-${month}-${day}`;
   }
 
+  get tratamientos(): FormArray {
+    return this.recordForm.get('tratamientos') as FormArray;
+  }
+
+  get cuidados(): FormArray {
+    return this.recordForm.get('cuidados') as FormArray;
+  }
+
+  agregarTratamiento(tipo: 'vacuna' | 'medicamento' | 'desparasitante'): void {
+    const tratamientoGroup = this.fb.group({
+      tipo: [tipo, Validators.required],
+      descripcion: ['', [Validators.required, Validators.maxLength(255)]]
+    });
+
+    this.tratamientos.push(tratamientoGroup);
+  }
+
+  eliminarTratamiento(index: number): void {
+    this.tratamientos.removeAt(index);
+  }
+
+  toggleCuidado(cuidadoId: number): void {
+    const index = this.cuidados.controls.findIndex(
+      control => control.value.id_cuidado === cuidadoId
+    );
+
+    if (index >= 0) {
+      this.cuidados.removeAt(index);
+    } else {
+      const cuidadoGroup = this.fb.group({
+        id_cuidado: [cuidadoId, Validators.required],
+        observaciones: ['']
+      });
+      this.cuidados.push(cuidadoGroup);
+    }
+  }
+
+
+  toggleTratamiento(tipo: 'vacuna' | 'medicamento' | 'desparasitante', descripcion: string): void {
+    const index = this.tratamientos.controls.findIndex(
+      control => control.value.tipo === tipo && control.value.descripcion === descripcion
+    );
+
+    if (index >= 0) {
+      this.tratamientos.removeAt(index);
+    } else {
+      const tratamientoGroup = this.fb.group({
+        tipo: [tipo, Validators.required],
+        descripcion: [descripcion, [Validators.required, Validators.maxLength(255)]]
+      });
+      this.tratamientos.push(tratamientoGroup);
+    }
+    const listaTratamientos = this.tratamientos.value;
+    console.log(listaTratamientos);
+  }
+
+  isTratamientoSelected(tipo: 'vacuna' | 'medicamento' | 'desparasitante', descripcion: string): boolean {
+    return this.tratamientos.controls.some(
+      control => control.value.tipo === tipo && control.value.descripcion === descripcion
+    );
+  }
+
+  isCuidadoSelected(cuidadoId: number): boolean {
+    return this.cuidados.controls.some(
+      control => control.value.id_cuidado === cuidadoId
+    );
+  }
+
   onSubmit(): void {
     if (this.recordForm.invalid) {
       this.recordForm.markAllAsTouched();
       return;
     }
+    const diagnostico=this.recordForm.get('diagnostico')?.value
+    const observaciones=this.recordForm.get('observaciones')?.value
+    const motivo=this.recordForm.get('motivo')?.value
+    const tratamientos=this.tratamientos.value;
+    const cuidados=this.cuidados.value;
+    const consulta:ConsultaCreate={motivo,diagnostico,observaciones,tratamientos,cuidados}
+    
+    this.consultService.createConsulta(consulta).subscribe({
 
-    const formData = this.recordForm.value;
-    console.log('Datos del formulario:', formData);
+    });
 
-    // Aquí harías la llamada al servicio
-    // this.veterinaryService.createRecord(formData).subscribe({
-    //   next: () => {
-    //     this.router.navigate(['/records']);
-    //   },
-    //   error: (err) => console.error(err)
-    // });
+  
   }
+
+  
 }
 
 

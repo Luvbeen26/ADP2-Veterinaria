@@ -2,7 +2,7 @@
     <div class="container-principal">
         <div class="title flex">
             <h1>Historial medico de {{mascota().nombre}}</h1>
-            <button class="primary_button"  [routerLink]="['/vet/registrar-consulta']"><mat-icon>add</mat-icon>Nuevo registro</button>
+            <button class="primary_button"  [routerLink]="'/vet/registrar-consulta/'+idmascota"><mat-icon>add</mat-icon>Nuevo registro</button>
         </div>
         @if (consultas().length>0) {
             <div class="resumen-ia">
