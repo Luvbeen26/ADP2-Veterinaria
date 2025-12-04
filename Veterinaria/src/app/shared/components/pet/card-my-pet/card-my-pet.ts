@@ -1,5 +1,5 @@
-import { Component, Input, Output } from '@angular/core';
-import { MascotaOut} from '../../../../core/models/mascota';
+import { Component, inject, Input, Output, signal } from '@angular/core';
+import { CartillaMascotaOut, MascotaOut} from '../../../../core/models/mascota';
 import { MatIconModule } from '@angular/material/icon';
 import { Mascota } from '../../../../core/services/mascota/mascota';
 import { EventEmitter } from '@angular/core';
@@ -7,18 +7,31 @@ import { ConfirmDialogComponent } from '../../../../shared/components/confirm-di
 import { MatDialog } from '@angular/material/dialog';
 import { routes } from '../../../../app.routes';
 import { Router } from '@angular/router';
+import { CartillaMascota } from "../cartilla-mascota/cartilla-mascota";
 
 @Component({
   selector: 'app-card-my-pet',
-  imports: [MatIconModule],
+  imports: [MatIconModule, CartillaMascota],
   templateUrl: './card-my-pet.html',
   styleUrl: './card-my-pet.css'
 })
 export class CardMyPet {
 
   @Input() mascota?:MascotaOut;
-   @Output() mascotaEliminada: EventEmitter<number> = new EventEmitter<number>();
+  @Output() mascotaEliminada: EventEmitter<number> = new EventEmitter<number>();
+
   constructor(private mascotaService:Mascota, private dialog:MatDialog, private router:Router){}
+  menuOpen = false;
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
+  cartillaData=signal<CartillaMascotaOut | null>(null);
+
+  openModal(id_mascota: number) {
+    this.getCartilla(id_mascota);
+  }
+
 
   public editarMascota(id_mascota:number){
     this.router.navigate([`pets/edit-pet/${id_mascota}`]);
@@ -65,6 +78,18 @@ export class CardMyPet {
     }
 
     return edad;
+  }
+
+  getCartilla(id_mascota:number){
+    this.mascotaService.getCartillaMascota(id_mascota).subscribe({
+      next:(data)=>{
+        console.log(data);
+        this.cartillaData.set(data);
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
   }
 
 

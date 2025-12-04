@@ -67,6 +67,7 @@
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
   border-radius: 8px;
   flex-direction: column;
+  width: 150px;
   z-index: 10;
 }
 
@@ -79,18 +80,17 @@
   cursor: pointer;
 }
 
-.menu-btn:hover + .menu-dropdown,
-.menu-dropdown:hover {
+.menu-dropdown.active {
   display: flex;
 }
 .delete-btn {
-  position: absolute;         /* Si está dentro de una card */
+  position: absolute;         
   bottom: 10px;
   right: 10px;
   width: 50px;
   height: 50px;
-  border-radius: 50%;         /* Hace el botón redondo */
-  background-color: #f44336;  /* Rojo Material */
+  border-radius: 50%;     
+  background-color: #f44336;
   color: white;
   border: none;
   display: flex;
@@ -103,7 +103,7 @@
 }
 
 .delete-btn:hover {
-  background-color: #d32f2f; /* Rojo más oscuro al pasar el mouse */
+  background-color: #d32f2f; 
   transform: scale(1.1);
 }
 

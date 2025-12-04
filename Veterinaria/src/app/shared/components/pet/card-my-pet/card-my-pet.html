@@ -1,11 +1,24 @@
 <div class="card">
   <!-- Menú superior derecho -->
   <div class="card-menu">
-    <button class="menu-btn">⋮</button>
-    <div class="menu-dropdown">
-      <button (click)="editarMascota(mascota?.id_mascota!)">Editar</button>
-      <button (click)="verDetalles()">Detalles</button>
+    
+    <div class="card-menu">
+      <button class="menu-btn" (click)="toggleMenu(); $event.stopPropagation()">⋮</button>
+
+      <div 
+        class="menu-dropdown" 
+        [class.active]="menuOpen"
+        (click)="$event.stopPropagation()"
+      >
+        @if (mascota) {
+          <button (click)="editarMascota(mascota.id_mascota!); $event.stopPropagation()">Editar</button>
+          <button (click)="openModal(mascota.id_mascota);">Ver cartilla medica</button>
+        }
+
+      </div>
     </div>
+
+
   </div>
 
   <img class="image-pet" 
@@ -24,3 +37,10 @@
     <mat-icon>delete</mat-icon>
   </button>
 </div>
+
+@if (cartillaData()) {
+  <app-cartilla-mascota
+    [cartilla]="cartillaData()!"
+    (closed)="cartillaData.set(null)">
+  </app-cartilla-mascota>
+}

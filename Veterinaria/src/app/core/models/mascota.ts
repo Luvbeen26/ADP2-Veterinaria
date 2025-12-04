@@ -43,3 +43,33 @@ export interface MascotasGetByUser{
   nombre:string
   especie:string
 }
+
+export interface Propietario {
+  nombre: string;
+  apellidos: string;
+  correo_electronico: string;
+}
+
+export interface ConsultaItem {
+  fecha: string;        
+  motivo: string;
+  diagnostico: string;
+  tratamiento: string;
+  veterinario: string;  
+}
+
+export interface CartillaMascotaOut {
+  id_usuario: number;
+  id_mascota: number;
+  nombre: string;
+  especie: string;
+  fecha_nacimiento: string;
+  sexo: string;
+  raza_mascota?: Raza | null;
+  color?: ColorOut | null;
+  peso: number;
+  activo: boolean;
+  resumen_IA: string;
+  propietario: Propietario;
+  consultas: ConsultaItem[];
+}
