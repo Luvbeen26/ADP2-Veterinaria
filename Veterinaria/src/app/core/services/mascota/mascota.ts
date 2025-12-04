@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MascotaCreate, MascotaDeleteResponse, MascotaOut, MascotaUpdate} from '../../models/mascota';
+import { CartillaMascotaOut, MascotaCreate, MascotaDeleteResponse, MascotaOut, MascotaUpdate} from '../../models/mascota';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 
@@ -29,6 +29,10 @@ export class Mascota {
 
   updateMascota(petId: number, petData: MascotaUpdate): Observable<MascotaUpdate> {
     return this.http.put<MascotaUpdate>(`${this.api}pet/update/${petId}`, petData);
+  }
+
+  getCartillaMascota(id_mascota:number):Observable<CartillaMascotaOut>{
+    return this.http.get<CartillaMascotaOut>(`${this.api}pet/cartilla/${id_mascota}`);
   }
 
 

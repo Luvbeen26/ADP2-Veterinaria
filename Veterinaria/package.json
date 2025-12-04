@@ -36,6 +36,8 @@
     "cally": "^0.8.0",
     "chart.js": "^4.5.1",
     "express": "^5.1.0",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^3.0.4",
     "jwt-decode": "^4.0.0",
     "ng2-charts": "^4.1.1",
     "ngx-cookie-service": "^20.1.1",
