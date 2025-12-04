@@ -2,14 +2,14 @@ import { Component, inject, signal } from '@angular/core';
 import { MatIconModule } from "@angular/material/icon";
 import { Consulta } from '../../../core/services/vet/consulta';
 import { ConsultaResponse, ResumenResponse } from '../../../core/models/consultas';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Mascota } from '../../../core/services/mascota/mascota';
 import { Auth } from '../../../core/services/auth/auth';
 import { MascotaOut } from '../../../core/models/mascota';
 
 @Component({
   selector: 'app-historial-medico',
-  imports: [MatIconModule],
+  imports: [MatIconModule, RouterLink],
   templateUrl: './historial-medico.html',
   styleUrl: './historial-medico.css'
 })

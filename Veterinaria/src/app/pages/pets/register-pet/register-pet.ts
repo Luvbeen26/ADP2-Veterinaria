@@ -48,18 +48,21 @@ export class RegisterPet {
     });
 
     this.mode=this.route.snapshot.data["mode"];
-    console.log(this.mode)
-
-    this.idMascota = Number(this.route.snapshot.paramMap.get('id'));
     this.getColors();
-    if (this.idMascota) {
-      this.titulo = 'Editar Mascota';
-      this.authService.currentUser$.subscribe(user=>{
-      if (user){
-        this.cargarMascota(this.idMascota!);
-      }
-    })
+    if(this.mode == 'register-byuser'){
+      this.id_user=Number(this.route.snapshot.paramMap.get('id'));
+    }else{
+      this.idMascota = Number(this.route.snapshot.paramMap.get('id'));
+      if (this.idMascota) {
+        this.titulo = 'Editar Mascota';
+        this.authService.currentUser$.subscribe(user=>{
+        if (user){
+          this.cargarMascota(this.idMascota!);
+        }
+      })
+      }  
     }
+    
   }
 
   cargarRazas(especie?: string, idRazaSeleccionada?: number) {
@@ -116,7 +119,7 @@ onEspecieChange(especie: string) {
 }
 
 
-    onSubmit() {
+  onSubmit() {
     if (this.mascotaForm.invalid) {
       console.log("from invalido");
       console.log(this.mascotaForm);
@@ -124,7 +127,7 @@ onEspecieChange(especie: string) {
       return;
     }
     const mascotaData = this.mascotaForm.value;
-    console.log(mascotaData);
+    
 
     if (this.idMascota) {
       if (!this.mascotaForm.dirty) {
@@ -137,7 +140,19 @@ onEspecieChange(especie: string) {
         },
         error: (err) => console.error(err)
       });
-    } else {
+    } if (this.id_user){
+      const mascotawithIDuser = Object.assign({}, this.mascotaForm.value);
+      mascotawithIDuser.id_user=this.id_user
+      this.mascotaService.RegisterMascotaByuser(mascotawithIDuser).subscribe({
+        next: () => {
+          this.toast.showAfterRedirect('Mascota registrada correctamente 🐾');
+          this.router.navigate(['/vet/users-list']);
+        },
+        error: (err) => console.error(err)
+      });
+
+    }
+    else {
       this.mascotaService.RegisterMascota(mascotaData).subscribe({
         next: () => {
           this.toast.showAfterRedirect('Mascota registrada correctamente 🐾');

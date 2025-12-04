@@ -1,0 +1,127 @@
+<div class="container">
+    <div class="form-card">
+        <h1 class="title">Nuevo Registro para {{ petName }}</h1>
+
+        <form [formGroup]="recordForm" (ngSubmit)="onSubmit()">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="veterinarian">Veterinario</label>
+                    <input 
+                        type="text" 
+                        id="veterinarian" 
+                        formControlName="veterinarian" 
+                        readonly 
+                        placeholder="Dr. Zavala Ruiz"
+                        class="form-control" 
+                    />
+                </div>
+
+                <div class="form-group">
+                    <label for="date">Fecha</label>
+                    <input 
+                        type="date" 
+                        id="date" 
+                        formControlName="fecha" 
+                        class="form-control" 
+                        readonly
+                    />
+                </div>
+            </div>
+
+            <!-- Observaciones -->
+            <div class="form-group full-width">
+                <label for="observations">Observaciones</label>
+                <textarea 
+                    id="observations" 
+                    formControlName="observations" 
+                    rows="6" 
+                    class="form-control" 
+                    placeholder="Escribe observaciones sobre la consulta..."
+                ></textarea>
+            </div>
+
+            <!-- Sección de Medicamentos y Tratamientos -->
+            <div class="treatments-section">
+                <h2 class="section-title">Medicamentos y Tratamientos</h2>
+
+                <!-- Tratamiento como checkbox -->
+                <div class="treatment-option" formGroupName="treatments">
+                    <label class="checkbox-container">
+                        <input 
+                            type="checkbox" 
+                            formControlName="desparasitante"
+                        />
+                        <span class="checkbox-label">Desparasitante</span>
+                    </label>
+                </div>
+
+
+                <div class="vaccine-section">
+                    <h3 class="subsection-title">Vacunas</h3>
+                    <div formGroupName="obligatoryVaccines">
+                        <div class="checkbox-grid">
+                            @for (vaccine of obligatoryVaccines; track vaccine.value) {
+                                <label class="checkbox-container">
+                                    <input 
+                                        type="checkbox" 
+                                        [formControlName]="vaccine.value"
+                                    />
+                                    <span class="checkbox-label">{{ vaccine.name }}</span>
+                                </label>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medicamentos como checkbox -->
+                <div class="vaccine-section">
+                    <label class="checkbox-container">
+                        <input 
+                            type="checkbox" 
+                            formControlName="hasMedicines"
+                        />
+                        <span class="checkbox-label">Medicamentos</span>
+                    </label>
+                    
+                    <textarea 
+                        *ngIf="recordForm.get('hasMedicines')?.value"
+                        formControlName="medicines" 
+                        rows="3" 
+                        class="form-control mt-2"
+                        placeholder="Escriba los medicamentos utilizados"
+                    ></textarea>
+                </div>
+            </div>
+
+            <!-- Sección de Cuidados -->
+            <div class="treatments-section">
+                <h2 class="section-title">Cuidados</h2>
+                
+                <div formGroupName="cuidados">
+                    <div class="checkbox-grid">
+                        @for (cuidado of cuidadosList; track cuidado.id) {
+                            <label class="checkbox-container">
+                                <input 
+                                    type="checkbox" 
+                                    [formControlName]="cuidado.id"
+                                />
+                                <span class="checkbox-label">{{ cuidado.name }}</span>
+                            </label>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botón de Submit -->
+            <div class="button-container">
+                <button 
+                    type="submit" 
+                    class="submit-button" 
+                    [disabled]="recordForm.invalid"
+                >
+                    Registrar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

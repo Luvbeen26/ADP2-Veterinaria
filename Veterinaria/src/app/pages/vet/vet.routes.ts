@@ -3,6 +3,7 @@ import { Consultas } from "./consultas/consultas";
 import { HistorialMedico } from "./historial-medico/historial-medico";
 import { Estadisticas } from "./estadisticas/estadisticas";
 import { Users } from "./users/users";
+import { RegConsulta } from "./reg-consulta/reg-consulta";
 
 
 
@@ -17,4 +18,5 @@ export const VET_ROUTES:Routes = [
         loadComponent: () => import('../pets/register-pet/register-pet').then(m => m.RegisterPet),
         data: { mode: 'register-byuser' }
     },
+    {path:'registrar-consulta',component:RegConsulta},
 ]

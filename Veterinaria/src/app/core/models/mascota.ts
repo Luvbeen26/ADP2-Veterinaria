@@ -15,6 +15,10 @@ export interface MascotaBase {
 
 export interface MascotaCreate extends MascotaBase {}
 
+export interface MascotaCreatewithID extends MascotaBase {
+  id_user:number
+}
+
 export interface MascotaUpdate {
   nombre?: string;
   fecha_nacimiento?: string;
