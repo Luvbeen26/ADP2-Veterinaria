@@ -25,7 +25,14 @@ export interface ConsultaBase {
   medicacion?: string | null;
 }
 
-export interface ConsultaCreate extends ConsultaBase {}
+//export interface ConsultaCreate extends ConsultaBase {
+export interface ConsultaCreate {
+  motivo:string
+  diagnostico?:string;
+  observaciones?:string;
+  tratamientos?:tratamiento[];
+  cuidados?:cuidados[];
+}
 
 export interface ConsultaUpdate {
   motivo?: string | null;
@@ -41,5 +48,19 @@ export interface ConsultaResponse extends ConsultaBase {
 }
 export interface ResumenResponse{
     resumen:string
+}
+
+export interface tratamiento{
+  tipo:string;
+  descripcion:string;
+}
+
+export interface cuidados{
+  id:number;
+  descripcion:string;
+}
+
+export interface cuidadosWithSpecie extends cuidados{
+  especie:string;
 }
 
