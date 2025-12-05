@@ -2,9 +2,8 @@ import { inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { citas, ConsultaCreate, ConsultaResponse, ResumenResponse } from '../../models/consultas';
-import { Auth } from '../auth/auth';
-import { Getspecie, MascotaOut } from '../../models/mascota';
+import { citas, ConsultaCreate, ConsultaResponse, ResumenResponse } from '../../models/consultas';import { Auth } from '../auth/auth';
+import { GetCita, MascotaOut } from '../../models/mascota';
 
 @Injectable({
   providedIn: 'root'
@@ -77,10 +76,10 @@ export class Consulta {
   public get_pendient_citas(status:string): Observable<citas[]>{
     return this.http.get<citas[]>(`${this.api}citas/show/citas`,{params:{status}});
   }
-
+/*
   public Mark_accept_cita(id_cita:number){
     return this.http.patch<any>(`${this.api}citas/mark/accept/${id_cita}`,{});
-  }
+  }*/
 
   public Mark_refuse_cita(id_cita:number){
     return this.http.patch<any>(`${this.api}citas/mark/refused/${id_cita}`,{});
@@ -104,8 +103,8 @@ export class Consulta {
     return especie == "gato" ? this.tratamientosJson.gato : this.tratamientosJson.perro
   }
 
-  GetSpecie(id:number):Observable <Getspecie>{
-    return this.http.get<Getspecie>(`${this.api}pet/get/specie?id=${id}`)
+  GetCita(id:number):Observable <GetCita>{
+    return this.http.get<GetCita>(`${this.api}consultas/cita_data/${id}`)
   }
 
   

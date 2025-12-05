@@ -15,7 +15,7 @@ export interface citas{
     notas:string
 };
 
-
+/*
 export interface ConsultaBase {
   id_cita: number;
   motivo: string;
@@ -24,14 +24,18 @@ export interface ConsultaBase {
   tratamiento?: string | null;
   medicacion?: string | null;
 }
+*/
+export interface ConsultaBase {
+  id_cita: number;
+  motivo: string;
+  diagnostico?: string | null;
+  observaciones?: string | null;
+  tratamientos?: tratamiento[] | null;
+}
 
 //export interface ConsultaCreate extends ConsultaBase {
-export interface ConsultaCreate {
-  motivo:string
-  diagnostico?:string;
-  observaciones?:string;
-  tratamientos?:tratamiento[];
-  cuidados?:cuidados[];
+export interface ConsultaCreate extends ConsultaBase {
+  cuidados?:cuidados[] | null;
 }
 
 export interface ConsultaUpdate {
@@ -47,7 +51,7 @@ export interface ConsultaResponse extends ConsultaBase {
   cita?: citas | null;
 }
 export interface ResumenResponse{
-    resumen:string
+  resumen:string
 }
 
 export interface tratamiento{

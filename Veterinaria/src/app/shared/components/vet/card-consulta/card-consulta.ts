@@ -7,6 +7,7 @@ import { Auth } from '../../../../core/services/auth/auth';
 import { CitaService } from '../../../../core/services/vet/cita-service';
 import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog';
 import { MatDialog } from '@angular/material/dialog';
+import { MatTooltip } from "@angular/material/tooltip";
 
 @Component({
   selector: 'app-card-consulta',
@@ -31,7 +32,7 @@ export class CardConsulta {
     console.log(this.cardconsulta.servicio)
   }
 
-
+/*
   Mark_Asistido(){
     this.consultService.Mark_accept_cita(this.cardconsulta.id_cita).subscribe({
       next: (res) => {
@@ -41,7 +42,7 @@ export class CardConsulta {
       } ,
       error: (err) => console.log(err)
     })
-  }
+  }*/
   
   Mark_NOAsistido(){
     this.consultService.Mark_refuse_cita(this.cardconsulta.id_cita).subscribe({
