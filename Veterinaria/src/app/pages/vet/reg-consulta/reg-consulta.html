@@ -1,12 +1,12 @@
 <div class="container">
     <div class="form-card">
-        <h1 class="title">Nuevo Registro para {{ petName }}</h1>
+        <h1 class="title">Nuevo Registro {{ petName()}}</h1>
 
         <form [formGroup]="recordForm" (ngSubmit)="onSubmit()">
             <div class="form-row">
                 <div class="form-group">
                     <label for="veterinarian">Veterinario</label>
-                    <input type="text" id="veterinarian" readonly placeholder="Dr. Zavala Ruiz"class="form-control" />
+                    <input type="text" id="veterinarian" readonly [placeholder]="vetName()"  class="form-control" />
                 </div>
 
                 <div class="form-group">
@@ -45,8 +45,8 @@
                     <label class="checkbox-container">
                         <input 
                             type="checkbox" 
-                            [checked]="isTratamientoSelected('desparasitante', 'desparasitate')"
-                            (change)="toggleTratamiento('desparasitante', 'desparasitate')"
+                            [checked]="isTratamientoSelected('desparasitante', 'Desparasitante')"
+                            (change)="toggleTratamiento('desparasitante', 'Desparasitante')"
                         />
                         <span class="checkbox-label">Desparasintate </span>
                     </label>
@@ -94,7 +94,7 @@
                 <h2 class="section-title">Cuidados</h2>
                 
                 <div class="checkbox-grid">
-                    @for (cuidado of cuidadosLst(); track cuidado.id) {
+                    @for (cuidado of cuidadosLst(); track $index) {
                         <label class="checkbox-container">
                             <input 
                                 type="checkbox" 

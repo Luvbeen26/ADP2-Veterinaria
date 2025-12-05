@@ -33,9 +33,13 @@
     @if (status == "P") {
         @if (authService.get_userRol() == 'V'){
             <div class="buttons flex">
-                <button class="primary_button" (click)="Mark_Asistido()"><mat-icon>check_circle</mat-icon> Asistio</button>
-                <button class="third_button" (click)="Mark_NOAsistido()"><mat-icon>cancel</mat-icon>No asistio</button>
+                <!--<button class="primary_button" (click)="Mark_Asistido()"><mat-icon>check_circle</mat-icon></button>-->
+                <button class="third_button" (click)="Mark_NOAsistido()"><mat-icon>cancel</mat-icon>No Asistio</button>
+                <button class="primary_button" [routerLink]="'/vet/registrar-consulta/'+cardconsulta.id_cita"><mat-icon>add_circle</mat-icon>
+                    Crear Registro
+                </button>
             </div>
+            
         }@else if(authService.get_userRol() == 'C') {
             <div class="buttons flex">
                 <a class="primary_button" [routerLink]="'/pets/edit-appointment/'+cardconsulta.id_cita.toString()"><mat-icon>calendar_month</mat-icon>Reagendar</a>

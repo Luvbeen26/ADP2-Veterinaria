@@ -1,15 +1,15 @@
 import { Component, inject, signal } from '@angular/core';
 import { MatIconModule } from "@angular/material/icon";
 import { Consulta } from '../../../core/services/vet/consulta';
-import { ConsultaResponse, ResumenResponse } from '../../../core/models/consultas';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ConsultaResponse, ResumenResponse, tratamiento } from '../../../core/models/consultas';
+import { ActivatedRoute } from '@angular/router';
 import { Mascota } from '../../../core/services/mascota/mascota';
 import { Auth } from '../../../core/services/auth/auth';
 import { MascotaOut } from '../../../core/models/mascota';
 
 @Component({
   selector: 'app-historial-medico',
-  imports: [MatIconModule, RouterLink],
+  imports: [MatIconModule],
   templateUrl: './historial-medico.html',
   styleUrl: './historial-medico.css'
 })
@@ -40,6 +40,7 @@ export class HistorialMedico {
     this.consultaService.getConsultasByMascotaId(id_consulta).subscribe({
       next:(data)=>{
         this.consultas.set(data);
+        console.log(data)
       },
       error:(err)=>{
         console.log(err);
@@ -60,6 +61,13 @@ export class HistorialMedico {
         console.log(err)
       }
     })
+  }
+
+  getTiposUnicos(tratamientos: tratamiento[] | null | undefined): string[] {
+    if (!tratamientos || tratamientos.length === 0) return [];
+    
+    const tipos = new Set(tratamientos.map(t => t.tipo));
+    return Array.from(tipos);
   }
 
   getMAscotaById(id_mascota:number){

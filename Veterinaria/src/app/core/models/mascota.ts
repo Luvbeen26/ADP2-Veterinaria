@@ -78,6 +78,11 @@ export interface CartillaMascotaOut {
   consultas: ConsultaItem[];
 }
 
-export interface Getspecie{
+export interface GetCita{
+  id_cita:number;
+  id_mascota:number;
+  id_vet : number,
+  vet_name: string,
+  pet_name:string;
   especie:string;
 }
