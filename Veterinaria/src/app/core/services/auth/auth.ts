@@ -132,6 +132,9 @@ export class Auth {
     if (this.isBrowser) { // ← FALTABA: Solo en navegador
       this.cookies.delete('access_token', '/');
       this.currentUserSubject.next(null);
+      this.router.navigate(['/']).then(() => {
+        window.location.reload();
+      });
     }
   }
 

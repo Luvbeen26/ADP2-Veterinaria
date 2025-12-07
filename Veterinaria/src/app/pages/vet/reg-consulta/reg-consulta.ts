@@ -44,23 +44,47 @@ export class RegConsulta {
   
   
   cuidadosList = [
-    { "id": 1,  "descripcion": "Aplicar nebulizaciones", "especie": "PG" },
-    { "id": 4,  "descripcion": "Alimento con proteina", "especie": "PG" },
-    { "id": 8,  "descripcion": "Aumentar Raciones", "especie": "PG" },
-    { "id": 2,  "descripcion": "Colocar arena adecuada", "especie": "G" },
-    { "id": 7,  "descripcion": "Controlar Raciones", "especie": "PG" },
-    { "id": 6,  "descripcion": "Dar alimentos suaves", "especie": "PG" },
-    { "id": 9,  "descripcion": "Desparasitar", "especie": "PG" },
-    { "id": 13, "descripcion": "Estimular con juguetes", "especie": "G" },
-    { "id": 5,  "descripcion": "Evitar alimentos grasosos", "especie": "PG" },
-    { "id": 15, "descripcion": "Evitar actividad física intensa", "especie": "P" },
-    { "id": 10, "descripcion": "Hidratar mas", "especie": "PG" },
-    { "id": 3,  "descripcion": "Limpiar entorno", "especie": "PG" },
-    { "id": 11, "descripcion": "Ofrecer sueros orales", "especie": "PG" },
-    { "id": 14, "descripcion": "Realizar actividad fisica", "especie": "PG" },
-    { "id": 12, "descripcion": "Revisar signos de deshidratacion", "especie": "PG" },
-    
+      { "id": 24, "descripcion": "Aislar en caso de enfermedad para evitar contagios", "especie": "PG" },
+      { "id": 1,  "descripcion": "Aplicar nebulizaciones", "especie": "PG" },
+      { "id": 18, "descripcion": "Aplicar compresas tibias", "especie": "PG" },
+      { "id": 19, "descripcion": "Aplicar compresas frías", "especie": "PG" },
+
+      { "id": 4,  "descripcion": "Alimento con proteina", "especie": "PG" },
+
+      { "id": 8,  "descripcion": "Aumentar Raciones", "especie": "PG" },
+
+      { "id": 2,  "descripcion": "Colocar arena adecuada", "especie": "G" },
+      { "id": 21, "descripcion": "Dividir la comida en porciones pequeñas", "especie": "PG" },
+
+      { "id": 7,  "descripcion": "Controlar Raciones", "especie": "PG" },
+
+      { "id": 6,  "descripcion": "Dar alimentos suaves", "especie": "PG" },
+      
+
+      { "id": 9,  "descripcion": "Desparasitar", "especie": "PG" },
+
+      { "id": 13, "descripcion": "Estimular con juguetes", "especie": "G" },
+      { "id": 15, "descripcion": "Evitar actividad física intensa", "especie": "P" },
+      { "id": 5,  "descripcion": "Evitar alimentos grasosos", "especie": "PG" },
+      { "id": 17, "descripcion": "Evitar cambios bruscos de temperatura", "especie": "PG" },
+
+      { "id": 10, "descripcion": "Hidratar mas", "especie": "PG" },
+      { "id": 26, "descripcion": "Humedecer el alimento para facilitar la ingesta", "especie": "PG" },
+      { "id": 25, "descripcion": "Introducir nuevos alimentos de forma gradual", "especie": "PG" },
+      { "id": 3,  "descripcion": "Limpiar entorno", "especie": "PG" },
+      { "id": 23, "descripcion": "Bañar con shampoo adecuado", "especie": "PG" },
+      
+      { "id": 16, "descripcion": "Mantener en reposo", "especie": "PG" },
+      { "id": 22, "descripcion": "Ofrecer caldos sin sal como hidratación suave", "especie": "PG" },
+      { "id": 11, "descripcion": "Ofrecer sueros orales", "especie": "PG" },
+      
+      { "id": 14, "descripcion": "Realizar actividad fisica", "especie": "PG" },
+
+      { "id": 12, "descripcion": "Revisar signos de deshidratacion", "especie": "PG" },
+
+      { "id": 20, "descripcion": "Supervisar heridas o zonas irritadas", "especie": "PG" }
   ];
+
 
   constructor(private fb: FormBuilder,private route: ActivatedRoute) {}
 

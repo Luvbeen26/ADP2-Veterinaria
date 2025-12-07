@@ -3,7 +3,7 @@ import { environment } from '../../../../environments/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { citas, ConsultaCreate, ConsultaResponse, ResumenResponse } from '../../models/consultas';import { Auth } from '../auth/auth';
-import { GetCita, MascotaOut } from '../../models/mascota';
+import { GetCita, GetRecomendaciones, MascotaOut } from '../../models/mascota';
 
 @Injectable({
   providedIn: 'root'
@@ -107,5 +107,7 @@ export class Consulta {
     return this.http.get<GetCita>(`${this.api}consultas/cita_data/${id}`)
   }
 
-  
+  GetRecomendaciones(): Observable<GetRecomendaciones[]>{
+    return this.http.get<GetRecomendaciones[]>(`${this.api}consultas/get/recomendaciones`);
+  }
 }

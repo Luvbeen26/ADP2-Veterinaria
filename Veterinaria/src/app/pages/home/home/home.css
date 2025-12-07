@@ -118,6 +118,169 @@ h2{
     object-fit: cover;
 }
 
+
+.Recommendation h2{
+    color: #1f2937;
+    text-align: center;
+}
+
+.recommendations-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.pet-recommendation-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+
+.pet-header {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.title-recommendation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.pet-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 28px;
+}
+
+.title-recommendation h2 {
+    margin: 0;
+}
+
+.pet-name {
+    
+    font-size: 25px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0;
+}
+
+.care-sections {
+    gap: 15px;
+}
+
+.care-section {
+    background: #f9fafb;
+    border-radius: 12px;
+    padding: 25px;
+}
+
+.care-section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.care-section-title h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0;
+}
+
+.care-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.veterinary-icon {
+    background-color: #dcfce7;
+    color: #16a34a;
+}
+
+.recommendation-icon {
+    background-color: #dbeafe;
+    color: #3b82f6;
+}
+
+.care-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.care-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 5px;
+    background: white;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+}
+
+
+
+.care-item-bullet {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+}
+
+.veterinary-care .care-item-bullet {
+    background-color: #16a34a;
+}
+
+.recommended-care .care-item-bullet {
+    background-color: #3b82f6;
+}
+
+.care-item-text {
+    font-size: 15px;
+    color: #4b5563;
+    line-height: 1.6;
+}
+
+@media (min-width: 1230px) {
+    .recommendations-section {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 @media (max-width: 1230px) {
     .service-cards {
         grid-template-columns: repeat(2, 1fr);

@@ -8,6 +8,83 @@
         </div>
     </section>
 
+    @if (mascotas_recomendaciones()) {
+        <section class="Recommendation">
+        <div class="title-recommendation">
+            <div class="pet-icon">
+                <mat-icon>pets</mat-icon>
+                    
+            </div>
+            <h2>Recomendacion de cuidados</h2>
+        </div>
+        
+        
+        <div class="recommendations-section">
+            @for (m of mascotas_recomendaciones(); track $index) {
+                @if ((m.cuidados_veterinario && m.cuidados_veterinario.length > 0) ||(m.cuidados_recomendadas && m.cuidados_recomendadas.length > 0)) {
+                <div class="pet-recommendation-card flex-column">
+                    <div class="pet-header">
+                        
+                        <h3 class="pet-name">{{m.nombre_mascota}}</h3>
+                    </div>
+                    
+                    <div class="care-sections flex-column">
+                        @if(m.cuidados_veterinario.length > 0){
+                        <div class="care-section veterinary-care">
+                            <div class="care-section-title">
+                                <div class="care-icon veterinary-icon">
+                                    <mat-icon>medical_services</mat-icon>
+                                </div>
+                                <h3>
+                                    Sugeridos por el Veterinario                                    
+                                </h3>
+                            </div>
+                            <ul class="care-list">
+                                
+                                    @for (cv of m.cuidados_veterinario; track $index) {
+                                        <li class="care-item">
+                                            <span class="care-item-bullet"></span>
+                                            <span class="care-item-text">{{cv.descripcion}}</span>
+                                        </li>
+                                    }
+                                
+                                
+                            </ul>
+                        
+                        </div>
+                        }
+                        @if (m.cuidados_recomendadas && m.cuidados_recomendadas.length > 0) {
+                        <div class="care-section recommended-care">
+                            <div class="care-section-title">
+                                <div class="care-icon recommendation-icon">
+                                    <mat-icon>auto_awesome</mat-icon>
+                                </div>
+                                <h3>
+                                    Basado en otras Consultas
+                                    
+                                </h3>
+                            </div>
+                            <ul class="care-list">
+                                @for (cr of m.cuidados_recomendadas; track $index) {
+                                    <li class="care-item">
+                                        <span class="care-item-bullet"></span>
+                                        <span class="care-item-text">{{cr.descripcion}}</span>
+                                    </li>
+                                }
+                                
+                            </ul>
+                        </div>
+                        }
+                    </div>
+                </div>
+                }
+            }
+        </div>
+        </section>
+    }
+
+
+
     <section class="Contact-Us">
         <div class="contact-container">
             <div class="contact-info">
