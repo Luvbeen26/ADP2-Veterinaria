@@ -57,6 +57,7 @@ export class HistorialMedico {
         this.mascota.set(data);
       },
       error:(err)=>{
+        
         this.loading=false;
         console.log(err)
       }

@@ -86,3 +86,16 @@ export interface GetCita{
   pet_name:string;
   especie:string;
 }
+
+interface cuidados{
+  id_cuidado:number ,
+  descripcion: string,
+}
+
+export interface GetRecomendaciones{
+  nombre_mascota:string,
+  id_mascota:number,
+  id_consulta:number,
+  cuidados_veterinario:cuidados[],
+  cuidados_recomendadas:cuidados[],
+}
