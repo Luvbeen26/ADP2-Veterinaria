@@ -199,42 +199,53 @@ export class Estadisticas {
     }
   };
 
-    updateCharts(data: DashboardResponse) {
 
-  // ------------------ LINE CHART ------------------
+updateCharts(data: DashboardResponse) {
+
+  // ---------- LINE CHART (Clientes últimos 6 meses) ----------
   this.lineChartData.labels = data.clientes_mascotas.nuevos_clientes_6_meses.map(c => c.mes);
   this.lineChartData.datasets[0].data = data.clientes_mascotas.nuevos_clientes_6_meses.map(c => c.total);
 
-  // ------------------ PIE MASCOTAS ------------------
+
+  // ---------- PIE MASCOTAS ----------
   this.pieChartData.labels = data.clientes_mascotas.mascotas_por_especie.map(m => m.especie);
   this.pieChartData.datasets[0].data = data.clientes_mascotas.mascotas_por_especie.map(m => m.total);
 
-  // ------------------ BAR FINANZAS ------------------
-  this.barFinanceData.labels = data.finanzas.ingreso_mensual_por_servicio.map(s => s.mes);
 
-  this.barFinanceData.datasets = data.finanzas.ingreso_mensual_por_servicio.map(s => ({
-    label: s.servicio,
-    data: [s.total]
+  // ---------- BAR FINANZAS (muchos servicios / muchos meses) ----------
+  const meses = [...new Set(data.finanzas.ingreso_mensual_por_servicio.map(i => i.mes))];
+  this.barFinanceData.labels = meses;
+
+  const servicios = [...new Set(data.finanzas.ingreso_mensual_por_servicio.map(i => i.servicio))];
+
+  this.barFinanceData.datasets = servicios.map(serv => ({
+    label: serv,
+    data: meses.map(m => {
+      const encontrado = data.finanzas.ingreso_mensual_por_servicio
+        .find(i => i.servicio === serv && i.mes === m);
+      return encontrado?.total ?? 0;
+    })
   }));
 
-  // ------------------ PIE EGRESOS ------------------
-  this.pieExpensesData.labels = data.finanzas.distribucion_egresos.map(e => e.motivo ?? 'Desconocido');
-  this.pieExpensesData.datasets[0].data = data.finanzas.distribucion_egresos.map(e => e.total ?? 0);
 
-  // ------------------ TOP SERVICIOS ------------------
-  const totalVisitas = data.servicios.mas_solicitados
-    .reduce((sum, s) => sum + s.visitas, 0);
+  // ---------- PIE EGRESOS ----------
+  this.pieExpensesData.labels = data.finanzas.distribucion_egresos.map(e => e.motivo);
+  this.pieExpensesData.datasets[0].data = data.finanzas.distribucion_egresos.map(e => Number(e.total ?? 0));
 
+
+  // ---------- TOP SERVICIOS ----------
+  const totalVisitas = data.servicios.mas_solicitados.reduce((s, i) => s + i.visitas, 0);
   const colors = ['#1F4FFF', '#1DB954', '#D82C2C', '#F8A52A'];
 
   this.topServices = data.servicios.mas_solicitados.map((s, i) => ({
     name: s.servicio,
     visits: s.visitas,
-    percent: totalVisitas > 0 ? Math.round((s.visitas / totalVisitas) * 100) : 0,
+    percent: totalVisitas ? Math.round((s.visitas / totalVisitas) * 100) : 0,
     color: colors[i % colors.length]
   }));
 
-  // ------------------ RENTABILIDAD ------------------
+
+  // ---------- RENTABILIDAD ----------
   this.profitability = data.finanzas.rentabilidad_servicios.map(r => ({
     name: r.servicio,
     percent: r.porcentaje,
@@ -242,7 +253,8 @@ export class Estadisticas {
     costos: `$${r.costos}`
   }));
 
-  // ------------------ TENDENCIA SERVICIOS ------------------
+
+  // ---------- TENDENCIA 6 MESES ----------
   this.serviceTrendData.labels = data.servicios.tendencia_6_meses.map(t => t.mes);
 
   this.serviceTrendData.datasets = [
@@ -259,8 +271,8 @@ export class Estadisticas {
 
 
 
-
   activeSelected(selected:string){
     this.selectedChart = selected;
   }
+
 }
