@@ -113,7 +113,7 @@
         }@else if (selectedChart == 'finanzas') {
             
                 <div class="chart-card">
-                    <h4>Ingresos mensuales por servicio</h4>
+                    <h4>Ingresos mensuales consulta</h4>
                     <div style="display: block; height: 350px;">
                         <canvas
                             baseChart
@@ -196,17 +196,17 @@
 
         <div class="avg-grid">
             <div class="avg-box">
-                <span class="avg-label">Por visita</span>
+                <span class="avg-label">Por visita: </span>
                 <strong class="avg-value">${{statistics()?.servicios?.promedio_gasto?.por_visita}}</strong>
             </div>
 
             <div class="avg-box">
-                <span class="avg-label">Mensual</span>
+                <span class="avg-label">Mensual: </span>
                 <strong class="avg-value">${{statistics()?.servicios?.promedio_gasto?.mensual}}</strong>
             </div>
 
             <div class="avg-box">
-                <span class="avg-label">Anual</span>
+                <span class="avg-label">Anual: </span>
                 <strong class="avg-value">${{statistics()?.servicios?.promedio_gasto?.anual}}</strong>
             </div>
         </div>
