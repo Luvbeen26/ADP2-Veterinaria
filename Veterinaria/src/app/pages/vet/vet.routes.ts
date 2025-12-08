@@ -4,6 +4,7 @@ import { HistorialMedico } from "./historial-medico/historial-medico";
 import { Estadisticas } from "./estadisticas/estadisticas";
 import { Users } from "./users/users";
 import { RegConsulta } from "./reg-consulta/reg-consulta";
+import { Appointment } from "../pets/appointment/appointment";
 
 
 
@@ -20,4 +21,5 @@ export const VET_ROUTES:Routes = [
     },
     {path:'registrar-consulta',component:RegConsulta},
     {path:'registrar-consulta/:id',component:RegConsulta},
+    {path: 'edit-appointment/:id', component:Appointment}
 ]

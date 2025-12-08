@@ -17,8 +17,8 @@
         <div class="info flex">
             <mat-icon style="color:#375CE2">schedule</mat-icon>
             <div class="info-descr flex-column">
-                <p>Hora:</p>
-                <b>{{cardconsulta.hora}}</b>
+                <p>Fecha y Hora:</p>
+                <b>{{cardconsulta.hora}} {{cardconsulta.fecha}}</b>
             </div>
         </div>
         <div class="info flex">
@@ -31,6 +31,37 @@
     </div>
 
     @if (status == "P") {
+       @if (cardconsulta.notas) {
+
+    @let n = getNotasParsed(cardconsulta.notas);
+
+    @if (n) {
+        <div class="notas-container">
+
+            <p><strong>Estado general:</strong> {{ n.estadoGeneral }}</p>
+
+            <p><strong>Síntomas:</strong></p>
+            <div class="sintomas-list">
+                @for (s of n.sintomas; track $index) {
+                    <span class="symptom">{{ s }}</span>
+                }
+                @if (n.sintomas.length === 0) {
+                    <span class="no-data">No especificado</span>
+                }
+            </div>
+
+            <p><strong>Medicamentos:</strong> {{ n.medicamentos }}</p>
+
+            @if (n.duracionSintomas) {
+                <p><strong>Duración de síntomas:</strong> {{ formatDuracion(n.duracionSintomas) }}</p>
+            }
+
+        </div>
+    }
+
+}
+
+
         @if (authService.get_userRol() == 'V'){
             <div class="buttons flex">
                 <!--<button class="primary_button" (click)="Mark_Asistido()"><mat-icon>check_circle</mat-icon></button>-->
@@ -38,6 +69,7 @@
                 <button class="primary_button" [routerLink]="'/vet/registrar-consulta/'+cardconsulta.id_cita"><mat-icon>add_circle</mat-icon>
                     Crear Registro
                 </button>
+                <button class="primary_button" [routerLink]="'/vet/edit-appointment/'+cardconsulta.id_cita.toString()"><mat-icon>calendar_month</mat-icon>Reagendar</button>
             </div>
             
         }@else if(authService.get_userRol() == 'C') {
@@ -46,9 +78,10 @@
                 <button class="third_button red" (click)="cancelarCita(cardconsulta.id_cita)"><mat-icon>cancel</mat-icon>Cancelar</button>
             </div>
         }
+
     }@else{
         <div class="button">
-            <button class="primary_button">Ver detalles</button>
+            <button class="details_button primary_button">Ver detalles</button>
         </div>    
     }
     

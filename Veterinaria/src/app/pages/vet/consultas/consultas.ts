@@ -2,12 +2,13 @@ import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { CardConsulta } from '../../../shared/components/vet/card-consulta/card-consulta';
 import { response } from 'express';
 import { Consulta } from '../../../core/services/vet/consulta';
-import { citas } from '../../../core/models/consultas';
+import { citas, ConsultaResponse } from '../../../core/models/consultas';
 import { MatIconModule } from '@angular/material/icon';
-import { catchError, map, Observable, of } from 'rxjs';
+import { catchError, filter, map, Observable, of, take } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Auth } from '../../../core/services/auth/auth';
 import { ToastService } from '../../../core/services/extra/toast-service';
+import { error } from 'node:console';
 
 @Component({
   selector: 'app-consultas',
@@ -20,6 +21,7 @@ export class Consultas {
   authService=inject(Auth)
   toast=inject(ToastService)
   citas:citas[]=[];
+  citasUrgentes:citas[] = [];
   dates$!: Observable<any[]>;
   status="P"
   empty_title="No hay Consultas Pendientes"
@@ -31,12 +33,15 @@ export class Consultas {
     "Septiembre", "Octubre", "Noviembre", "Diciembre"
   ];
   ngOnInit(){
-
-    this.authService.currentUser$.subscribe(user => {
-      if (user) {
-        this.get_pendients()
-      }
-    });
+      this.authService.currentUser$
+      .pipe(
+        filter(user => !!user), // solo cuando el user ya existe
+        take(1)                 // evita múltiples ejecuciones
+      )
+      .subscribe(() => {
+        this.get_pendients();
+        this.get_citas_urgentes();
+      });
     this.toast.checkRedirectMessage();
   }
 
@@ -81,6 +86,17 @@ export class Consultas {
 
       )
     );
+  }
+
+  get_citas_urgentes(){
+    this.consultaService.getConsultasUrgentes().subscribe({
+      next:(data)=>{
+        this.citasUrgentes = data;
+        console.log(data)
+      },error:(err)=>{
+        console.log(err);
+      }
+    })
   }
 
   transformDate(date:String):string{

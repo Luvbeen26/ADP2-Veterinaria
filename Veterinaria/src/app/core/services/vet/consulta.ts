@@ -81,6 +81,10 @@ export class Consulta {
     return this.http.patch<any>(`${this.api}citas/mark/accept/${id_cita}`,{});
   }*/
 
+  public getConsultasUrgentes():Observable<citas[]>{
+    return this.http.get<citas[]>(`${this.api}citas/ranking/citas`);
+  }
+
   public Mark_refuse_cita(id_cita:number){
     return this.http.patch<any>(`${this.api}citas/mark/refused/${id_cita}`,{});
   }

@@ -118,4 +118,167 @@
 }
 .notes p{
     align-self: flex-start
+}/* =========================
+   Wizard Container
+   ========================= */
+.wizard-container {
+    background: #f8f8ff;
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin-top: 2rem;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+    text-align: left;
 }
+
+.wizard-container h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #375CE2;
+}
+
+/* =========================
+   Wizard Steps
+   ========================= */
+.wizard-step {
+    animation: fadeStep 0.35s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+@keyframes fadeStep {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Preguntas */
+.wizard-question {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+/* Inputs de radio y checkbox */
+.wizard-step label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #444;
+}
+
+.wizard-step input[type="radio"],
+.wizard-step input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #375CE2;
+}
+
+/* Textarea para observaciones */
+.wizard-step textarea {
+    width: 100%;
+    height: 110px;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #d6d9f5;
+    resize: none;
+    font-size: 14px;
+    background: white;
+    transition: 0.2s;
+    margin-bottom: 1rem;
+}
+
+.wizard-step textarea:focus {
+    outline: none;
+    border-color: #375CE2;
+    box-shadow: 0 0 0 3px rgba(55,92,226,0.15);
+}
+
+/* Select de observaciones */
+.wizard-step select {
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #d6d9f5;
+    outline: none;
+    background: white;
+    transition: 0.2s;
+    width: fit-content;
+    min-width: 180px;
+}
+
+.wizard-step select:focus {
+    border-color: #375CE2;
+    box-shadow: 0 0 0 3px rgba(55,92,226,0.15);
+}
+
+/* =========================
+   Wizard Navigation
+   ========================= */
+.wizard-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    gap: 10px;
+}
+
+/* Botones */
+.wizard-btn {
+    background: #375CE2;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.wizard-btn:hover {
+    background: #2f4ec0;
+}
+
+.wizard-btn.secondary {
+    background: #ddd;
+    color: #333;
+}
+
+.wizard-btn.secondary:hover {
+    background: #ccc;
+}
+
+.wizard-btn.finish {
+    background: #28a745;
+}
+
+.wizard-btn.finish:hover {
+    background: #1e8f39;
+}
+
+/* Mensaje final */
+.wizard-step p {
+    margin-top: 10px;
+    color: #555;
+    font-style: italic;
+}
+/* Observaciones extra del wizard */
+.wizard-step input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #d6d9f5;
+    font-size: 14px;
+    margin-top: 8px;
+    margin-bottom: 1rem;
+    transition: 0.2s;
+    background: white;
+}
+
+.wizard-step input[type="text"]:focus {
+    outline: none;
+    border-color: #375CE2;
+    box-shadow: 0 0 0 3px rgba(55, 92, 226, 0.15);
+}
+
