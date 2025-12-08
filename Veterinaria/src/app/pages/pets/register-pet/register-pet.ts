@@ -130,38 +130,40 @@ onEspecieChange(especie: string) {
     
 
     if (this.idMascota) {
-      if (!this.mascotaForm.dirty) {
-        return;
-      }
-      this.mascotaService.updateMascota(this.idMascota, mascotaData).subscribe({
-        next: () => {
-          this.toast.showAfterRedirect('Mascota editada correctamente 🐾');
-          this.router.navigate(['/pets']);
-        },
-        error: (err) => console.error(err)
-      });
-    } if (this.id_user){
-      const mascotawithIDuser = Object.assign({}, this.mascotaForm.value);
-      mascotawithIDuser.id_user=this.id_user
-      this.mascotaService.RegisterMascotaByuser(mascotawithIDuser).subscribe({
-        next: () => {
-          this.toast.showAfterRedirect('Mascota registrada correctamente 🐾');
-          this.router.navigate(['/vet/users-list']);
-        },
-        error: (err) => console.error(err)
-      });
 
+  // UPDATE
+  if (!this.mascotaForm.dirty) return;
+
+  this.mascotaService.updateMascota(this.idMascota, mascotaData).subscribe({
+    next: () => {
+      this.toast.showAfterRedirect('Mascota editada correctamente 🐾');
+      this.router.navigate(['/pets']);
     }
-    else {
-      this.mascotaService.RegisterMascota(mascotaData).subscribe({
-        next: () => {
-          this.toast.showAfterRedirect('Mascota registrada correctamente 🐾');
-          this.router.navigate(['/pets']);
-        },
-        error: (err) => console.error(err)
-      });
-    }
+  });
+
+} else if (this.id_user) {
+
+  // REGISTER BY USER
+  const mascotawithIDuser = { ...this.mascotaForm.value, id_user: this.id_user };
+
+  this.mascotaService.RegisterMascotaByuser(mascotawithIDuser).subscribe({
+    next: () => {
+      this.toast.showAfterRedirect('Mascota registrada correctamente 🐾');
+      this.router.navigate(['/vet/users-list']);
+    },error: (err) => console.error(err)
+  });
+
+} else {
+
+    // REGISTER NORMAL
+    this.mascotaService.RegisterMascota(mascotaData).subscribe({
+      next: () => {
+        this.toast.showAfterRedirect('Mascota registrada correctamente 🐾');
+        this.router.navigate(['/pets']);
+      },error: (err) => console.error(err)
+    });
   }
+}
 
   getColors(){
     this.colorService.getColors().subscribe({

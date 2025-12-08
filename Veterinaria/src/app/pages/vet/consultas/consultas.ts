@@ -4,7 +4,7 @@ import { response } from 'express';
 import { Consulta } from '../../../core/services/vet/consulta';
 import { citas, ConsultaResponse } from '../../../core/models/consultas';
 import { MatIconModule } from '@angular/material/icon';
-import { catchError, filter, map, Observable, of, take } from 'rxjs';
+import { catchError, filter, map, Observable, of, switchMap, take } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { Auth } from '../../../core/services/auth/auth';
 import { ToastService } from '../../../core/services/extra/toast-service';
@@ -32,18 +32,23 @@ export class Consultas {
     "Mayo", "Junio", "Julio", "Agosto",
     "Septiembre", "Octubre", "Noviembre", "Diciembre"
   ];
-  ngOnInit(){
-      this.authService.currentUser$
-      .pipe(
-        filter(user => !!user), // solo cuando el user ya existe
-        take(1)                 // evita múltiples ejecuciones
-      )
-      .subscribe(() => {
-        this.get_pendients();
-        this.get_citas_urgentes();
-      });
-    this.toast.checkRedirectMessage();
-  }
+ ngOnInit() {
+  this.authService.currentUser$
+    .pipe(
+      filter(user => !!user),
+      take(1),
+      switchMap(() => this.consultaService.getConsultasUrgentes())
+    )
+    .subscribe({
+      next: data => {
+        this.citasUrgentes = data;
+      },
+      error: err => console.log(err)
+    });
+
+  this.get_pendients();
+  this.toast.checkRedirectMessage();
+}
 
   changeStatus(newStatus: string) {
     this.status = newStatus;
@@ -88,16 +93,24 @@ export class Consultas {
     );
   }
 
-  get_citas_urgentes(){
-    this.consultaService.getConsultasUrgentes().subscribe({
-      next:(data)=>{
-        this.citasUrgentes = data;
-        console.log(data)
-      },error:(err)=>{
-        console.log(err);
-      }
-    })
-  }
+get_citas_urgentes() {
+  this.consultaService.getConsultasUrgentes()
+    .pipe(
+      catchError(err => {
+        if (err.status === 401 || err.status === 0) {
+          console.warn("Token aún no está listo o sin conexión.");
+          return of([]); 
+        }
+        console.error("ERROR URGENTES", err)
+        return of([]);
+      })
+    )
+    .subscribe(data => {
+      this.citasUrgentes = data;
+      console.log("URGENTES:", data)
+    });
+}
+
 
   transformDate(date:String):string{
     const partes=date.split("-")
