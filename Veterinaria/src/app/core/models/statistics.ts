@@ -11,6 +11,8 @@ export interface Estadisticas {
   clientes_activos: number;
   total_mascotas: number;
   promedio_por_cliente: number;
+  frecuencia_promedio_visitas: number;
+  tasa_retencion: number
 }
 
 /* -------------------- FINANZAS -------------------- */

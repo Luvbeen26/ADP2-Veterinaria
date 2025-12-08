@@ -197,17 +197,17 @@
         <div class="avg-grid">
             <div class="avg-box">
                 <span class="avg-label">Por visita</span>
-                <strong class="avg-value">$548</strong>
+                <strong class="avg-value">${{statistics()?.servicios?.promedio_gasto?.por_visita}}</strong>
             </div>
 
             <div class="avg-box">
                 <span class="avg-label">Mensual</span>
-                <strong class="avg-value">$2,450</strong>
+                <strong class="avg-value">${{statistics()?.servicios?.promedio_gasto?.mensual}}</strong>
             </div>
 
             <div class="avg-box">
                 <span class="avg-label">Anual</span>
-                <strong class="avg-value">$6,890</strong>
+                <strong class="avg-value">${{statistics()?.servicios?.promedio_gasto?.anual}}</strong>
             </div>
         </div>
     </div>
@@ -240,20 +240,14 @@
 
         <div class="bottom-card">
             <h3>Frecuencia promedio de visitas</h3>
-            <p class="value">3.2 visitas</p>
+            <p class="value">{{statistics()?.clientes_mascotas?.frecuencia_visitas}} visitas</p>
             <p class="label">Por mascota al año</p>
         </div>
 
         <div class="bottom-card">
             <h3>Tasa de retención</h3>
-            <p class="value">87.5%</p>
+            <p class="value">{{statistics()?.clientes_mascotas?.tasa_retencion}}%</p>
             <p class="label">Clientes recurrentes</p>
-        </div>
-
-        <div class="bottom-card">
-            <h3>Frecuencia promedio de visitas</h3>
-            <p class="value">3.2 visitas</p>
-            <p class="label">Por mascota al año</p>
         </div>
 
     </div>
