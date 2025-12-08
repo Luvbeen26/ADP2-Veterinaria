@@ -163,7 +163,7 @@ export class Appointment {
         this.citaEdit = data;
         this.citaForm.patchValue({
         servicio: data.servicio,
-        mascota: data.mascota?.id_mascota,
+        mascota: data.mascota!.id_mascota,
         veterinario: data.veterinario?.id_veterinario,
         fecha: data.fecha,     
         hora: data.hora           

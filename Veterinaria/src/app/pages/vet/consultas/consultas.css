@@ -108,6 +108,9 @@
     gap: 16px;
     margin-top: 16px;
 }
+.title-citas{
+    margin-bottom: 20px;
+}
 
 .suggestion-item {
     align-items: center;

@@ -3,7 +3,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
     padding: 15px;
-    width: 350px;
+    width: auto;
     gap: 10px;
     z-index: 1;
 }
@@ -52,17 +52,46 @@
     justify-content: space-between;
 }
 
-.primary_button,.third_button{
-    gap: 10px;
-    justify-content: center;
-    width: 100%;
+.notas-container {
+    background: #f9fafb;
+    border-left: 4px solid #375CE2;
+    padding: 14px 16px;
+    border-radius: 10px;
+    margin-top: 15px;
+    font-size: 0.95rem;
+    color: #374151;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sintomas-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 4px;
+}
+
+.symptom {
+    background: #e5edff;
+    padding: 3px 9px;
+    border-radius: 12px;
+    color: #375CE2;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.no-data {
+    font-size: 0.85rem;
+    color: #6b7280;
+    font-style: italic;
+}
+.details_button{
+  width: inherit;
 }
 
 @media (max-width: 768px) {
-  .card-container {
-    width: 300px;
-    max-width: 450px;
-  }
 
   .buttons {
     gap: 10px;
@@ -105,4 +134,5 @@
   .third_button {
     width: 100%;
   }
+
 }

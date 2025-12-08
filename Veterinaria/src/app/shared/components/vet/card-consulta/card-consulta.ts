@@ -32,6 +32,51 @@ export class CardConsulta {
     console.log(this.cardconsulta.servicio)
   }
 
+  getNotasParsed(raw: any) {
+    if (!raw) return null;
+
+    let notas: any;
+
+    try {
+        // Si ya es objeto
+        if (typeof raw === "object") {
+            notas = raw;
+        } else {
+            // Si viene como string JSON
+            notas = JSON.parse(raw);
+        }
+    } catch {
+        return null; // cadena inválida → no rompe el front
+    }
+
+    return {
+        estadoGeneral: notas.estadoGeneral ?? "No especificado",
+        sintomas: Array.isArray(notas.sintomas) ? notas.sintomas : [],
+        medicamentos: notas.medicamentos ?? "No especificado",
+        observaciones: notas.observaciones ?? "No especificado",
+        duracionSintomas: notas.duracionSintomas ?? null
+    };
+}
+
+formatDuracion(duracion: string): string {
+  if (!duracion) return "";
+
+  const map: any = {
+    "mas_3_dias": "Más de 3 días",
+    "menos_24_horas": "Menos de 24 horas",
+    "1_2_dias": "1 a 2 días",
+    "2_3_dias": "2 a 3 días"
+  };
+
+  // Si existe en el mapa → lo devuelve bonito
+  if (map[duracion]) return map[duracion];
+
+  // Si no existe, lo convierte de forma genérica: mas_3_dias → Mas 3 dias
+  return duracion
+    .replace(/_/g, " ")
+    .replace(/\b\w/g, letra => letra.toUpperCase());
+}
+
 /*
   Mark_Asistido(){
     this.consultService.Mark_accept_cita(this.cardconsulta.id_cita).subscribe({

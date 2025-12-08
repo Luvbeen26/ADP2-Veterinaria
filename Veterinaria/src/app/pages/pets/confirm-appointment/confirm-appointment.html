@@ -3,12 +3,12 @@
         <h1>Resumen de tu cita</h1>
 
         <div class="info-card">
-            @if (datos?.mascota_nombre) {
+            @if (datos.mascota_nombre) {
                 <div class="pet-section">
                     <img class="pet-img" src="dog.jpeg" alt="Mascota">
                     <div class="pet-info">
                         <p class="label">Mascota</p>
-                        <p class="value">{{datos?.mascota_nombre}}</p>
+                        <p class="value">{{datos.mascota_nombre}}</p>
                     </div>
                 </div>
             }
@@ -23,10 +23,10 @@
                     </div>
                     <div class="item-card flex-column">
                         <p class="label">Servicio</p>
-                        <p class="value">{{datos?.servicio_nombre}}</p>
+                        <p class="value">{{datos.servicio_nombre}}</p>
                     </div>
                 </div>
-                @if (datos?.veterinario_nombre) {
+                @if (datos.veterinario_nombre) {
                     <div class="detail-box">
                         <div class="icon-circle">
                             <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -36,7 +36,7 @@
                         
                         <div class="item-card flex-column">
                             <p class="label">Veterinario</p>
-                            <p class="value">{{datos?.veterinario_nombre}}</p>
+                            <p class="value">{{datos.veterinario_nombre}}</p>
                         </div>
                         
                     </div>
@@ -47,7 +47,7 @@
                     </div>
                     <div class="item-card flex-column">
                         <p class="label">Fecha</p>
-                        <p class="value">{{datos?.fecha}}</p>
+                        <p class="value">{{datos.fecha}}</p>
                     </div>
                 </div>
 
@@ -66,17 +66,89 @@
                     </div>
                     <div class="item-card flex-column">
                         <p class="label">Hora</p>
-                        <p class="value">{{datos?.hora}}</p>
+                        <p class="value">{{datos.hora}}</p>
                     </div>
                 </div>
 
             </div>
+            
             @if (datos.servicio == 'consulta') {
-                <div class="notes flex-column">
-                    <p class="label">Notas adicionales (opcional):</p>
-                    <textarea [(ngModel)]="datos.notas" placeholder="Escribe aquí cualquier información adicional para el veterinario..."></textarea>
+                <div class="wizard-container">
+
+                    <h3>Información adicional sobre la mascota</h3>
+
+                    @if (step == 1) {
+                        <div class="wizard-step">
+                            <p class="wizard-question">¿Cómo se ha sentido la mascota recientemente?</p>
+
+                            <label><input type="radio" [(ngModel)]="datosWizard.estadoGeneral" value="bien"> Bien</label>
+                            <label><input type="radio" [(ngModel)]="datosWizard.estadoGeneral" value="regular"> Regular</label>
+                            <label><input type="radio" [(ngModel)]="datosWizard.estadoGeneral" value="mal"> Mal</label>
+
+                            <button class="wizard-btn" (click)="step = 2">Siguiente</button>
+                        </div>
+                    }
+                    @if (step == 2) {
+                        <div class="wizard-step">
+                            <p class="wizard-question">¿Ha presentado síntomas?</p>
+
+                            <label><input type="checkbox" (change)="toggleSintoma('vomito',$event)"> Vómito</label>
+                            <label><input type="checkbox" (change)="toggleSintoma('diarrea',$event)"> Diarrea</label>
+                            <label><input type="checkbox" (change)="toggleSintoma('tos',$event)"> Tos</label>
+                            <label><input type="checkbox" (change)="toggleSintoma('falta_apetito',$event)"> Falta de apetito</label>
+                            <label><input type="checkbox" (change)="toggleSintoma('letargo',$event)"> Letargo</label>
+                            <label><input type="checkbox" (change)="toggleSintoma('fiebre',$event)"> Fiebre</label>
+                            <label><input type="checkbox" (change)="toggleSintoma('dolor',$event)"> Dolor (general o localizado)</label>
+                            <label><input type="checkbox" (change)="toggleSintoma('dificultad_respiratoria',$event)"> Dificultad para respirar</label>
+                            <label><input type="checkbox" (change)="toggleSintoma('tos_con_sangre',$event)"> Tos con sangre</label>
+                            <label><input type="checkbox" (change)="toggleSintoma('deshidratacion',$event)"> Deshidratación</label>
+                            <label><input type="checkbox" (change)="toggleSintoma('cojera',$event)"> Cojera o dificultad para caminar</label>
+                            <label><input type="checkbox" (change)="toggleSintoma('convulsiones',$event)"> Convulsiones</label>
+                            <label><input type="checkbox" (change)="toggleSintoma('inflamacion',$event)"> Inflamación o hinchazón</label>
+                            <label><input type="checkbox" (change)="toggleSintoma('sangrado',$event)"> Sangrado anormal</label>
+
+                            <div class="wizard-nav">
+                                <button class="wizard-btn secondary" (click)="step = 1">Atrás</button>
+                                <button class="wizard-btn" (click)="step = 3">Siguiente</button>
+                            </div>
+                        </div>
+                    }
+
+                    @if (step == 3) {
+                        <div class="wizard-step">
+                            <p class="wizard-question">¿Ha tomado medicamentos recientemente?</p>
+
+                            <label><input type="radio" [(ngModel)]="datosWizard.medicamentos" value="no"> No</label>
+                            <label><input type="radio" [(ngModel)]="datosWizard.medicamentos" value="si"> Sí</label>
+
+                            <div class="wizard-nav">
+                                <button class="wizard-btn secondary" (click)="step = 2">Atrás</button>
+                                <button class="wizard-btn" (click)="step = 4">Siguiente</button>
+                            </div>
+                        </div>
+                    }
+
+
+                     @if (step == 4) {
+                        @if (!isFinalized) {
+                        <div class="wizard-step">
+                        <p class="wizard-question">¿Hace cuánto que presenta los síntomas?</p>
+                        <label><input type="radio" [(ngModel)]="datosWizard.duracionSintomas" value="menos_24h"> Menos de 24 horas</label>
+                        <label><input type="radio" [(ngModel)]="datosWizard.duracionSintomas" value="1_3_dias"> 1 a 3 días</label>
+                        <label><input type="radio" [(ngModel)]="datosWizard.duracionSintomas" value="mas_3_dias"> Más de 3 días</label>
+
+                            <div class="wizard-nav">
+                                <button class="wizard-btn secondary" (click)="step = 3">Atrás</button>
+                                <button class="wizard-btn finish" (click)="finalizarNotas()">Finalizar</button>
+                            </div>
+                        </div>
+                        } @else {
+                            <p>¡Gracias! Tu información nos ayuda a clasificar la urgencia.</p>
+                        }
+                    }
                 </div>
             }
+
         </div>
 
         <button class="primary_button btn-confirm" (click)="confirmarCita()">Confirmar reserva</button>

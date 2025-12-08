@@ -1,4 +1,19 @@
 <div class="consultas-container flex-column">
+    <!-- Sección de citas urgentes -->
+    @if(citasUrgentes.length > 0) {
+        <div class="urgentes-section">
+            <h1 class="title-citas">Consultas Urgentes</h1>
+            <div class="container-cards flex">
+                @for (cita of citasUrgentes; track $index) {
+                    <app-card-consulta 
+                        [cardconsulta]="cita" 
+                        [status]="cita.estado"
+                    ></app-card-consulta>
+                }
+            </div>
+        </div>
+    }
+
     <div class="header-section">
         <h1>Consultas</h1>
         <div class="status-filters">
