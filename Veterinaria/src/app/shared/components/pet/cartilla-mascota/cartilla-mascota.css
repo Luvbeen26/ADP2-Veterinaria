@@ -13,6 +13,20 @@
   animation: fadeIn 0.25s ease-out;
 }
 
+.No-consulta {
+  text-align: center;
+}
+
+.No-consulta td {
+  padding: 40px;
+  color: #6c757d;
+  font-size: 16px;
+  font-style: italic;
+  background: #f8f9fa;
+  border: 2px dashed #dee2e6;
+  border-radius: 8px;
+} 
+
 .modal-container {
   background: linear-gradient(180deg, #ffffff, #f0f8ff);
   width: 850px;
