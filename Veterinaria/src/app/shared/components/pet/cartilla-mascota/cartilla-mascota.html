@@ -27,19 +27,26 @@
       <table class="vacunas-table">
         <thead>
           <tr>
-            <th>Tipo</th>
+            <th>Medicacion</th>
             <th>Fecha</th>
             <th>Veterinario</th>
           </tr>
         </thead>
         <tbody>
-            @for (v of cartilla.consultas; track $index) {
-            <tr>
-                <td>{{ v.tratamiento }}</td>
-                <td>{{ v.fecha | date }}</td>
-                <td>Dr.{{ v.veterinario }}</td>
-            </tr>
+            @if (cartilla.consultas.length > 0) {
+              @for (v of cartilla.consultas; track $index) {
+              <tr>
+                  <td>{{ v.tratamiento }}</td>
+                  <td>{{ v.fecha | date }}</td>
+                  <td>Dr.{{ v.veterinario }}</td>
+              </tr>
+              }
+            }@else {
+              <tr class="No-consulta">
+                <td colspan="3">No ha tenido consultas</td>
+              </tr>
             }
+            
         </tbody>
       </table>
 
