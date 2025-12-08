@@ -37,20 +37,22 @@
 
     @if (n) {
         <div class="notas-container">
-
+            
             <p><strong>Estado general:</strong> {{ n.estadoGeneral }}</p>
-
-            <p><strong>Síntomas:</strong></p>
-            <div class="sintomas-list">
-                @for (s of n.sintomas; track $index) {
-                    <span class="symptom">{{ s }}</span>
-                }
-                @if (n.sintomas.length === 0) {
-                    <span class="no-data">No especificado</span>
-                }
-            </div>
-
-            <p><strong>Medicamentos:</strong> {{ n.medicamentos }}</p>
+            @if (n.sintomas) {
+                <p><strong>Síntomas:</strong></p>
+                <div class="sintomas-list">
+                    @for (s of n.sintomas; track $index) {
+                        <span class="symptom">{{ s }}</span>
+                    }
+                    @if (n.sintomas.length === 0) {
+                        <span class="no-data">No especificado</span>
+                    }
+                </div>
+            }
+            @if (n.medicamentos){
+                <p><strong>Medicamentos:</strong> {{ n.medicamentos }}</p>
+            }
 
             @if (n.duracionSintomas) {
                 <p><strong>Duración de síntomas:</strong> {{ formatDuracion(n.duracionSintomas) }}</p>
