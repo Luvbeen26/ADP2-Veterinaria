@@ -12,7 +12,7 @@
       <h3>Datos de la mascota</h3>
       <div class="section">
         <p><strong>Nombre:</strong> {{ cartilla.nombre }}</p>
-        <p><strong>Especie:</strong> {{cartilla.especie }}</p>
+        <p><strong>Especie:</strong> {{ cartilla.especie === 'P' ? 'Perro' : 'Gato' }}</p>
         <p><strong>Raza:</strong> {{ cartilla.raza_mascota?.descripcion }}</p>
         <p><strong>Fecha de nacimiento:</strong> {{ cartilla.fecha_nacimiento }}</p>
       </div>

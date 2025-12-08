@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { MascotasGetByUser } from '../../../core/models/mascota';
 import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink, RouterModule } from "@angular/router";
+import { ToastService } from '../../../core/services/extra/toast-service';
 
 @Component({
   selector: 'app-users',
@@ -19,7 +20,7 @@ export class Users {
   user!:User
   private searchSubject = new Subject<string>();
   userService=inject(UserService)
-
+  toast=inject(ToastService)
   usersSubject=new BehaviorSubject<User[]>([])
   users$=this.usersSubject.asObservable();
   petSubject=new BehaviorSubject<MascotasGetByUser[]>([])
@@ -29,7 +30,7 @@ export class Users {
   auxid:number | null=null
   ngOnInit(){
     this.getUsers(null);
-    
+    this.toast.checkRedirectMessage();
     this.searchSubject.pipe(
       debounceTime(300),  
       distinctUntilChanged()       
