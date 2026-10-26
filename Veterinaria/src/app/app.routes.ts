@@ -4,6 +4,7 @@ import { authGuard } from './core/guards/auth/auth-cliente-guard';
 import { authVeterinarioGuard } from './core/guards/auth/auth-veterinario-guard';
 import { noauthGuard } from './core/guards/auth/noauth-guard';
 import { Home } from './pages/home/home/home';
+import { Profile } from './pages/profile/profile';
 
 export const routes: Routes = [
     {
@@ -20,6 +21,9 @@ export const routes: Routes = [
     },
     {
         path: 'vet',canActivate:[authVeterinarioGuard],loadChildren: ()=>import('./pages/vet/vet.routes').then(m=>m.VET_ROUTES)
+    },
+    {
+        path: 'profile', canActivate:[authGuard], component:Profile
     },
     {
         path: '**',redirectTo:"" 

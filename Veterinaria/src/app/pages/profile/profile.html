@@ -1,0 +1,126 @@
+<main class="profile-page">
+  <section class="profile-heading">
+    <div>
+      <p class="eyebrow">CUENTA</p>
+      <h1>Perfil del usuario</h1>
+      <p class="intro">Administra tus datos personales y protege el acceso a tu cuenta.</p>
+    </div>
+    <div class="avatar">{{ (currentUser?.nombre || 'U').charAt(0).toUpperCase() }}</div>
+  </section>
+
+  <div class="profile-grid">
+    <section class="panel">
+      <div class="section-heading">
+        <div class="section-icon">👤</div>
+        <div>
+          <h2>Datos personales</h2>
+          <p>Mantén actualizada tu información de contacto.</p>
+        </div>
+      </div>
+
+      <form [formGroup]="personalForm" (ngSubmit)="savePersonalData()" class="form-grid">
+        <label>Nombre
+          <input type="text" formControlName="nombre" class="input-text">
+        </label>
+        <label>Apellidos
+          <input type="text" formControlName="apellidos" class="input-text">
+        </label>
+        <label>Correo electrónico
+          <input type="email" formControlName="correo" class="input-text">
+        </label>
+        <label>Teléfono
+          <input type="tel" formControlName="telefono" class="input-text">
+        </label>
+        <button type="submit" class="primary_button form-action">Guardar cambios</button>
+      </form>
+    </section>
+
+    <section class="panel security-panel">
+      <div class="section-heading">
+        <div class="section-icon secure">🔒</div>
+        <div>
+          <h2>Seguridad</h2>
+          <p>Refuerza la protección de tu cuenta.</p>
+        </div>
+      </div>
+
+      <form [formGroup]="passwordForm" (ngSubmit)="changePassword()" class="password-form">
+        <h3>Cambiar contraseña</h3>
+        <label>Nueva contraseña
+          <input type="password" formControlName="nueva" class="input-text" autocomplete="new-password">
+        </label>
+        <label>Confirmar contraseña
+          <input type="password" formControlName="confirmacion" class="input-text" autocomplete="new-password">
+        </label>
+        <button type="submit" class="third_button" [disabled]="passwordSaving()">
+          {{ passwordSaving() ? 'Guardando...' : 'Actualizar contraseña' }}
+        </button>
+      </form>
+
+      <div class="twofa-card" [class.enabled]="twofa_habilitado()">
+        <div class="twofa-title-row">
+          <div>
+            <h3>Autenticación de Dos Factores (2FA)</h3>
+            <span class="status-badge" [class.success]="twofa_habilitado()">
+              {{ twofa_habilitado() ? ' Activado' : 'Desactivado' }}
+            </span>
+          </div>
+          <span class="shield">✓</span>
+        </div>
+        @if (twofa_habilitado()) {
+          <p>Tu cuenta está protegida con un código adicional de tu aplicación autenticadora.</p>
+          <button type="button" class="third_button red" (click)="disableTwoFactor()">Desactivar 2FA</button>
+        } @else {
+          <p>Añade una capa extra de seguridad usando Google Authenticator o Authy.</p>
+          <button type="button" class="primary_button" (click)="openTwoFactorSetup()">Activar 2FA</button>
+        }
+      </div>
+    </section>
+  </div>
+</main>
+
+@if (twofaModalOpen()) {
+  <div class="modal-backdrop" (click)="closeTwoFactorSetup()">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="twofa-title" (click)="$event.stopPropagation()">
+      <button type="button" class="modal-close" aria-label="Cerrar" (click)="closeTwoFactorSetup()">×</button>
+      <p class="eyebrow">CONFIGURACIÓN DE SEGURIDAD</p>
+      <h2 id="twofa-title">Configura tu autenticación 2FA</h2>
+
+      @if (twofaLoading()) {
+        <div class="loading-state"><span class="spinner"></span><p>Generando tu código QR...</p></div>
+      } @else if (twofaConfig()) {
+        <p class="modal-copy">Escanea este código con Google Authenticator o Authy. Después ingresa el código de 6 dígitos que aparece en tu aplicación.</p>
+        <div class="qr-wrapper"><img [src]="qrCodeSource" alt="Código QR para configurar autenticación 2FA"></div>
+        <label class="code-label">Código de verificación
+          <input type="text" inputmode="numeric" maxlength="6" pattern="[0-9]{6}" [value]="twofaCode"
+            (input)="updateTwoFactorCode($event)" placeholder="000000" class="code-input" autocomplete="one-time-code">
+        </label>
+        <button type="button" class="primary_button confirm-button" [disabled]="twofaConfirming()" (click)="confirmTwoFactor()">
+          {{ twofaConfirming() ? 'Verificando...' : 'Confirmar y activar' }}
+        </button>
+      }
+    </section>
+  </div>
+}
+
+@if (twofaDisableModalOpen()) {
+  <div class="modal-backdrop" (click)="closeDisableTwoFactor()">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="disable-twofa-title"
+      (click)="$event.stopPropagation()">
+      <button type="button" class="modal-close" aria-label="Cerrar"
+        (click)="closeDisableTwoFactor()">×</button>
+      <p class="eyebrow">CONFIRMACIÓN DE SEGURIDAD</p>
+      <h2 id="disable-twofa-title">Desactivar autenticación 2FA</h2>
+      <p class="modal-copy">Por seguridad, confirma tu identidad ingresando tu contraseña actual.</p>
+
+      <label class="code-label">Contraseña
+        <input type="password" class="input-text" [(ngModel)]="twofaDisablePassword"
+          autocomplete="current-password" (keyup.enter)="confirmDisableTwoFactor()">
+      </label>
+      <button type="button" class="primary_button confirm-button" [disabled]="twofaDisabling()"
+        (click)="confirmDisableTwoFactor()">
+        {{ twofaDisabling() ? 'Verificando...' : 'Confirmar y desactivar' }}
+      </button>
+    </section>
+  </div>
+}

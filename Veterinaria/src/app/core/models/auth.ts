@@ -30,8 +30,17 @@ export interface UserData{
     usuario:string,
     correo:string,
     rol:string,
-    nombre:string
+    nombre:string,
+    apellidos?:string,
+    telefono?:string,
+    twofa_habilitado?:boolean,
     exp:number
+}
+
+export interface TwoFactorConfigResponse {
+    qr_code:string,
+    success?:boolean,
+    message?:string
 }
 
 export interface Entercode{
