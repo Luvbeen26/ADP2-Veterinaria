@@ -1,0 +1,241 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-26T03:11:30.754496+00:00",
+  "title": "Design System: Mascotas Felices",
+  "extensions": {
+    "colorMeta": {
+      "brand": {
+        "role": "primary",
+        "displayName": "Brand"
+      },
+      "brand-hover": {
+        "role": "primary",
+        "displayName": "Brand Hover"
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink"
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted"
+      },
+      "background": {
+        "role": "neutral",
+        "displayName": "Background"
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface"
+      },
+      "selected": {
+        "role": "semantic",
+        "displayName": "Selected"
+      },
+      "warm": {
+        "role": "semantic",
+        "displayName": "Warm"
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Border"
+      },
+      "control-border": {
+        "role": "neutral",
+        "displayName": "Control Border"
+      },
+      "focus": {
+        "role": "semantic",
+        "displayName": "Focus"
+      },
+      "error": {
+        "role": "semantic",
+        "displayName": "Error"
+      },
+      "error-surface": {
+        "role": "semantic",
+        "displayName": "Error Surface"
+      },
+      "pending": {
+        "role": "semantic",
+        "displayName": "Pending"
+      },
+      "pending-surface": {
+        "role": "semantic",
+        "displayName": "Pending Surface"
+      },
+      "attended": {
+        "role": "semantic",
+        "displayName": "Attended"
+      },
+      "attended-surface": {
+        "role": "semantic",
+        "displayName": "Attended Surface"
+      },
+      "absent": {
+        "role": "semantic",
+        "displayName": "Absent"
+      },
+      "absent-surface": {
+        "role": "semantic",
+        "displayName": "Absent Surface"
+      },
+      "cancelled": {
+        "role": "semantic",
+        "displayName": "Cancelled"
+      },
+      "cancelled-surface": {
+        "role": "semantic",
+        "displayName": "Cancelled Surface"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Home display",
+        "purpose": "Newsreader Home headline; compact size at 599px and below."
+      },
+      "editorial-headline": {
+        "displayName": "Editorial headline",
+        "purpose": "Newsreader client page headings."
+      },
+      "headline": {
+        "displayName": "Clinical headline",
+        "purpose": "Source Sans 3 clinical headings."
+      },
+      "body": {
+        "displayName": "Body and UI",
+        "purpose": "Source Sans 3 throughout forms, navigation, records, and data."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "duration",
+        "value": "150ms",
+        "purpose": "Button and navigation color state transitions; disabled for reduced motion."
+      },
+      {
+        "name": "easing",
+        "value": "ease",
+        "purpose": "Implicit CSS transition easing; no custom easing token exists."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "header-disclosure-max",
+        "value": "1199px"
+      },
+      {
+        "name": "page-stack-max",
+        "value": "899px"
+      },
+      {
+        "name": "compact-layout-max",
+        "value": "599px"
+      },
+      {
+        "name": "header-compact-max",
+        "value": "479px"
+      }
+    ],
+    "documentation": {
+      "sources": [
+        "src/styles/care-clarity.css",
+        "src/styles.css",
+        "src/index.html",
+        "src/custom-theme.scss",
+        "src/app/shared/components/header/header.css",
+        "src/app/pages/home/home/home.css",
+        "src/app/pages/home/home/home.html",
+        "src/app/pages/vet/consultas/consultas.css",
+        "src/app/shared/components/vet/card-consulta/card-consulta.css",
+        "src/app/pages/profile/profile.css",
+        "src/app/pages/profile/profile.html"
+      ],
+      "scope": "Editorial Care across all routed client and veterinary pages; shared global controls are intentional. Retains --cc-* namespace.",
+      "verification": "Production build and responsive suite previously passed; final checks after latest source corrections pending. Suite uses mocked services and renders charts/calendar/forms at effective widths 485, 735, 1407px. Source-review findings corrected. No screenshots/manual browser review; below 485px unmeasured; real auth/backend E2E not run.",
+      "limitations": "PDF pagination and known prior functional defects were not fixed. No services/models/routes/guards/business changes in this redesign; prior authentication work preexists.",
+      "tonalRamps": "No source tonal ramp established; no synthesized ramps recorded."
+    }
+  },
+  "components": [
+    {
+      "name": "Primary button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Scoped primary action; global shared buttons use .65rem 1.1rem padding.",
+      "html": "<button class=\"ds-button ds-primary\">Registrarse</button>",
+      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:center;gap:var(--cc-space-8);min-height:var(--cc-control-height);padding:var(--cc-space-8) var(--cc-space-16);border:1px solid transparent;border-radius:var(--cc-radius-control);font-family:var(--cc-font);font-size:var(--cc-text-16);font-weight:600;line-height:1.25;cursor:pointer;transition:background-color var(--cc-duration),color var(--cc-duration),border-color var(--cc-duration)}.ds-button:focus-visible{outline:2px solid var(--cc-focus);outline-offset:2px;}.ds-button:disabled{color:var(--cc-muted);background:var(--cc-cancelled-surface);cursor:not-allowed;opacity:1}@media(prefers-reduced-motion:reduce){.ds-button{transition:none}}.ds-primary{color:var(--cc-surface);background:var(--cc-brand)}.ds-primary:hover{background:var(--cc-brand-hover)}"
+    },
+    {
+      "name": "Quiet button",
+      "kind": "button",
+      "refersTo": "button-quiet",
+      "description": "Implemented quiet action; used for Header logout and menu toggle.",
+      "html": "<button class=\"ds-button ds-quiet\">Cerrar sesión</button>",
+      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:center;gap:var(--cc-space-8);min-height:var(--cc-control-height);padding:var(--cc-space-8) var(--cc-space-16);border:1px solid transparent;border-radius:var(--cc-radius-control);font-family:var(--cc-font);font-size:var(--cc-text-16);font-weight:600;line-height:1.25;cursor:pointer;transition:background-color var(--cc-duration),color var(--cc-duration),border-color var(--cc-duration)}.ds-button:focus-visible{outline:2px solid var(--cc-focus);outline-offset:2px;}.ds-button:disabled{color:var(--cc-muted);background:var(--cc-cancelled-surface);cursor:not-allowed;opacity:1}@media(prefers-reduced-motion:reduce){.ds-button{transition:none}}.ds-quiet{color:var(--cc-brand);background:transparent}.ds-quiet:hover{background:var(--cc-selected)}"
+    },
+    {
+      "name": "Foundation field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Scoped field primitive; shared global fields use the same colors and radius with .65rem .8rem padding.",
+      "html": "<label class=\"ds-label\" for=\"ds-name\">Nombre</label><input class=\"ds-input\" id=\"ds-name\" placeholder=\"Nombre\">",
+      "css": ".ds-label{display:block;margin-bottom:var(--cc-space-8);font-family:var(--cc-font);font-weight:600;color:var(--cc-ink)}.ds-input{width:100%;min-height:var(--cc-control-height);padding:var(--cc-space-8) var(--cc-space-12);border:1px solid var(--cc-control-border);border-radius:var(--cc-radius-control);background:var(--cc-surface);color:var(--cc-ink);font-family:var(--cc-font);font-size:var(--cc-text-16);line-height:1.5;caret-color:var(--cc-brand)}.ds-input::placeholder{color:var(--cc-muted);opacity:1}.ds-input:focus-visible{outline:2px solid var(--cc-focus);outline-offset:2px;}.ds-input[aria-invalid=\"true\"]{border-color:var(--cc-error)}.ds-input:disabled{background:var(--cc-cancelled-surface);color:var(--cc-muted);cursor:not-allowed}"
+    },
+    {
+      "name": "Pending status",
+      "kind": "chip",
+      "refersTo": "status-pending",
+      "description": "Noninteractive foundation status capsule; appointment record badges use local 6px corners and .8125rem text.",
+      "html": "<span class=\"ds-status\">Pendiente</span>",
+      "css": ".ds-status{display:inline-flex;padding:var(--cc-space-4) var(--cc-space-8);border-radius:999px;font-family:var(--cc-font);font-size:var(--cc-text-14);font-weight:600;line-height:1.5;color:var(--cc-pending);background:var(--cc-pending-surface)}"
+    },
+    {
+      "name": "Header navigation links",
+      "kind": "nav",
+      "refersTo": "navigation-link",
+      "description": "Desktop link visual excerpt; Angular Header owns role changes and mobile disclosure.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Navegación principal\"><a class=\"ds-link ds-active\" aria-current=\"page\" href=\"#inicio\">Inicio</a><a class=\"ds-link\" href=\"#servicios\">Servicios</a></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:var(--cc-space-8);background:var(--cc-surface)}.ds-link{display:inline-flex;position:relative;align-items:center;min-height:var(--cc-header-height);padding-inline:var(--cc-space-12);color:var(--cc-muted);font-family:var(--cc-font);font-size:var(--cc-text-16);font-weight:600;line-height:1.5;text-decoration:none;white-space:nowrap;transition:color var(--cc-duration),background-color var(--cc-duration)}.ds-link:hover{color:var(--cc-brand);background:var(--cc-selected)}.ds-link:focus-visible{outline:2px solid var(--cc-focus);outline-offset:2px;}.ds-active{color:var(--cc-brand)}.ds-active::after{content:\"\";position:absolute;bottom:0;left:var(--cc-space-12);right:var(--cc-space-12);height:3px;background:var(--cc-brand);border-radius:3px 3px 0 0}@media(prefers-reduced-motion:reduce){.ds-link{transition:none}}"
+    },
+    {
+      "name": "Appointment record",
+      "kind": "card",
+      "description": "Flat, ruled record; Angular owns role actions and status behavior.",
+      "html": "<article class=\"ds-record\"><div><h3>Luna</h3><p>Propietario: Ana</p></div><div><span class=\"ds-record-label\">Fecha y hora</span><p>26 oct ? 10:00</p><span class=\"ds-record-state\">Pendiente</span></div><div class=\"ds-record-actions\">Reagendar</div></article>",
+      "css": ".ds-record{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1.2fr);gap:20px 24px;padding:24px 0;border-bottom:1px solid var(--cc-border);color:var(--cc-ink);font-family:var(--cc-font);background:transparent}.ds-record h3{font-size:1.125rem;margin:0 0 8px;font-weight:600}.ds-record p{margin:0;font-variant-numeric:tabular-nums}.ds-record-label{font-size:.8125rem;color:var(--cc-muted)}.ds-record-state{display:inline-block;margin-top:12px;font-size:.8125rem;font-weight:600;padding:4px 8px;border-radius:6px;color:var(--cc-pending);background:var(--cc-pending-surface)}.ds-record-actions{text-align:right}@media(max-width:899px){.ds-record{grid-template-columns:repeat(2,minmax(0,1fr))}.ds-record-actions{grid-column:1/-1;text-align:left}}@media(max-width:599px){.ds-record{grid-template-columns:1fr}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Editorial Care",
+    "overview": "Editorial Care is the approved identity across the client and veterinary application. Newsreader gives client headlines an editorial voice; Source Sans 3 keeps forms, clinical records, navigation, and data easy to scan. Care Green ties the roles together through actions, states, and a shared Header.\n\nThe implementation covers all routed pages and their shared controls. The retained `--cc-*` namespace supplies the system; its historical Care & Clarity filename does not limit the redesign to opt-in surfaces. This document replaces that earlier scope.",
+    "keyCharacteristics": [
+      "Editorial client headlines paired with practical clinical typography.",
+      "Asymmetric Home composition, photography, and ruled service entries.",
+      "Vertical appointment records with visible status and role-specific actions.",
+      "Flat surfaces, restrained borders, and consistent shared controls.",
+      "One identity with role-aware navigation and responsive page layouts."
+    ],
+    "rules": [
+      {
+        "name": "The Clinical Type Rule",
+        "body": "Keep clinical headings, forms, and data in Source Sans 3; use Newsreader for the implemented editorial headline roles.",
+        "section": "typography"
+      }
+    ],
+    "dos": [
+      "Do preserve Newsreader editorial headlines and Source Sans 3 clinical/interface typography.",
+      "Do reuse the `--cc-*` tokens and shared control treatments across routed pages.",
+      "Do retain role-aware navigation, readable status text, visible focus, and reduced-motion behavior.",
+      "Do preserve responsive record and form layouts when adding content."
+    ],
+    "donts": [
+      "Don't restore the obsolete Home-only opt-in scope.",
+      "Don't introduce unsupported palettes, tonal ramps, or decorative elevation tokens.",
+      "Don't treat passing automated tests as screenshot or manual visual approval.",
+      "Don't turn known functional defects into design rules."
+    ],
+    "verification": "Final production ng build passed. All 108 checks passed: 36 UI tests at effective widths 485, 735 and 1407px, with mocked services. No screenshots, manual browser review, sub-485px measurement or real-backend E2E validation."
+  }
+}

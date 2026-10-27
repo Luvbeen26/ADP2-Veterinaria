@@ -3,11 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --host localhost --port 4200",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:Veterinaria": "node dist/Veterinaria/server/server.mjs"
+    "serve:ssr:Veterinaria": "node dist/Veterinaria/server/server.mjs",
+    "test:security": "ng test --watch=false --karma-config=karma.security.cjs --include=src/app/core/services/auth/auth.spec.ts --include=src/app/core/security/security-ui.spec.ts --include=src/app/shared/components/header/header.spec.ts --include=src/app/editorial-redesign.spec.ts --include=src/app/app.spec.ts",
+    "start:https": "ng serve --host localhost --port 4200 --ssl"
   },
   "prettier": {
     "printWidth": 100,

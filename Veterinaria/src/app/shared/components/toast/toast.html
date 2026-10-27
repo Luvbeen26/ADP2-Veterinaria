@@ -1,5 +1,5 @@
 @if (toastService.toastMessage()) {
-    <div class="toast-container">
+    <div class="toast-container" role="status" aria-live="polite">
     <span class="toast-message">{{ toastService.toastMessage() }}</span>
     </div>
 }

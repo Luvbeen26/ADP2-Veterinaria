@@ -1,0 +1,14 @@
+@if (flow.scope(); as scope) {
+  <div class="backdrop" (keydown.escape)="cancel()">
+    <section role="dialog" aria-modal="true" aria-labelledby="reauth-title" cdkTrapFocus [cdkTrapFocusAutoCapture]="true">
+      <h2 id="reauth-title">Confirma tu identidad</h2>
+      <p>Esta confirmación autoriza únicamente la operación solicitada: {{ labels[scope.action] }}.</p>
+      <form (ngSubmit)="confirm()">
+        <label>Contraseña actual<input cdkFocusInitial class="input" type="password" autocomplete="current-password" name="password" [(ngModel)]="password" required></label>
+        @if (flow.mfaRequired()) {<label>Código nuevo de Authenticator<input class="input" name="code" [(ngModel)]="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" required></label>}
+        @if (flow.error()) {<p role="alert">{{ flow.error() }}</p>}
+        <div class="actions"><button type="button" class="third_button" (click)="cancel()">Cancelar</button><button type="submit" class="primary_button" [disabled]="flow.busy()">{{ flow.busy() ? 'Verificando…' : 'Confirmar identidad' }}</button></div>
+      </form>
+    </section>
+  </div>
+}

@@ -1,7 +1,9 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, ɵInternalFormsSharedModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { RouterLink } from '@angular/router';
+import { BehaviorSubject, Observable, finalize } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { apiFailure, describeApiFailure } from '../../../core/security/api-error';
 import { Auth } from '../../../core/services/auth/auth';
 import { CommonModule, NgClass } from '@angular/common';
 
@@ -14,12 +16,14 @@ import { CommonModule, NgClass } from '@angular/common';
 })
 export class Register {
   RegForm!:FormGroup;
+  private readonly destroyRef = inject(DestroyRef);
+  readonly busy = signal(false);
 
   private errorSubject = new BehaviorSubject<string>("");
   
   error$: Observable<string> = this.errorSubject.asObservable();
 
-  constructor(private router:Router,private auth:Auth,private fb:FormBuilder,private cdr: ChangeDetectorRef){}
+  constructor(private auth:Auth,private fb:FormBuilder,private cdr: ChangeDetectorRef){}
 
   ngOnInit(){
     this.RegForm = this.fb.group({
@@ -27,34 +31,30 @@ export class Register {
       apellidos:['',Validators.required],
       usuario:['',Validators.required],
       correo:['',Validators.required],
-      contra:['',Validators.required],
+      contra:['',[Validators.required, Validators.minLength(15)]],
       confirm:['',Validators.required]
 
     });
   }
 
   Register(){
-    console.log("register")
+    if (this.busy()) return;
     this.cdr.detectChanges();
     if(this.RegForm.invalid){
       this.RegForm.markAllAsTouched();
       return;
     }
 
-    this.auth.register(this.RegForm.value).subscribe({
+    this.busy.set(true);
+    this.errorSubject.next('');
+    this.auth.register(this.RegForm.value).pipe(takeUntilDestroyed(this.destroyRef), finalize(() => this.busy.set(false))).subscribe({
       next: (response) =>{
-        console.log("registro exitoso")
-        this.router.navigate(["/"]);
+        this.RegForm.reset();
+
 
       },
       error: (err) =>{
-        console.log(err)
-        const mensaje = err.error?.detail 
-          ? err.error.detail.replace(/^\d+:\s*/, '') 
-          : "Error al crear una cuenta";
-        
-        
-        this.errorSubject.next(mensaje);
+        this.errorSubject.next(describeApiFailure(apiFailure(err)));
       }
     });
   }

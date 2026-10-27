@@ -37,7 +37,7 @@ export class Consultas {
     .pipe(
       filter(user => !!user),
       take(1),
-      switchMap(() => this.consultaService.getConsultasUrgentes())
+      switchMap(user => user?.rol === 'V' ? this.consultaService.getConsultasUrgentes() : of([]))
     )
     .subscribe({
       next: data => {
@@ -94,6 +94,10 @@ export class Consultas {
   }
 
 get_citas_urgentes() {
+  if (this.authService.get_userRol() !== 'V') {
+    this.citasUrgentes = [];
+    return;
+  }
   this.consultaService.getConsultasUrgentes()
     .pipe(
       catchError(err => {

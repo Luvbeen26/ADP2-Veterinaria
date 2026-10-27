@@ -1,0 +1,38 @@
+<main class="editorial-page security-page">
+  <a routerLink="/profile">Volver al perfil</a>
+  <header class="context"><p class="eyebrow">Protección de la cuenta</p><h1>{{ audit ? 'Auditoría de seguridad' : 'Sesiones y acceso' }}</h1>
+    <p>{{ audit ? 'Consulta eventos registrados por el servidor. Todos los horarios de los filtros están en UTC.' : 'Revisa el acceso a tu cuenta y administra tus sesiones disponibles.' }}</p></header>
+  @if (error()) {<p class="error" role="alert">{{ error() }}</p>}
+  @if (message()) {<p role="status">{{ message() }}</p>}
+  @if (!audit) {
+    <section class="section"><h2>Este navegador</h2>
+      <p>Cerrar sesión solicita su revocación al servidor. Si no se puede confirmar, se indicará que el cierre fue únicamente local.</p>
+      <button class="primary_button" [disabled]="busy()" (click)="auth.logout()">Cerrar sesión en este navegador</button>
+      <p>La sesión admite hasta 30 minutos de inactividad HTTP y un máximo absoluto de 7 días. Renovar el acceso no amplía ese plazo de inactividad.</p>
+    </section>
+
+    <section class="section"><div class="section-title"><h2>Sesiones abiertas</h2><button class="third_button" [disabled]="busy()" (click)="loadSessions()">Actualizar</button></div>
+      @if (busy()) {<p role="status">Actualizando sesiones…</p>}
+      @for (session of sessions(); track session.session_id) {
+        <article class="session"><div><h3>{{ session.device_label }} @if (session.is_current) {<span>Sesión actual</span>}</h3><p>{{ session.ip_masked ? 'IP ' + session.ip_masked : 'Dirección IP no registrada' }}</p>
+          <p>Creada {{ session.created_at | date:'medium' }} · Último acceso {{ session.last_seen_at | date:'medium' }}</p><p>Vence {{ session.expires_at | date:'medium' }}</p></div>
+          <button class="third_button" [disabled]="busy()" (click)="revoke(session)">Cerrar sesión</button></article>
+      } @empty { @if (loaded() && !busy()) {<p>No hay sesiones disponibles.</p>} }
+      <div class="actions"><label><input type="checkbox" [disabled]="busy()" [(ngModel)]="includeCurrent"> Incluir esta sesión</label>
+        <button class="primary_button" [disabled]="busy()" (click)="revokeAll()">{{ includeCurrent ? 'Cerrar todas las sesiones' : 'Cerrar las demás sesiones' }}</button></div>
+    </section>
+    @if (auth.security.auditEnabled && auth.hasPermission('security:audit:read')) {<a routerLink="/security/audit">Consultar auditoría de seguridad</a>}
+  } @else {
+    <form class="filters" (ngSubmit)="loadAudit()"><label>Desde (UTC)<input class="input" type="datetime-local" name="from" [(ngModel)]="from" required></label>
+      <label>Hasta (UTC)<input class="input" type="datetime-local" name="to" [(ngModel)]="to" required></label>
+      <label>Acción<input class="input" name="action" [(ngModel)]="action"></label>
+      <label>Resultado<select class="input" name="outcome" [(ngModel)]="outcome"><option value="">Todos</option><option value="success">Éxito</option><option value="denied">Denegado</option><option value="failure">Fallo</option></select></label>
+      <label>ID de usuario<input class="input" name="actor" inputmode="numeric" [(ngModel)]="actor"></label>
+      <button class="primary_button" [disabled]="busy()">Consultar eventos</button></form>
+    @if (busy()) {<p role="status">Consultando eventos…</p>}
+    <div class="table-wrap" role="region" aria-label="Eventos de auditoría" tabindex="0"><table><caption>Eventos registrados por el servidor</caption><thead><tr><th>Fecha</th><th>Actor</th><th>Acción / recurso</th><th>Resultado</th><th>Motivo / referencia</th></tr></thead>
+      <tbody>@for (event of events(); track event.event_id) {<tr><td>{{ event.occurred_at | date:'medium' }}</td><td>{{ event.actor_id ?? 'Sin identificar' }}<br>{{ event.ip_masked }}</td><td>{{ event.action }}<br>{{ event.resource_type }} {{ event.resource_id }}</td><td>{{ event.outcome }}</td><td>{{ event.reason_code }}<br>{{ event.request_id }}</td></tr>}</tbody></table></div>
+    @if (loaded() && !events().length) {<p>No se encontraron eventos para estos filtros.</p>}
+    @if (cursor()) {<button class="third_button" [disabled]="busy()" (click)="loadAudit(true)">Siguiente página</button>}
+  }
+</main>

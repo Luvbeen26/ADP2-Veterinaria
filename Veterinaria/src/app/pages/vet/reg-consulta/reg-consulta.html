@@ -1,6 +1,6 @@
-<div class="container">
+<div class="clinical-page container">
     <div class="form-card">
-        <h1 class="title">Nuevo Registro {{ petName()}}</h1>
+        <h1 class="title">Nuevo registro de {{ petName()}}</h1>
 
         <form [formGroup]="recordForm" (ngSubmit)="onSubmit()">
             <div class="form-row">
@@ -16,39 +16,39 @@
             </div>
 
             <div class="form-group full-width">
-                <label for="observations">Motivo</label>
-                <textarea id="observations" formControlName="motivo" rows="6" class="form-control" 
+                <label for="motivo">Motivo</label>
+                <textarea id="motivo" formControlName="motivo" rows="4" class="form-control"
                     placeholder="Escribe motivo sobre la consulta..."
                 ></textarea>
             </div>
             <!-- Observaciones -->
             <div class="form-group full-width">
-                <label for="observations">Observaciones</label>
-                <textarea id="observations" formControlName="observaciones" rows="6" class="form-control" 
+                <label for="observaciones">Observaciones</label>
+                <textarea id="observaciones" formControlName="observaciones" rows="4" class="form-control"
                     placeholder="Escribe observaciones sobre la consulta..."
                 ></textarea>
             </div>
 
             <div class="form-group full-width">
-                <label for="observations">Diagnostico</label>
-                <textarea id="observations" formControlName="diagnostico" rows="6" class="form-control" 
+                <label for="diagnostico">Diagnóstico</label>
+                <textarea id="diagnostico" formControlName="diagnostico" rows="4" class="form-control"
                     placeholder="Escribe Diagnostico sobre la consulta...">
                 </textarea>
             </div>
 
-            
+
             <div class="treatments-section">
                 <h2 class="section-title">Medicamentos y Tratamientos</h2>
 
                 <!-- Desparasitantes -->
                 <div class="treatment-option">
                     <label class="checkbox-container">
-                        <input 
-                            type="checkbox" 
+                        <input
+                            type="checkbox"
                             [checked]="isTratamientoSelected('desparasitante', 'Desparasitante')"
                             (change)="toggleTratamiento('desparasitante', 'Desparasitante')"
                         />
-                        <span class="checkbox-label">Desparasintate </span>
+                        <span class="checkbox-label">Desparasitante </span>
                     </label>
                 </div>
 
@@ -58,8 +58,8 @@
                         <div class="checkbox-grid">
                             @for (v of vacunas(); track $index) {
                                 <label class="checkbox-container">
-                                    <input 
-                                        type="checkbox" 
+                                    <input
+                                        type="checkbox"
                                         [checked]="isTratamientoSelected('vacuna', v)"
                                         (change)="toggleTratamiento('vacuna', v)"
                                     />
@@ -71,12 +71,12 @@
                 <!-- Medicamentos-->
                 <div class="vaccine-section">
                     <h3 class="subsection-title">Medicamentos</h3>
-                    
+
                     <div class="checkbox-grid">
                         @for (m of medicamentos(); track $index) {
                             <label class="checkbox-container">
-                                <input 
-                                    type="checkbox" 
+                                <input
+                                    type="checkbox"
                                     [checked]="isTratamientoSelected('medicamento', m)"
                                     (change)="toggleTratamiento('medicamento', m)"
                                 />
@@ -84,20 +84,20 @@
                             </label>
                         }
                     </div>
-                
+
                 </div>
-            
+
             </div>
 
             <!-- Sección de Cuidados -->
             <div class="treatments-section">
-                <h2 class="section-title">Cuidados</h2>
-                
+                <h2 class="section-title">Cuidados</h2><p class="care-requirement">Selecciona al menos un cuidado para registrar la consulta.</p>
+
                 <div class="checkbox-grid">
                     @for (cuidado of cuidadosLst(); track $index) {
                         <label class="checkbox-container">
-                            <input 
-                                type="checkbox" 
+                            <input
+                                type="checkbox"
                                 [checked]="isCuidadoSelected(cuidado.id)"
                                 (change)="toggleCuidado(cuidado.id)"
                             />
@@ -105,17 +105,17 @@
                         </label>
                     }
                 </div>
-            
+
             </div>
 
             <!-- Botón de Submit -->
             <div class="button-container">
-                <button 
-                    type="submit" 
-                    class="submit-button" 
+                <button
+                    type="submit"
+                    class="submit-button"
                     [disabled]="recordForm.invalid"
                 >
-                    Registrar
+                    Registrar consulta
                 </button>
             </div>
         </form>

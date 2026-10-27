@@ -1,0 +1,121 @@
+/* Opt-in foundations. Legacy variables and unscoped controls remain unchanged. */
+:root {
+  --cc-brand: #146b62;
+  --cc-brand-hover: #10564f;
+  --cc-ink: #17332f;
+  --cc-muted: #52645f;
+  --cc-background: #f7faf9;
+  --cc-surface: #ffffff;
+  --cc-selected: #e8f3ef;
+  --cc-warm: #f3d5bd;
+  --cc-border: #ccd8d3;
+  --cc-control-border: #71847c;
+  --cc-focus: #235db8;
+  --cc-error: #ae3345;
+  --cc-error-surface: #fcecef;
+  --cc-pending: #805a13;
+  --cc-pending-surface: #fff4d8;
+  --cc-attended: #226744;
+  --cc-attended-surface: #e8f4ec;
+  --cc-absent: #7c4c69;
+  --cc-absent-surface: #f5ebf1;
+  --cc-cancelled: #59655f;
+  --cc-cancelled-surface: #edf0ee;
+  --cc-font: 'Source Sans 3', sans-serif;
+  --cc-display-font: 'Newsreader', Georgia, serif;
+  --cc-text-40: 2.5rem;
+  --cc-text-48: 3rem;
+  --cc-text-64: 4rem;
+  --cc-text-14: 0.875rem;
+  --cc-text-16: 1rem;
+  --cc-text-18: 1.125rem;
+  --cc-text-20: 1.25rem;
+  --cc-text-24: 1.5rem;
+  --cc-text-28: 1.75rem;
+  --cc-text-32: 2rem;
+  --cc-space-4: 0.25rem;
+  --cc-space-8: 0.5rem;
+  --cc-space-12: 0.75rem;
+  --cc-space-16: 1rem;
+  --cc-space-20: 1.25rem;
+  --cc-space-24: 1.5rem;
+  --cc-space-32: 2rem;
+  --cc-space-48: 3rem;
+  --cc-space-64: 4rem;
+  --cc-radius-control: 0.5rem;
+  --cc-radius-panel: 0.75rem;
+  --cc-control-height: 2.75rem;
+  --cc-header-height: 4rem;
+  --cc-width-client: 75rem;
+  --cc-width-operations: 85rem;
+  --cc-duration: 150ms;
+}
+
+.cc-scope { color: var(--cc-ink); font-family: var(--cc-font); font-size: var(--cc-text-16); line-height: 1.5; }
+.cc-scope :where(h1, h2, h3, h4, p, span, a, button, label, input, select, textarea) { font-family: var(--cc-font); }
+.cc-scope, .cc-scope :where(*) { box-sizing: border-box; }
+.cc-scope ::selection { color: var(--cc-ink); background: var(--cc-warm); }
+.cc-scope :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--cc-focus);
+  outline-offset: 2px;
+}
+.cc-scope :where(a, button) { touch-action: manipulation; }
+.cc-scope :where(h1, h2, h3) { font-weight: 600; line-height: 1.2; text-wrap: balance; }
+.cc-scope h1 { font-size: var(--cc-text-32); }
+.cc-scope h2 { font-size: var(--cc-text-24); }
+.cc-scope h3 { font-size: var(--cc-text-20); }
+.cc-scope .cc-context { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--cc-space-24); margin-bottom: var(--cc-space-32); }
+.cc-scope .cc-description { color: var(--cc-muted); max-width: 70ch; }
+.cc-scope .cc-numeric { font-variant-numeric: tabular-nums; }
+
+.cc-scope .cc-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--cc-space-8);
+  min-height: var(--cc-control-height);
+  padding: var(--cc-space-8) var(--cc-space-16);
+  border: 1px solid transparent;
+  border-radius: var(--cc-radius-control);
+  font-size: var(--cc-text-16);
+  line-height: 1.25;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--cc-duration), color var(--cc-duration), border-color var(--cc-duration);
+}
+.cc-scope .cc-button--primary { color: var(--cc-surface); background: var(--cc-brand); }
+.cc-scope .cc-button--primary:hover { background: var(--cc-brand-hover); }
+.cc-scope .cc-button--quiet { color: var(--cc-brand); background: transparent; }
+.cc-scope .cc-button--quiet:hover { background: var(--cc-selected); }
+.cc-scope .cc-button:disabled { color: var(--cc-muted); background: var(--cc-cancelled-surface); cursor: not-allowed; opacity: 1; }
+
+.cc-scope .cc-label { display: block; margin-bottom: var(--cc-space-8); font-weight: 600; }
+.cc-scope .cc-control {
+  width: 100%;
+  min-height: var(--cc-control-height);
+  padding: var(--cc-space-8) var(--cc-space-12);
+  border: 1px solid var(--cc-control-border);
+  border-radius: var(--cc-radius-control);
+  background: var(--cc-surface);
+  color: var(--cc-ink);
+  font-size: var(--cc-text-16);
+  line-height: 1.5;
+  caret-color: var(--cc-brand);
+}
+.cc-scope .cc-control::placeholder { color: var(--cc-muted); opacity: 1; }
+.cc-scope .cc-control[aria-invalid='true'] { border-color: var(--cc-error); }
+.cc-scope .cc-field-error { color: var(--cc-error); font-size: var(--cc-text-14); }
+.cc-scope .cc-control:disabled { background: var(--cc-cancelled-surface); color: var(--cc-muted); cursor: not-allowed; }
+.cc-scope .cc-status { display: inline-flex; padding: var(--cc-space-4) var(--cc-space-8); border-radius: 999px; font-size: var(--cc-text-14); font-weight: 600; }
+.cc-scope .cc-status--pending { color: var(--cc-pending); background: var(--cc-pending-surface); }
+.cc-scope .cc-status--attended { color: var(--cc-attended); background: var(--cc-attended-surface); }
+.cc-scope .cc-status--absent { color: var(--cc-absent); background: var(--cc-absent-surface); }
+.cc-scope .cc-status--cancelled { color: var(--cc-cancelled); background: var(--cc-cancelled-surface); }
+
+@media (max-width: 599px) {
+  .cc-scope .cc-context { flex-direction: column; gap: var(--cc-space-16); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cc-scope .cc-button { transition: none; }
+}

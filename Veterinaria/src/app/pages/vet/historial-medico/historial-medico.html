@@ -1,10 +1,10 @@
-<main>
+<main class="clinical-page">
     <div class="container-principal">
         <div class="title flex">
-            <h1>Historial medico de {{mascota().nombre}}</h1>
+            <h1>Historial médico de {{mascota().nombre}}</h1>
         </div>
         @if (consultas().length>0) {
-            <div class="resumen-ia">
+            <section class="resumen-ia" aria-label="Resumen generado con inteligencia artificial">
                 <div class="title-button flex">
                     <h2>Resumen con IA</h2>
                     <button (click)="generarResumenIA(idmascota)" class="primary_button" [disabled]="loading">
@@ -17,8 +17,8 @@
                 }@else{
                     <p>La mascota no cuenta con un resumen de historial clinico, para generarlo, da click en el boton 'Generar resumen'</p>
                 }
-            </div>
-            <div class="table-consultas">
+            </section>
+            <div class="table-consultas" role="region" aria-label="Registros clínicos, desplazamiento horizontal" tabindex="0">
                 <table>
                     <thead>
                         <tr>
@@ -28,7 +28,7 @@
                             <th>Diagnostico</th>
                             <th>Observaciones</th>
                             <th>Tratamientos</th>
-                            <th>Medicación</th>
+                            <th>Descripción del tratamiento</th>
                         </tr>
                     </thead>
                     <tbody>

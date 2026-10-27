@@ -2,7 +2,7 @@
   <div class="card-menu">
     
     <div class="card-menu">
-      <button class="menu-btn" (click)="toggleMenu(); $event.stopPropagation()">⋮</button>
+      <button type="button" aria-label="Opciones de la mascota" [attr.aria-expanded]="menuOpen" class="menu-btn" (click)="toggleMenu(); $event.stopPropagation()">⋮</button>
 
       <div 
         class="menu-dropdown" 
@@ -22,7 +22,7 @@
 
   <img class="image-pet" 
        [src]="mascota?.especie === 'P' ? 'dog.jpeg' : 'cat.jpg'" 
-       alt="{{mascota?.nombre}}">
+       alt="Imagen ilustrativa de la especie" width="160" height="160" loading="lazy">
 
   <div class="card-info">
     <h2 class="name-pet">{{mascota?.nombre}}</h2>
@@ -32,7 +32,7 @@
     <p class="weight-pet">Peso: {{mascota?.peso}} kg</p>
   </div>
 
-  <button class="delete-btn" (click)="eliminarMascota()">
+  <button type="button" [attr.aria-label]="'Eliminar a ' + mascota?.nombre" class="delete-btn" (click)="eliminarMascota()">
     <mat-icon>delete</mat-icon>
   </button>
 </div>

@@ -1,184 +1,54 @@
-.flex{
-    align-items: center;
-    justify-content: space-between;
+﻿:host { display: block; position: sticky; top: 0; z-index: 1000; }
+.site-header { background: var(--cc-surface); border-bottom: 1px solid var(--cc-border); }
+.header-inner {
+  display: flex; align-items: center; gap: var(--cc-space-32);
+  max-width: var(--cc-width-operations); min-height: var(--cc-header-height);
+  margin-inline: auto; padding-inline: var(--cc-space-32);
 }
-
-.logo.flex{
-    gap: 10px;
-    margin-left: 20px;
+.brand {
+  display: inline-flex; align-items: center; flex-shrink: 0; gap: var(--cc-space-12);
+  min-height: var(--cc-control-height); color: var(--cc-ink); font-size: var(--cc-text-20);
+  font-weight: 600; letter-spacing: -0.02em; text-decoration: none; border-radius: var(--cc-radius-control);
 }
-
-.profile{
-    margin-right: 20px;
+.brand img { object-fit: contain; }
+.navigation { display: flex; align-items: center; justify-content: space-between; flex: 1; min-width: 0; gap: var(--cc-space-24); }
+.primary-links, .account-links { display: flex; align-items: center; gap: var(--cc-space-8); }
+.account-links { margin-left: auto; }
+.nav-link {
+  display: inline-flex; position: relative; align-items: center; min-height: var(--cc-header-height);
+  padding-inline: var(--cc-space-12); color: var(--cc-muted); font-size: var(--cc-text-16);
+  font-weight: 600; text-decoration: none; white-space: nowrap;
+  transition: color var(--cc-duration), background-color var(--cc-duration);
 }
-
-.options.auth{
-    border-radius: 5px;
-    padding: 7px 12px;
-    border: 2px solid black;
-    transition: all 0.3s ease;
-    justify-content: center;
+.nav-link:hover { color: var(--cc-brand); background: var(--cc-selected); }
+.nav-link.is-active { color: var(--cc-brand); }
+.nav-link.is-active::after {
+  content: ''; position: absolute; bottom: 0; left: var(--cc-space-12); right: var(--cc-space-12);
+  height: 3px; background: var(--cc-brand); border-radius: 3px 3px 0 0;
 }
-
-
-.options:hover{
-    background-color: #f0f0f0;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.logout-button { white-space: nowrap; }
+.registration-active { text-decoration: underline; text-underline-offset: 4px; }
+.menu-toggle { display: none; }
+@media (max-width: 1199px) {
+  .header-inner { flex-wrap: wrap; gap: 0; padding-inline: var(--cc-space-24); }
+  .brand { min-height: var(--cc-header-height); }
+  .menu-toggle { display: inline-flex; margin-left: auto; }
+  .navigation { display: none; }
+  .navigation--open {
+    display: flex; flex-direction: column; align-items: stretch; flex-basis: 100%; gap: var(--cc-space-16);
+    max-height: calc(100dvh - var(--cc-header-height)); overflow-y: auto; overscroll-behavior: contain;
+    padding: var(--cc-space-8) var(--cc-space-4) var(--cc-space-24); border-top: 1px solid var(--cc-border);
+  }
+  .primary-links, .account-links { flex-direction: column; align-items: stretch; gap: var(--cc-space-4); }
+  .account-links { margin-left: 0; border-top: 1px solid var(--cc-border); padding-top: var(--cc-space-16); }
+  .nav-link { min-height: var(--cc-control-height); border-radius: var(--cc-radius-control); }
+  .nav-link.is-active { background: var(--cc-selected); }
+  .account-links .cc-button { justify-content: flex-start; }
 }
-
-
-.header{
-    background-color: var(--color-principal);   
-    font-weight: 500;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    top: 0;
-    position: sticky;     
-    background-color: #ffff;
-    align-items: center;
-    height: 3.75rem;
-    display: flex;
-    font-size: 16px;
-    z-index: 1000;
+@media (max-width: 479px) {
+  .header-inner { padding-inline: var(--cc-space-16); }
+  .brand { font-size: var(--cc-text-18); gap: var(--cc-space-8); }
+  .brand img { width: 32px; height: 32px; }
+  .menu-toggle { padding-inline: var(--cc-space-8); gap: var(--cc-space-4); }
 }
-
-.nav_toggle{
-    display: none;
-}
-
-.logo{
-    height: 3rem;
-    margin-left: 2rem;
-}
-
-
-
-
-.Nologin-options,.User-options,.login{
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.Nologin-options,.User-options{
-    align-items: center; 
-}
-
-.User-options{
-    justify-content: center; /* ✅ Centra las opciones */
-    flex: 1; 
-}
-
-
-.Items{
-    display: flex;
-    gap:10px;
-    
-    justify-content: space-between;
-    flex:1;
-    
-
-}
-
-.options{
-    color: black;
-    font-weight:bold;
-    text-decoration: none;
-    border-radius: 5px;
-    margin-inline: 10px;
-    padding-inline:7px;
-    padding-block: 0.200rem;
-    cursor: pointer;
-}
-
-@media(max-width:1000px){
-    a,b{
-        font-size: 15px;
-    }
-}
-
-@media (max-width: 790px){
-    .profile{
-        display: none;
-    }
-    
-    .Items{
-        flex-direction: column;
-        justify-content: start;
-        align-items: center;      
-
-        position: fixed;
-        right:0;
-        padding-inline: 12px;
-        top: 3.75rem;
-        background-color:#ffff;
-        height: 100%;
-        width: 210px;
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
-        z-index: 10000;
-    }
-
-    .options{
-        display: flex;
-        align-items: center;
-        padding-left: 6px;
-        padding-block: 10px;
-        width: 100%;
-        width: 170px;
-    }
-
-    .User-options{
-        justify-content:initial;
-        flex: 0;
-        margin-top: 8px;
-    }
-    
-    .Nologin-options{
-        gap: 20px;
-    }
-    
-    .User-options,.Nologin-options{    
-        display: flex;
-        flex-direction: column;
-        padding: 10px;
-    }
-
-
-    .nav_toggle{
-        display: flex !important;
-        flex-direction: column;
-        margin:15px;
-        cursor:pointer;
-        z-index:1001;
-    
-
-    }
-    
-    .nav_toggle.close span:nth-child(1){
-        transform: rotate(45deg) translate(4px, 9px);
-    }
-
-    .nav_toggle.close span:nth-child(2){
-        opacity: 0;
-    }
-
-    .nav_toggle.close span:nth-child(3){
-        transform: rotate(-45deg) translate(4px, -9px);
-    }
-
-    .nav_toggle span{
-        width: 30px;
-        height: 4px;
-        background: black;
-        margin-bottom: 5px;
-        border-radius: 2px;
-        transform-origin: center;
-        transition: all 0.3s ease;
-    }
-    .Items.open{
-        transform: translateX(0) !important;
-        box-shadow: -4px 0 6px -2px rgba(0, 0, 0, 0.2);
-    }
-}
+@media (prefers-reduced-motion: reduce) { .nav-link { transition: none; } }

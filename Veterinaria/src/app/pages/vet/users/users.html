@@ -1,33 +1,33 @@
-<div class="mascotas-container">
+<div class="clinical-page mascotas-container">
     <!-- Sidebar -->
     <aside class="mascotas-sidebar flex-column">
         <div class="mascotas-search">
             <mat-icon>search</mat-icon>
-            <input type="text" class="input" placeholder="Buscar usuario" (input)="getUsers($event)">
+            <input type="text" class="input" aria-label="Buscar propietario" placeholder="Buscar usuario" (input)="getUsers($event)">
         </div>
         
         <h3 class="mascotas-sidebar-title">Usuarios</h3>
         
-        <ul class="mascotas-user-list">
+        <div class="mascotas-user-list">
             @let users=(users$ | async);
             @for (u of users; track $index) {
                 <app-usercard [user]="u" [isSelected]="auxid === u.id" (Userselect)="ShowPetsUser($event)"></app-usercard>
             }
-        </ul>
+        </div>
     </aside>
 
     <!-- Main Content -->
     <main class="mascotas-main">
         <header class="mascotas-header flex">
             <h1>Mascotas</h1>
-            <button class="mascotas-add-button" [routerLink]="['/vet/register-pet-foruser',auxid]" mat-raised-button matTooltip="Añadir Mascota a Usuario"><mat-icon>add</mat-icon></button>
+            <button aria-label="Añadir mascota al propietario" class="mascotas-add-button" [routerLink]="['/vet/register-pet-foruser',auxid]" mat-raised-button matTooltip="Añadir Mascota a Usuario"><mat-icon>add</mat-icon></button>
         </header>
 
         <div class="mascotas-list flex-column">
             @let pets = (pets$ | async);
             @for (p of pets; track $index) {
                 <div class="mascotas-item flex">
-                    <img [src]="p.especie == 'P' ? 'dog.jpeg' : 'cat.jpg'" alt="Max Fierro" class="mascotas-pet-image">
+                    <img [src]="p.especie == 'P' ? 'dog.jpeg' : 'cat.jpg'" [alt]="p.nombre" width="56" height="56" class="mascotas-pet-image">
                     <span class="mascotas-pet-name">{{p.nombre}}</span>
                     <a class="primary_button mascotas-history-button" [routerLink]="'/vet/medical-history/'+p.id">
                         <mat-icon>menu_book</mat-icon>

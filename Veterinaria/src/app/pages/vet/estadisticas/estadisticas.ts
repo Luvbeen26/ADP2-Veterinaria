@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { MatIcon, MatIconModule } from "@angular/material/icon";
 import { NgChartsModule } from 'ng2-charts';
-import { ChartConfiguration, ChartData, ChartOptions } from 'chart.js';
+import { Chart, ChartConfiguration, ChartData, ChartOptions } from 'chart.js';
 import { Statistics } from '../../../core/services/vet/statistics';
 import { DashboardResponse } from '../../../core/models/statistics';
 
@@ -16,6 +16,9 @@ export class Estadisticas {
   statisticsService = inject(Statistics);
   statistics = signal<DashboardResponse | null>(null);
   ngOnInit(){
+    Chart.defaults.font.family = 'Source Sans 3, sans-serif';
+    Chart.defaults.color = '#52645f';
+    Chart.defaults.borderColor = '#ccd8d3';
     this.statisticsService.getStatistics().subscribe({
       next:(data)=>{
         console.log(data);
@@ -36,10 +39,10 @@ export class Estadisticas {
         label: 'Nuevos clientes',
         fill: true,
         tension: 0.4, 
-        borderColor: '#6A5AF9',
-        backgroundColor: 'rgba(106, 90, 249, 0.2)',
+        borderColor: '#146B62',
+        backgroundColor: 'rgba(20, 107, 98, 0.12)',
         pointBackgroundColor: '#fff',
-        pointBorderColor: '#6A5AF9',
+        pointBorderColor: '#146B62',
         pointRadius: 6,
       }
     ]
@@ -60,8 +63,8 @@ export class Estadisticas {
       {
         data: [100,200],
         backgroundColor: [
-          'rgba(255, 99, 132, 0.7)',
-          'rgba(54, 162, 235, 0.7)'
+          '#146B62',
+          '#A96B22'
         ],
         borderWidth: 1
       }
@@ -86,17 +89,17 @@ export class Estadisticas {
           {
               label: 'Consultas',
               data: [80000, 95000, 70000, 120000, 90000, 140000, 150000, 145000, 160000, 180000, 90000, 110000],
-              backgroundColor: '#4E79A7'
+              backgroundColor: '#146B62'
           },
           {
               label: 'Salón de cuidados',
               data: [35000, 50000, 40000, 30000, 25000, 35000, 40000, 45000, 70000, 80000, 50000, 30000],
-              backgroundColor: '#F28E2B'
+              backgroundColor: '#A96B22'
           },
           {
               label: 'Adopción',
               data: [100000, 110000, 130000, 115000, 30000, 50000, 20000, 30000, 80000, 60000, 90000, 120000],
-              backgroundColor: '#59A14F'
+              backgroundColor: '#3D6E9E'
           }
       ]
   };
@@ -124,8 +127,8 @@ export class Estadisticas {
       datasets: [{
           data: [769, 713, 354, 273, 270, 950],
           backgroundColor: [
-              '#4E79A7', '#F28E2B', '#E15759',
-              '#76B7B2', '#59A14F', '#EDC949'
+              '#146B62', '#A96B22', '#AE3345',
+              '#675289', '#3D6E9E', '#805A13'
           ]
       }]
   };
@@ -143,9 +146,9 @@ export class Estadisticas {
   ];
 
   topServices = [
-      { name: 'Consultas generales', visits: 425, percent: 80, color: '#1F4FFF' },
-      { name: 'Adopción', visits: 425, percent: 75, color: '#1DB954' },
-      { name: 'Salón de cuidados', visits: 425, percent: 85, color: '#D82C2C' }
+      { name: 'Consultas generales', visits: 425, percent: 80, color: '#146B62' },
+      { name: 'Adopción', visits: 425, percent: 75, color: '#3D6E9E' },
+      { name: 'Salón de cuidados', visits: 425, percent: 85, color: '#A96B22' }
   ];
   serviceTrendData = {
       labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
@@ -154,24 +157,24 @@ export class Estadisticas {
               label: 'Cirugías',
               data: [140000, 100000, 140000, 110000, 145000, 130000],
               fill: false,
-              borderColor: '#1DB954',
-              pointBackgroundColor: '#1DB954',
+              borderColor: '#3D6E9E',
+              pointBackgroundColor: '#3D6E9E',
               tension: 0.35
           },
           {
               label: 'Consultas',
               data: [45000, 52000, 48000, 60000, 55000, 59000],
               fill: false,
-              borderColor: '#1F4FFF',
-              pointBackgroundColor: '#1F4FFF',
+              borderColor: '#146B62',
+              pointBackgroundColor: '#146B62',
               tension: 0.35
           },
           {
               label: 'Estética',
               data: [35000, 38000, 36000, 42000, 40000, 45000],
               fill: false,
-              borderColor: '#F8A52A',
-              pointBackgroundColor: '#F8A52A',
+              borderColor: '#675289',
+              pointBackgroundColor: '#675289',
               tension: 0.35
           }
       ]
@@ -218,7 +221,8 @@ updateCharts(data: DashboardResponse) {
 
   const servicios = [...new Set(data.finanzas.ingreso_mensual_por_servicio.map(i => i.servicio))];
 
-  this.barFinanceData.datasets = servicios.map(serv => ({
+  this.barFinanceData.datasets = servicios.map((serv, index) => ({
+    backgroundColor: ['#146B62', '#A96B22', '#675289', '#3D6E9E'][index % 4],
     label: serv,
     data: meses.map(m => {
       const encontrado = data.finanzas.ingreso_mensual_por_servicio
@@ -235,7 +239,7 @@ updateCharts(data: DashboardResponse) {
 
   // ---------- TOP SERVICIOS ----------
   const totalVisitas = data.servicios.mas_solicitados.reduce((s, i) => s + i.visitas, 0);
-  const colors = ['#1F4FFF', '#1DB954', '#D82C2C', '#F8A52A'];
+  const colors = ['#146B62', '#3D6E9E', '#A96B22', '#675289'];
 
   this.topServices = data.servicios.mas_solicitados.map((s, i) => ({
     name: s.servicio,
@@ -262,8 +266,8 @@ updateCharts(data: DashboardResponse) {
       label: 'Ingresos últimos 6 meses',
       data: data.servicios.tendencia_6_meses.map(t => t.total),
       fill: false,
-      borderColor: '#1F4FFF',
-      pointBackgroundColor: '#1F4FFF',
+      borderColor: '#146B62',
+      pointBackgroundColor: '#146B62',
       tension: 0.35
     }
   ];

@@ -1,3 +1,4 @@
+import { sessionGuard, auditGuard } from './core/guards/auth/session-guard';
 import { Routes } from '@angular/router';
 
 import { authGuard } from './core/guards/auth/auth-cliente-guard';
@@ -23,8 +24,10 @@ export const routes: Routes = [
         path: 'vet',canActivate:[authVeterinarioGuard],loadChildren: ()=>import('./pages/vet/vet.routes').then(m=>m.VET_ROUTES)
     },
     {
-        path: 'profile', canActivate:[authGuard], component:Profile
+        path: 'profile', canActivate:[sessionGuard], component:Profile
     },
+    {path: 'account/security', canActivate: [sessionGuard], loadComponent: () => import('./pages/security/security-center/security-center').then(m => m.SecurityCenter)},
+    {path: 'security/audit', canActivate: [sessionGuard, auditGuard], data: {audit: true}, loadComponent: () => import('./pages/security/security-center/security-center').then(m => m.SecurityCenter)},
     {
         path: '**',redirectTo:"" 
     }

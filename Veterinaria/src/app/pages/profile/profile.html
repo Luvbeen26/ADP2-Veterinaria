@@ -1,7 +1,6 @@
-<main class="profile-page">
+<main class="editorial-page profile-page">
   <section class="profile-heading">
     <div>
-      <p class="eyebrow">CUENTA</p>
       <h1>Perfil del usuario</h1>
       <p class="intro">Administra tus datos personales y protege el acceso a tu cuenta.</p>
     </div>
@@ -11,7 +10,6 @@
   <div class="profile-grid">
     <section class="panel">
       <div class="section-heading">
-        <div class="section-icon">👤</div>
         <div>
           <h2>Datos personales</h2>
           <p>Mantén actualizada tu información de contacto.</p>
@@ -37,13 +35,14 @@
 
     <section class="panel security-panel">
       <div class="section-heading">
-        <div class="section-icon secure">🔒</div>
         <div>
           <h2>Seguridad</h2>
           <p>Refuerza la protección de tu cuenta.</p>
         </div>
       </div>
 
+      <a routerLink="/account/security">Sesiones y acceso</a>
+      @if (!secureContracts) {<p>Cambio de contraseña pendiente del contrato seguro de Backend.</p>}
       <form [formGroup]="passwordForm" (ngSubmit)="changePassword()" class="password-form">
         <h3>Cambiar contraseña</h3>
         <label>Nueva contraseña
@@ -52,7 +51,7 @@
         <label>Confirmar contraseña
           <input type="password" formControlName="confirmacion" class="input-text" autocomplete="new-password">
         </label>
-        <button type="submit" class="third_button" [disabled]="passwordSaving()">
+        <button type="submit" class="third_button" [disabled]="passwordSaving() || !secureContracts">
           {{ passwordSaving() ? 'Guardando...' : 'Actualizar contraseña' }}
         </button>
       </form>
@@ -80,10 +79,9 @@
 </main>
 
 @if (twofaModalOpen()) {
-  <div class="modal-backdrop" (click)="closeTwoFactorSetup()">
-    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="twofa-title" (click)="$event.stopPropagation()">
+  <div class="modal-backdrop" (click)="closeTwoFactorSetup()" (keydown.escape)="closeTwoFactorSetup()">
+    <section class="modal" role="dialog" aria-modal="true" cdkTrapFocus [cdkTrapFocusAutoCapture]="true" tabindex="-1" aria-labelledby="twofa-title" (click)="$event.stopPropagation()">
       <button type="button" class="modal-close" aria-label="Cerrar" (click)="closeTwoFactorSetup()">×</button>
-      <p class="eyebrow">CONFIGURACIÓN DE SEGURIDAD</p>
       <h2 id="twofa-title">Configura tu autenticación 2FA</h2>
 
       @if (twofaLoading()) {
@@ -104,12 +102,11 @@
 }
 
 @if (twofaDisableModalOpen()) {
-  <div class="modal-backdrop" (click)="closeDisableTwoFactor()">
-    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="disable-twofa-title"
+  <div class="modal-backdrop" (click)="closeDisableTwoFactor()" (keydown.escape)="closeDisableTwoFactor()">
+    <section class="modal" role="dialog" aria-modal="true" cdkTrapFocus [cdkTrapFocusAutoCapture]="true" tabindex="-1" aria-labelledby="disable-twofa-title"
       (click)="$event.stopPropagation()">
       <button type="button" class="modal-close" aria-label="Cerrar"
         (click)="closeDisableTwoFactor()">×</button>
-      <p class="eyebrow">CONFIRMACIÓN DE SEGURIDAD</p>
       <h2 id="disable-twofa-title">Desactivar autenticación 2FA</h2>
       <p class="modal-copy">Por seguridad, confirma tu identidad ingresando tu contraseña actual.</p>
 

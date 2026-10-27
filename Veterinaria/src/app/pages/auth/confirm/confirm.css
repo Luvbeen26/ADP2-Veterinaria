@@ -1,31 +1,9 @@
-.body{
-    justify-content: center;
-    padding: 30px;
-}
-
-.form{
-    gap: 30px;
-    text-align: center;
-    align-items: center;
-    width: 30rem;
-}   
-
-
-.re-send{
-    background: none;
-    border: none;
-    cursor: pointer;
-    color:var(--primary_button_color);
-    width: fit-content;
-    height: fit-content;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.input{
-    width: 20rem;
-}
-
-.campo{
-    gap: 10px;
-}
+:host { display: block; }
+.auth-page { max-width: 760px; margin: auto; padding: 64px 32px; }
+.auth-page h1 { margin-bottom: 24px; }
+.form { width: 100%; gap: 24px; align-items: stretch; }
+.auth-intro { color: var(--cc-muted); max-width: 60ch; }
+.campo { gap: 8px; }
+.Buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+.re-send { background: transparent; color: var(--cc-brand); border: 0; text-decoration: underline; min-height: 44px; align-self: flex-start; }
+@media (max-width: 599px) { .auth-page { padding: 32px 16px; } .Buttons > button { flex: 1; } }

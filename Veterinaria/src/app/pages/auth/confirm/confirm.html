@@ -1,13 +1,14 @@
-<main class="body flex">
+<main class="auth-page editorial-page body flex">
     <form [formGroup]="codeForm" (ngSubmit)="check_code()" class="form flex-column">
-        <h2>Ingrese el código de confirmación de 6 dígitos enviado a su correo electrónico</h2>
+        <h1>Confirma tu correo</h1><p class="auth-intro">Ingrese el código de confirmación de 6 dígitos enviado a su correo electrónico</p>
         <div class="campo flex-column">
-            <button type="button" class="re-send" (click)="Send_email()">Reenviar Codigo</button>
+            <button type="button" [disabled]="busy()" class="re-send" (click)="Send_email()">Reenviar Codigo</button>
         
-        <input type="text" formControlName="code"  maxlength="6" class="input" placeholder="Codigo de Confirmacion" (input)="codeForm.get('code')?.setValue($event.target.value.slice(0,6))">
+        <input type="text" aria-label="Código de confirmación" inputmode="numeric" autocomplete="one-time-code" formControlName="code"  maxlength="6" class="input" placeholder="Codigo de Confirmacion" (input)="codeForm.get('code')?.setValue($event.target.value.slice(0,6))">
         </div>
         
-        <button type="submit" class="primary_button">Confirmar</button>
+        @if (error()) {<p role="alert">{{ error() }}</p>}
+        <button [disabled]="busy()" type="submit" class="primary_button">Confirmar</button>
     </form>
 
 </main>

@@ -1,19 +1,21 @@
-<main class="flex-column">
-    <span class="title"><h1>Bienvenido denuevo</h1></span>
+<main class="auth-page editorial-page flex-column">
+    <span class="title"><h1>Bienvenido de nuevo</h1></span>
 
     <div class="contenedor">
+        <div class="login-content">
+        @if (!requiresTwoFactor()) {
         <form [formGroup]="loginForm" (ngSubmit)="Login()" action="" class="form flex-column">
-            <label for="" class="campo flex-column">
-                <h3>Usuario o correo electronico</h3>
-                <input type="text" class="input" formControlName="usuario_mail" placeholder="Ej: usuario123">
+            <label class="campo flex-column">
+                <h3>Usuario o correo electrónico</h3>
+                <input type="text" class="input" autocomplete="username" formControlName="usuario_mail" placeholder="Ej: usuario123">
                 @if(loginForm.get('usuario_mail')?.hasError("required") && loginForm.get('usuario_mail')?.touched){
                     <p class="error">Ingrese un usuario o correo</p>
                 }
             </label>
 
-            <label for="" class="campo flex-column">
+            <label class="campo flex-column">
                 <h3>Contraseña</h3>
-                <input type="password" formControlName="contra" class="input">
+                <input type="password" autocomplete="current-password" formControlName="contra" class="input">
                 @if(loginForm.get('contra')?.hasError("required") && loginForm.get('contra')?.touched){
                     <p class="error">Ingrese su contraseña</p>
                 }
@@ -21,17 +23,35 @@
             <div class="downForm flex-column">
                 <span class="text right"><a routerLink="/auth/restore" class="button_link">¿Olvidaste tu Contraseña?</a></span>
 
-            <button type="submit"  class="primary_button">Iniciar Sesión</button>
+            <button type="submit" [disabled]="submitting()" class="primary_button">Iniciar Sesión</button>
 
             <span class="text center flex">¿Aun no tienes una cuenta?<a routerLink="/auth/register" class="button_link">Crea una</a></span>
             </div>
             
             
-           <div class="alert flex" [ngClass]="{'hide': !(error$ | async)}">
-                <span class="error-msg">{{ error$ | async }}</span>
-            </div>
-            
         </form>
+        } @else {
+        <form [formGroup]="codeForm" (ngSubmit)="verifyTwoFactor()" class="form flex-column">
+            <h2>Verificación en dos pasos</h2>
+            <p>Ingresa el código de seis dígitos de tu aplicación Authenticator.</p>
+            <label for="totp-code" class="campo flex-column">
+                <h3>Código de verificación</h3>
+                <input id="totp-code" type="text" inputmode="numeric" autocomplete="one-time-code"
+                    maxlength="6" formControlName="code" class="input">
+                @if (codeForm.get('code')?.invalid && codeForm.get('code')?.touched) {
+                    <p class="error">Ingresa un código de seis dígitos.</p>
+                }
+            </label>
+            <button type="submit" class="primary_button" [disabled]="submitting()">Verificar e iniciar sesión</button>
+            <button type="button" class="button_link" [disabled]="submitting()" (click)="backToLogin()">Volver al inicio de sesión</button>
+        </form>
+        }
+        @if (errorMessage()) {
+            <div class="alert flex" role="alert">
+                <span class="error-msg">{{ errorMessage() }}</span>
+            </div>
+        }
+        </div>
         <picture class="flex"><img src="huella.jpg" alt=""></picture>
     </div>
 </main>

@@ -1,4 +1,4 @@
-<main>
+<main class="editorial-page">
     <div class="title flex-column">
         <h1>{{titulo}}</h1>
         <p>Selecciona tu mascota, la fecha y hora que mas te convenga</p>
@@ -26,7 +26,7 @@
                  }
                 @if(citaForm.get('servicio')?.value == 'consulta'){
                     <div class="select flex-column">
-                        <label for="servicio">Seleccionar veterinario</label>
+                        <label for="veterinario">Seleccionar veterinario</label>
                         <select name="veterinario" id="veterinario" formControlName="veterinario">
                         @for (veterinario of veterinarios; track $index) {
                             <option [value]="veterinario.id_veterinario">Dr.{{veterinario.usuario?.nombre}}</option>
@@ -69,13 +69,14 @@
                 <strong>Horarios disponibles para el {{ fechaFormateada }}</strong>
                 <div class="hours">
                 @for (hour of horasDisponibles; track $index) {
-                    <div 
+                    <button type="button"
+                    [attr.aria-pressed]="hour === selectedHour"
                     class="hour"
                     [class.selected]="hour === selectedHour"
                     (click)="seleccionarHora(hour)"
                     >
-                    <p class="hour-p">{{ formatearHora(hour) }}</p>
-                    </div>
+                    <span class="hour-p">{{ formatearHora(hour) }}</span>
+                    </button>
                 }
                 </div>
 

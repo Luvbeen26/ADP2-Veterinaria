@@ -1,66 +1,27 @@
-import { Component, Input, input } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, signal, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Auth } from '../../../core/services/auth/auth';
-import { CommonModule } from '@angular/common';
-
-@Component({
-  selector: 'app-confirm',
-  imports: [ReactiveFormsModule,CommonModule],
-  templateUrl: './confirm.html',
-  styleUrl: './confirm.css'
-})
+import { apiFailure } from '../../../core/security/api-error';
+import { finalize } from 'rxjs';
+@Component({selector: 'app-confirm', imports: [ReactiveFormsModule], templateUrl: './confirm.html', styleUrl: './confirm.css'})
 export class Confirm {
-  correo: string = '';
-
-  codeForm!: FormGroup;
-
-  constructor(private fb:FormBuilder,private auth:Auth,private router:Router){
-    this.codeForm=this.fb.group({
-      code:['',[Validators.required]]
+  private readonly auth = inject(Auth); private readonly router = inject(Router);
+  readonly codeForm = inject(FormBuilder).group({code: ['', [Validators.required, Validators.pattern(/^\d{6}$/)]]});
+  readonly error = signal(''); readonly busy = signal(false);
+  correo = this.auth.recoveryEmail();
+  ngOnInit(): void {if (!this.correo) void this.router.navigate(['/auth/restore']);}
+  Send_email(): void {
+    if (this.busy()) return; this.busy.set(true); this.error.set('');
+    this.auth.send_email(this.correo).pipe(finalize(() => this.busy.set(false))).subscribe({error: e => this.error.set(apiFailure(e).message)});
+  }
+  check_code(): void {
+    if (this.busy() || this.codeForm.invalid) {this.codeForm.markAllAsTouched(); return;}
+    this.busy.set(true); this.error.set('');
+    this.auth.check_code(this.codeForm.value.code!, this.correo).pipe(finalize(() => this.busy.set(false))).subscribe({
+      next: () => {if (this.auth.canResetPassword()) void this.router.navigate(['/auth/update_password']);
+        else this.error.set('Código verificado. El cambio de contraseña está pendiente del ticket seguro de Backend.');},
+      error: e => this.error.set(apiFailure(e).message)
     });
-    const navigation = this.router.getCurrentNavigation();
-    this.correo = navigation?.extras?.state?.['correo'] || '';
-    console.log(this.correo)
-    
-  }
-
-  ngOnInit(){
-    if (!this.correo) {
-      console.warn('No se recibió correo, redirigiendo...');
-      this.router.navigate(["/auth/restore"]);
-    }
-  }
-
-  Send_email(){
-    this.auth.send_email(this.codeForm.get('correo')?.value).subscribe({
-      next: (response) =>{
-        console.log("mandado")
-      },
-      error: (err) =>{
-        console.log(err)
-      }
-    })
-  }
-
-  check_code(){
-    console.log("contra")
-    if(this.codeForm.invalid){
-      this.codeForm.markAllAsTouched();
-      return;
-    }
-
-    this.auth.check_code(this.codeForm.get('code')?.value,this.correo).subscribe({
-      next: (response) =>{
-
-        console.log("chequeado")
-        this.router.navigate(["/auth/update_password"], { 
-          state: { correo: this.correo } 
-        });
-      },
-      error: (err) =>{
-        console.log(err)
-      }
-    })
   }
 }

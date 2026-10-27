@@ -1,153 +1,19 @@
-.header-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.status-filters {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.filter-btn {
-  padding: 0.5rem 1.5rem;
-  border: 2px solid #e5e7eb;
-  background-color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-.filter-btn:hover {
-  border-color: #3b82f6;
-  background-color: #eff6ff;
-}
-
-.filter-btn.active {
-  background-color: #3b82f6;
-  color: white;
-  border-color: #3b82f6;
-}
-
-.consultas-container{
-    padding: 50px;
-    gap: 30px;
-    justify-content: center;
-}
-
-.container-cards{
-    padding: 5px;
-    display: flex;
-    gap: 20px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 10px;
-}
-
-.container-cards::-webkit-scrollbar {
-    display: none;
-}
-
-.container-cards {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-
-.Container-bydate{
-    gap: 10px;
-}
-
-/* Empty State Styles */
-.empty-state {
-    align-items: center;
-    justify-content: center;
-    padding: 10px 20px;
-    text-align: center;
-    gap: 24px;
-    min-height: 500px;
-}
-
-.empty-icon {
-    width: 140px;
-    height: 140px;
-    background: #F3F4F6;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 8px;
-}
-
-.empty-icon svg {
-    opacity: 0.5;
-}
-
-.empty-title {
-    font-size: 24px;
-    font-weight: 600;
-    color: #1F2937;
-    margin: 0;
-}
-
-.empty-description {
-    font-size: 16px;
-    color: #6B7280;
-    max-width: 400px;
-    line-height: 1.5;
-    margin: 0;
-}
-
-.empty-suggestions {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-top: 16px;
-}
-.title-citas{
-    margin-bottom: 20px;
-}
-
-.suggestion-item {
-    align-items: center;
-    gap: 12px;
-    color: #4B5563;
-    font-size: 14px;
-}
-
-.suggestion-icon {
-    color: #375CE2;
-    font-size: 20px;
-    width: 20px;
-    height: 20px;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .empty-state {
-        padding: 20px 20px;
-        min-height: 400px;
-    }
-
-    .empty-icon {
-        width: 100px;
-        height: 100px;
-    }
-
-    .empty-icon svg {
-        height: 80px;
-        width: 80px;
-    }
-
-    .empty-title {
-        font-size: 20px;
-    }
-
-    .empty-description {
-        font-size: 14px;
-    }
-}
+:host { display: block; }
+.consultas-container { max-width: 1360px; margin: auto; padding: 40px 32px 64px; }
+.consultas-container.editorial-page { max-width: 1200px; padding-top: 48px; }
+.editorial-page app-card-consulta { padding-block: 8px; }
+.page-heading { padding-bottom: 32px; }
+.page-heading p { margin-top: 12px; color: var(--cc-muted); }
+.urgentes-section { padding: 24px; background: var(--cc-error-surface); margin-bottom: 32px; }
+.urgentes-section > h2 { color: var(--cc-error); font-size: 1.125rem; margin-bottom: 16px; }
+.status-filters { display: flex; gap: 8px; flex-wrap: wrap; padding-bottom: 24px; border-bottom: 1px solid var(--cc-border); }
+.filter-btn { min-height: 44px; padding: 8px 18px; background: transparent; color: var(--cc-muted); border: 1px solid var(--cc-border); border-radius: 8px; font-weight: 600; }
+.filter-btn:hover { background: var(--cc-selected); color: var(--cc-brand); }
+.filter-btn.active { background: var(--cc-brand); border-color: var(--cc-brand); color: white; }
+.Container-bydate { display: grid; gap: 32px; margin-top: 24px; }
+.date-group > h2 { font-size: 1rem; color: var(--cc-muted); padding-bottom: 12px; }
+.container-cards { display: grid; min-width: 0; }
+.empty-state { padding: 48px 0; max-width: 60ch; }
+.empty-state h2 { font-size: 1.5rem; margin-bottom: 12px; }
+.empty-state p { color: var(--cc-muted); }
+@media (max-width: 599px) { .consultas-container { padding: 32px 16px 48px; } .status-filters { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); } .filter-btn { padding-inline: 8px; } .urgentes-section { padding: 16px; } }

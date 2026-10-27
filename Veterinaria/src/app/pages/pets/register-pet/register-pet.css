@@ -1,74 +1,16 @@
-main{
-    display: grid;
-    place-items: center;
-    margin-top: 30px;
-}
-.page-container{
-    gap: 30px;
-}
-.title{
-    gap: 10px;
-}
-.register-container{
-    background-color: var(--background-form);
-    border: 1px solid #EEEEEE;
-    padding: 50px;
-    border-radius: 10px;
-}
-.register-pet{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-.register-pet-form{
-    gap: 30px;
-}
-.form-group{
-    gap: 10px;
-}
-.radio-group{
-    gap: 20px;
-}
-.column-left{
-    gap: 20px;
-}
-.column-rigth{
-    gap: 20px;
-}
-.input-peso-color{
-    gap: 15px;
-}
-.radio-input{
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-/* Efecto al pasar el mouse */
-.radio-input:hover {
-  background-color: #f2f2f2;
-  border-color: #999;
-}
-
-/* Ocultar el radio original y estilizarlo manualmente */
-.radio-input input[type="radio"] {
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  border: 2px solid black;
-  border-radius: 50%;
-  outline: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  position: relative;
-}
-
-/* Cuando está seleccionado */
-.radio-input input[type="radio"]:checked {
-    border-color: var(--primary_button_color);
-  background-color: var(--primary_button_color);
-}
-
-.register-button{
-    align-self: center;
-}
+:host { display: block; }
+main { max-width: 1040px; margin: auto; padding: 48px 32px 64px; }
+.page-container { gap: 32px; }
+.title { gap: 12px; max-width: 65ch; }
+.title p { color: var(--cc-muted); }
+.register-container { background: var(--cc-surface); border: 1px solid var(--cc-border); border-radius: 12px; padding: 32px; }
+.register-pet-form { gap: 32px; }
+.register-pet { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 32px; }
+.column-left, .column-rigth { gap: 24px; min-width: 0; }
+.form-group { gap: 8px; min-width: 0; }
+.form-group > label, .input-peso-color > label { font-size: .875rem; font-weight: 600; }
+.radio-group { gap: 24px; flex-wrap: wrap; }
+.radio-input { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; }
+.input-peso-color { flex: 1; min-width: 0; gap: 8px; }
+.register-button { align-self: flex-start; }
+@media (max-width: 699px) { main { padding: 32px 16px 48px; } .register-container { padding: 24px 16px; } .register-pet { grid-template-columns: 1fr; gap: 24px; } }

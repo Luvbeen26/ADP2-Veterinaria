@@ -1,3 +1,4 @@
+import { CdkTrapFocus } from '@angular/cdk/a11y';
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import html2canvas from 'html2canvas';
@@ -6,7 +7,7 @@ import { CartillaMascotaOut } from '../../../../core/models/mascota';
 
 @Component({
   selector: 'app-cartilla-mascota',
-  imports: [DatePipe],
+  imports: [DatePipe, CdkTrapFocus],
   templateUrl: './cartilla-mascota.html',
   styleUrl: './cartilla-mascota.css'
 })

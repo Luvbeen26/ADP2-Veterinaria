@@ -1,4 +1,4 @@
-<div class="my-pets-container flex-column">
+<div class="editorial-page my-pets-container flex-column">
     <h1>Mis mascotas</h1>
     <div class="container-list-pets">
         @for (mascota of mascotas(); track $index) {
@@ -15,7 +15,7 @@
         }
     </div>
     <button class="fixed-button" (click)="navigateRegisterPet()">
-        <mat-icon>add</mat-icon>
+        <mat-icon aria-hidden="true">add</mat-icon>Registrar mascota
     </button>
 
 </div>

@@ -1,3 +1,7 @@
+import { RouterLink } from '@angular/router';
+import { Reauthentication } from '../../core/security/reauthentication';
+import { apiFailure, describeApiFailure } from '../../core/security/api-error';
+import { CdkTrapFocus } from '@angular/cdk/a11y';
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -8,7 +12,7 @@ import { TwoFactorConfigResponse, UserData } from '../../core/models/auth';
 
 @Component({
   selector: 'app-profile',
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, CdkTrapFocus, RouterLink],
   templateUrl: './profile.html',
   styleUrl: './profile.css'
 })
@@ -16,6 +20,9 @@ export class Profile {
   private readonly formBuilder = inject(FormBuilder);
   private readonly auth = inject(Auth);
   private readonly totp = inject(Totp);
+  private readonly reauth = inject(Reauthentication);
+  readonly secureContracts = inject(Auth).security.enabled;
+  readonly secureMfaSetup = this.auth.security.mfaSetupEnabled;
   private readonly toast = inject(ToastService);
 
   readonly personalForm = this.formBuilder.group({
@@ -26,7 +33,7 @@ export class Profile {
   });
 
   readonly passwordForm = this.formBuilder.group({
-    nueva: ['', [Validators.required, Validators.minLength(8)]],
+    nueva: ['', [Validators.required, Validators.minLength(15), Validators.maxLength(128)]],
     confirmacion: ['', [Validators.required]]
   });
 
@@ -93,21 +100,23 @@ export class Profile {
     }
 
     this.passwordSaving.set(true);
-    this.auth.change_password(nueva!, user.correo).subscribe({
+    this.reauth.run('password:change', null, proof => this.auth.security.password(nueva!, confirmacion!, proof)).subscribe({
       next: () => {
         this.passwordForm.reset();
+        this.auth.invalidate('Contraseña actualizada. Inicia sesión nuevamente.');
         this.toast.show('Contraseña actualizada correctamente.');
         this.passwordSaving.set(false);
       },
-      error: () => {
-        this.toast.show('No se pudo actualizar la contraseña.');
+      error: error => {
+        this.toast.show(apiFailure(error).message);
         this.passwordSaving.set(false);
       }
     });
   }
 
   openTwoFactorSetup(): void {
-    this.twofaModalOpen.set(true);
+    if (this.twofaLoading()) return;
+    this.twofaModalOpen.set(!this.secureMfaSetup);
     this.twofaLoading.set(true);
     this.twofaConfig.set(null);
     this.twofaCode = '';
@@ -121,13 +130,14 @@ export class Profile {
           return;
         }
 
+        this.twofaModalOpen.set(true);
         this.twofaConfig.set(config);
         this.twofaLoading.set(false);
       },
-      error: () => {
+      error: error => {
         this.twofaLoading.set(false);
         this.twofaModalOpen.set(false);
-        this.toast.show('No se pudo iniciar la configuración de 2FA.');
+        this.toast.show(describeApiFailure(apiFailure(error)));
       }
     });
   }
@@ -135,6 +145,8 @@ export class Profile {
   closeTwoFactorSetup(): void {
     if (!this.twofaConfirming()) {
       this.twofaModalOpen.set(false);
+      this.twofaConfig.set(null);
+      this.twofaCode = '';
     }
   }
 
@@ -170,17 +182,19 @@ export class Profile {
         this.twofa_habilitado.set(true);
         this.twofaConfirming.set(false);
         this.twofaModalOpen.set(false);
+        this.twofaConfig.set(null);
+        this.twofaCode = '';
         this.toast.show('Autenticación de dos factores activada.');
       },
       error: error => {
         this.twofaConfirming.set(false);
-        const detail = error?.error?.detail;
-        this.toast.show(detail || 'Código inválido o tiempo expirado.');
+        this.toast.show(apiFailure(error).message || 'Código inválido o tiempo expirado.');
       }
     });
   }
 
   disableTwoFactor(): void {
+    if (this.secureContracts) {this.confirmDisableTwoFactor(); return;}
     this.twofaDisablePassword = '';
     this.twofaDisableModalOpen.set(true);
   }
@@ -193,7 +207,7 @@ export class Profile {
   }
 
   confirmDisableTwoFactor(): void {
-    if (!this.twofaDisablePassword.trim()) {
+    if (!this.secureContracts && !this.twofaDisablePassword.trim()) {
       this.toast.show('Ingresa tu contraseña para continuar.');
       return;
     }
@@ -209,8 +223,7 @@ export class Profile {
       },
       error: error => {
         this.twofaDisabling.set(false);
-        const detail = error?.error?.detail;
-        this.toast.show(detail || 'No se pudo desactivar la autenticación de dos factores.');
+        this.toast.show(apiFailure(error).message || 'No se pudo desactivar la autenticación de dos factores.');
       }
     });
   }

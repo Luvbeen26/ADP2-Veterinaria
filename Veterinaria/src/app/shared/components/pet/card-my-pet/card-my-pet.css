@@ -1,112 +1,17 @@
-.card {
-  position: relative;
-  width: 280px;
-  background-color: #fff;
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  margin: 20px;
-  transition: transform 0.2s;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-}
-
-.image-pet {
-  width: 150px;
-  height: 150px;
-  align-self: center;
-  border-radius: 100px;
-  border: 1px solid var(--bordercolor-input);
-  margin-top: 20px;
-}
-
-/* Información de la mascota */
-.card-info {
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.name-pet {
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.type-pet, .age-pet, .breed-pet, .weight-pet {
-  margin: 0;
-  color: #555;
-  font-size: 0.9rem;
-}
-
-/* Menú superior derecho */
-.card-menu {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-
-.menu-btn {
-  background: transparent;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-.menu-dropdown {
-  display: none;
-  position: absolute;
-  top: 25px;
-  right: 0;
-  background-color: #fff;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  border-radius: 8px;
-  flex-direction: column;
-  width: 150px;
-  z-index: 10;
-}
-
-.menu-dropdown button {
-  padding: 10px 15px;
-  border: none;
-  background: none;
-  text-align: left;
-  width: 100%;
-  cursor: pointer;
-}
-
-.menu-dropdown.active {
-  display: flex;
-}
-.delete-btn {
-  position: absolute;         
-  bottom: 10px;
-  right: 10px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;     
-  background-color: #f44336;
-  color: white;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  transition: background-color 0.3s, transform 0.2s;
-  z-index: 10;
-}
-
-.delete-btn:hover {
-  background-color: #d32f2f; 
-  transform: scale(1.1);
-}
-
-.delete-btn mat-icon {
-  font-size: 24px;
-}
+:host { display: block; }
+.card { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 32px; position: relative; padding: 24px 64px 24px 0; border-bottom: 1px solid var(--cc-border); }
+.image-pet { width: 160px; height: 160px; object-fit: cover; border-radius: 8px; }
+.card-info { min-width: 0; display: grid; gap: 4px; align-content: center; }
+.name-pet { font-family: var(--cc-display-font); font-size: 2rem; font-weight: 500; margin-bottom: 4px; }
+.type-pet { color: var(--cc-brand); font-weight: 600; }
+.age-pet, .breed-pet, .weight-pet { color: var(--cc-muted); }
+.card-menu { position: static; }
+.card > .card-menu { position: absolute; top: 0; right: 0; width: 44px; z-index: 5; }
+.menu-btn { position: absolute; top: 24px; right: 0; border: 1px solid var(--cc-border); background: white; color: var(--cc-ink); width: 44px; height: 44px; border-radius: 8px; font-size: 24px; }
+.menu-dropdown { display: none; position: absolute; top: 72px; right: 0; z-index: 5; min-width: 210px; background: white; border: 1px solid var(--cc-border); padding: 8px; border-radius: 8px; box-shadow: 0 8px 24px rgb(23 51 47 / 12%); }
+.menu-dropdown.active { display: grid; }
+.menu-dropdown button { border: 0; background: transparent; text-align: left; min-height: 44px; padding: 8px 12px; color: var(--cc-ink); border-radius: 4px; }
+.menu-dropdown button:hover { background: var(--cc-selected); }
+.delete-btn { position: absolute; right: 0; bottom: 24px; width: 44px; height: 44px; display: grid; place-items: center; border: 0; background: transparent; color: var(--cc-error); border-radius: 8px; }
+.delete-btn:hover { background: var(--cc-error-surface); }
+@media (max-width: 599px) { .card { grid-template-columns: 88px minmax(0,1fr); gap: 16px; padding-right: 48px; } .image-pet { width: 88px; height: 110px; } .name-pet { font-size: 1.5rem; } }

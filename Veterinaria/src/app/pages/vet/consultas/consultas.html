@@ -1,75 +1,43 @@
-<div class="consultas-container flex-column">
-    <!-- Sección de citas urgentes -->
-    @if(citasUrgentes.length > 0) {
-        <div class="urgentes-section">
-            <h1 class="title-citas">Consultas Urgentes</h1>
-            <div class="container-cards flex">
-                @for (cita of citasUrgentes; track $index) {
-                    <app-card-consulta 
-                        [cardconsulta]="cita" 
-                        [status]="cita.estado"
-                    ></app-card-consulta>
-                }
+<main class="consultas-container" [class.clinical-page]="authService.get_userRol() === 'V'" [class.editorial-page]="authService.get_userRol() === 'C'">
+  <header class="page-heading">
+    <h1>{{ authService.get_userRol() === 'V' ? 'Consultas' : 'Mis citas' }}</h1>
+    <p>{{ authService.get_userRol() === 'V' ? 'Citas, pacientes y registros clínicos.' : 'Consulta y organiza las visitas de tus mascotas.' }}</p>
+  </header>
+  @if (citasUrgentes.length > 0) {
+    <section class="urgentes-section" aria-labelledby="urgent-title">
+      <h2 id="urgent-title">Consultas urgentes</h2>
+      <div class="container-cards">
+        @for (cita of citasUrgentes; track $index) {
+          <app-card-consulta [cardconsulta]="cita" [status]="cita.estado"></app-card-consulta>
+        }
+      </div>
+    </section>
+  }
+  <div class="status-filters" role="group" aria-label="Estado de las citas">
+    <button type="button" class="filter-btn" [class.active]="status === 'P'" [attr.aria-pressed]="status === 'P'" (click)="changeStatus('P')">Pendientes</button>
+    <button type="button" class="filter-btn" [class.active]="status === 'A'" [attr.aria-pressed]="status === 'A'" (click)="changeStatus('A')">Asistidas</button>
+    <button type="button" class="filter-btn" [class.active]="status === 'N'" [attr.aria-pressed]="status === 'N'" (click)="changeStatus('N')">No asistidas</button>
+    <button type="button" class="filter-btn" [class.active]="status === 'C'" [attr.aria-pressed]="status === 'C'" (click)="changeStatus('C')">Canceladas</button>
+  </div>
+  <div class="Container-bydate">
+    @if (dates$ | async; as dates) {
+      @if (dates.length > 0) {
+        @for (cita_date of dates; track $index) {
+          <section class="date-group">
+            <h2>{{ cita_date.fecha }}</h2>
+            <div class="container-cards">
+              @for (cita of cita_date.citas; track $index) {
+                <app-card-consulta [cardconsulta]="cita" [status]="status"></app-card-consulta>
+              }
             </div>
+          </section>
+        }
+      } @else {
+        <div class="empty-state">
+          <h2>{{ empty_title }}</h2>
+          <p>{{ empty_description }}</p>
         </div>
+      }
     }
-
-    <div class="header-section">
-        <h1>Consultas</h1>
-        <div class="status-filters">
-            <button 
-                class="filter-btn" 
-                [class.active]="status === 'P'"
-                (click)="changeStatus('P')">
-                Pendientes
-            </button>
-            <button 
-                class="filter-btn" 
-                [class.active]="status === 'A'"
-                (click)="changeStatus('A')">
-                Asistidas
-            </button>
-            <button 
-                class="filter-btn" 
-                [class.active]="status === 'N'"
-                (click)="changeStatus('N')">
-                No Asistidas
-            </button>
-              <button 
-                class="filter-btn" 
-                [class.active]="status === 'C'"
-                (click)="changeStatus('C')">
-                Canceladas
-            </button>
-        </div>
-    </div>
-
-    <div class="Container-bydate flex-column">
-        @if(dates$ | async; as dates){
-            @if(dates.length > 0 ){
-                @for (cita_date of dates; track $index) {
-                    <h2>{{cita_date.fecha}}</h2>
-                    <div class="container-cards flex">
-                        @for (cita of cita_date.citas; track $index) {
-                            <app-card-consulta [cardconsulta]="cita" [status]="status"></app-card-consulta>
-                            
-                            
-                        } 
-                    </div>
-                }
-            }@else {
-                <div class="empty-state flex-column">
-                    <div class="empty-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="120px" viewBox="0 -960 960 960" width="120px" fill="#D1D5DB">
-                            <path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Zm280 240q-17 0-28.5-11.5T440-440q0-17 11.5-28.5T480-480q17 0 28.5 11.5T520-440q0 17-11.5 28.5T480-400Zm-160 0q-17 0-28.5-11.5T280-440q0-17 11.5-28.5T320-480q17 0 28.5 11.5T360-440q0 17-11.5 28.5T320-400Zm320 0q-17 0-28.5-11.5T600-440q0-17 11.5-28.5T640-480q17 0 28.5 11.5T680-440q0 17-11.5 28.5T640-400ZM480-240q-17 0-28.5-11.5T440-280q0-17 11.5-28.5T480-320q17 0 28.5 11.5T520-280q0 17-11.5 28.5T480-240Zm-160 0q-17 0-28.5-11.5T280-280q0-17 11.5-28.5T320-320q17 0 28.5 11.5T360-280q0 17-11.5 28.5T320-240Zm320 0q-17 0-28.5-11.5T600-280q0-17 11.5-28.5T640-320q17 0 28.5 11.5T680-280q0 17-11.5 28.5T640-240Z"/>
-                        </svg>
-                    </div>
-                
-                    <h2 class="empty-title">{{empty_title}}</h2>
-                    <p class="empty-description">{{empty_description}}</p>
-                    
-                </div>
-            }}
-    </div>
-    
-</div>
+  </div>
+</main>

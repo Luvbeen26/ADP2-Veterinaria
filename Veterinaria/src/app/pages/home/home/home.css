@@ -1,407 +1,49 @@
-h2{
-    font-weight: 700;
-    color: #1f2937;
+:host { display: block; background: var(--cc-surface); }
+.home-page { max-width: var(--cc-width-client); width: 100%; margin: auto; padding: 48px 32px 64px; }
+.home-opening { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 48px; align-items: center; margin-bottom: 40px; }
+.home-page h1 { font-family: var(--cc-display-font); font-size: var(--cc-text-64); font-weight: 500; line-height: 1; letter-spacing: -.025em; margin-bottom: 24px; }
+.section-intro { color: var(--cc-muted); font-size: 1.125rem; max-width: 26ch; }
+.opening-photo { min-width: 0; margin: 0; justify-self: end; max-width: 712px; }
+.opening-photo img { display: block; width: 100%; height: auto; }
+.services-editorial { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: 64px; border-top: 1px solid var(--cc-border); }
+.services-editorial app-service-home { min-width: 0; padding: 24px 0; }
+.services-editorial app-service-home:first-child { grid-row: span 2; --service-title-font: var(--cc-display-font); --service-title-size: 2.25rem; padding-right: 48px; }
+.services-editorial app-service-home:last-child { border-top: 1px solid var(--cc-border); }
+.care-section { margin-top: 48px; }
+.section-heading { margin-bottom: 24px; }
+.pet-care { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); gap: 32px; padding-block: 24px; border-top: 1px solid var(--cc-border); }
+.pet-name { color: var(--cc-brand); overflow-wrap: anywhere; }
+.care-sources { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; min-width: 0; }
+.care-source { min-width: 0; }
+.care-source:only-child { grid-column: 1 / -1; max-width: 70ch; }
+.care-source h4 { font-size: 1rem; font-weight: 600; margin-bottom: 12px; }
+.care-source ul { padding-left: 20px; }
+.care-source li { padding-left: 4px; overflow-wrap: anywhere; }
+.care-source li + li { margin-top: 8px; }
+.care-source li::marker { color: var(--cc-brand); }
+.contact-section { margin-top: 48px; padding: 32px; background: var(--cc-brand); color: var(--cc-surface); }
+.contact-info { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); gap: 32px; }
+.contact-info h2 { font-family: var(--cc-display-font); font-size: 2rem; font-weight: 500; }
+.contact-details { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.contact-details dt { font-size: .875rem; color: var(--cc-selected); margin-bottom: 8px; }
+.contact-details dd { overflow-wrap: anywhere; }
+@media (max-width: 899px) {
+  .home-page { padding-inline: 24px; }
+  .home-opening { grid-template-columns: 1fr; gap: 24px; }
+  .opening-copy { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: end; }
+  .opening-photo { justify-self: stretch; max-width: none; }
+  .opening-photo img { max-height: 400px; object-fit: cover; object-position: center; }
+  .pet-care, .contact-info { grid-template-columns: 1fr; gap: 16px; }
 }
-
-.Contenedor{
-    gap:15px;
-}
-
-.service-cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columnas en pantallas grandes */
-    gap: 30px;
-    margin-inline: 10px;
-    justify-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.services{
-    margin-top: 20px;
-    gap: 20px;
-    align-items: center;
-}
-
-.Contact-Us {
-    padding: 60px 20px;
-    background-color: #f9fafb;
-}
-
-.contact-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    gap: 60px;
-    align-items: center;
-}
-
-.contact-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-}
-
-.contact-info h2 {
-    margin: 0 0 10px 0;
-}
-
-.contact-item {
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-}
-
-.contact-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.phone-icon {
-    background-color: #dbeafe;
-    color: #3b82f6;
-}
-
-.email-icon {
-    background-color: #dbeafe;
-    color: #3b82f6;
-}
-
-.location-icon {
-    background-color: #dbeafe;
-    color: #3b82f6;
-}
-
-.contact-icon svg {
-    width: 24px;
-    height: 24px;
-}
-
-.contact-details {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.contact-details h4 {
-    font-size: 18px;
-    font-weight: 600;
-    color: #1f2937;
-    margin: 0;
-}
-
-.contact-details p {
-    font-size: 16px;
-    color: #6b7280;
-    margin: 0;
-}
-
-.contact-image {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.contact-image img {
-    width: 100%;
-    max-width: 500px;
-    height: 300px;
-    border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    object-fit: cover;
-}
-
-
-.Recommendation h2{
-    color: #1f2937;
-    text-align: center;
-}
-
-.recommendations-section {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 30px;
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 0 20px;
-}
-
-.pet-recommendation-card {
-    background: white;
-    border-radius: 16px;
-    padding: 20px;
-    margin-bottom: 30px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-
-
-.pet-header {
-    text-align: center;
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 10px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid #e5e7eb;
-}
-
-.title-recommendation {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 30px;
-}
-
-.pet-icon {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 28px;
-}
-
-.title-recommendation h2 {
-    margin: 0;
-}
-
-.pet-name {
-    
-    font-size: 25px;
-    font-weight: 700;
-    color: #1f2937;
-    margin: 0;
-}
-
-.care-sections {
-    gap: 15px;
-}
-
-.care-section {
-    background: #f9fafb;
-    border-radius: 12px;
-    padding: 25px;
-}
-
-.care-section-title {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.care-section-title h3 {
-    font-size: 18px;
-    font-weight: 600;
-    color: #1f2937;
-    margin: 0;
-}
-
-.care-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-}
-
-.veterinary-icon {
-    background-color: #dcfce7;
-    color: #16a34a;
-}
-
-.recommendation-icon {
-    background-color: #dbeafe;
-    color: #3b82f6;
-}
-
-.care-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.care-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 5px;
-    background: white;
-    border-radius: 8px;
-    transition: all 0.2s ease;
-    border-left: 3px solid transparent;
-}
-
-
-
-.care-item-bullet {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    margin-top: 6px;
-    flex-shrink: 0;
-}
-
-.veterinary-care .care-item-bullet {
-    background-color: #16a34a;
-}
-
-.recommended-care .care-item-bullet {
-    background-color: #3b82f6;
-}
-
-.care-item-text {
-    font-size: 15px;
-    color: #4b5563;
-    line-height: 1.6;
-}
-
-@media (min-width: 1230px) {
-    .recommendations-section {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media (max-width: 1230px) {
-    .service-cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    
-    .service-cards app-service-home:nth-child(3) {
-        
-        grid-column: 1 / -1; 
-        justify-content: center;
-    }
-}
-
-/* Responsive Design */
-@media (max-width: 968px) {
-    .contact-container {
-        flex-direction: column;
-        gap: 40px;
-    }
-
-    .contact-info {
-        text-align: center;
-        align-items: center;
-    }
-
-    .contact-item {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-  
-
-    .contact-image img {
-        max-width: 400px;
-    }
-
-    .services {
-        padding: 50px 20px;
-    }
-
-    .services h3 {
-        font-size: 32px;
-    }
-
-    .service-cards {
-        gap: 25px;
-        margin-inline: 15px;
-    }
-}
-
-
-@media (max-width: 768px) {
-    .services {
-        padding: 40px 15px;
-    }
-
-    .services h3 {
-        font-size: 28px;
-    }
-
-    .service-cards {
-        display: flex;
-        gap: 20px;
-        margin-inline: 10px;
-        flex-direction: column; /* ✅ Apila las cards verticalmente */
-        justify-content: center;
-    }
-}
-
-
-@media (max-width: 640px) {
-    .Contact-Us {
-        padding: 40px 15px;
-    }
-
-  
-    .contact-details h4 {
-        font-size: 16px;
-    }
-
-    .contact-details p {
-        font-size: 14px;
-    }
-
-    .contact-icon {
-        width: 45px;
-        height: 45px;
-    }
-
-    .contact-image img {
-        
-        border-radius: 12px;
-    }
-
-    .services {
-        padding: 40px 15px;
-    }
-
-    .services h3 {
-        font-size: 24px;
-    }
-
-    .service-cards {
-        gap: 15px;
-        margin-inline: 5px;
-        
-        justify-content: center;
-    }
-}
-
-
-
-@media (max-width: 470px) {
-    .contact-image img {
-        height: auto;   
-        border-radius: 12px;
-    }
-    .service-cards {
-        gap: 15px;
-        margin-inline: 0px;
-        justify-content: center;
-    }
+@media (max-width: 599px) {
+  .home-page { padding: 32px 16px 48px; }
+  .home-page h1 { font-size: var(--cc-text-40); margin-bottom: 0; }
+  .opening-copy, .services-editorial, .care-sources, .contact-details { grid-template-columns: 1fr; }
+  .opening-copy { gap: 16px; }
+  .services-editorial { gap: 0; }
+  .services-editorial app-service-home:first-child { grid-row: auto; padding-right: 0; --service-title-size: 1.75rem; }
+  .services-editorial app-service-home + app-service-home { border-top: 1px solid var(--cc-border); }
+  .care-sources { gap: 24px; }
+  .care-section, .contact-section { margin-top: 32px; }
+  .contact-section { padding: 24px; }
 }

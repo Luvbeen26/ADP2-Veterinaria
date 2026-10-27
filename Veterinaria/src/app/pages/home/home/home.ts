@@ -1,7 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { ServiceHome } from '../../../shared/components/service-home/service-home';
 import { cardService } from '../../../core/models/service';
-import {MatIcon, MatIconModule} from '@angular/material/icon'
 import { Mascota } from '../../../core/services/mascota/mascota';
 import { Auth } from '../../../core/services/auth/auth';
 import { Consulta } from '../../../core/services/vet/consulta';
@@ -9,7 +8,7 @@ import { GetRecomendaciones } from '../../../core/models/mascota';
 
 @Component({
   selector: 'app-home',
-  imports: [ServiceHome,MatIcon],
+  imports: [ServiceHome],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })

@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Auth } from '../../../core/services/auth/auth';
 import { Router, RouterLink } from '@angular/router';
+import { apiFailure } from '../../../core/security/api-error';
 import { CommonModule } from '@angular/common';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, finalize } from 'rxjs';
 
 @Component({
   selector: 'app-restore-password',
@@ -13,6 +14,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class RestorePassword {
   emailForm!: FormGroup;
+  readonly busy = signal(false);
   private errorSubject = new BehaviorSubject<string>("");
     
   error$: Observable<string> = this.errorSubject.asObservable();
@@ -25,26 +27,20 @@ export class RestorePassword {
   }
 
   Send_email(){
+    if (this.busy()) return;
     if(this.emailForm.invalid){
       this.emailForm.markAllAsTouched();
       return;
     }
     const correo=this.emailForm.get('correo')?.value
-    this.auth.send_email(correo).subscribe({
+    this.busy.set(true);
+    this.errorSubject.next('');
+    this.auth.send_email(correo).pipe(finalize(() => this.busy.set(false))).subscribe({
       next: (response) =>{
-        console.log("mandado")
-        this.router.navigate(["/auth/confirm-code"], { 
-          state: { correo: correo } 
-        });
+        void this.router.navigate(["/auth/confirm-code"]);
       },
       error: (err) =>{
-        console.log(err)
-        const mensaje = err.error?.detail 
-          ? err.error.detail.replace(/^\d+:\s*/, '') 
-          : "Error al iniciar sesión";
-        
-        
-        this.errorSubject.next(mensaje);
+        this.errorSubject.next(apiFailure(err).message);
       }
     })
 

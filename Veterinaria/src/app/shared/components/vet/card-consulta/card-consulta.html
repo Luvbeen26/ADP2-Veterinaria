@@ -1,90 +1,52 @@
-<div class="card-container flex-column">
-    <div class="head flex">
-        @if (cardconsulta.servicio == "consulta" || cardconsulta.servicio =="salon") {
-        <div class="imgSpecie">
-            <img [src]="cardconsulta.mascota?.raza_mascota?.especie==='G' ? 'cat.jpg' : 'dog.jpeg'" alt="" class="img_animal">
-        </div>
-        <div class="names flex-column">
-            <h4>{{cardconsulta.mascota?.nombre}}</h4>
-            <p>Dueño: {{cardconsulta.usuario?.nombre}} {{cardconsulta.usuario?.apellidos}}</p>
-
-        </div>
-    }@else{
-        <h3>Cita para adopcion</h3>
+<article class="card-container">
+  <div class="head">
+    @if (cardconsulta.servicio == 'consulta' || cardconsulta.servicio == 'salon') {
+      <img [src]="cardconsulta.mascota?.raza_mascota?.especie === 'G' ? 'cat.jpg' : 'dog.jpeg'" alt="Imagen ilustrativa de la especie" width="48" height="48" class="img_animal" loading="lazy">
+      <div class="names">
+        <h3>{{ cardconsulta.mascota?.nombre }}</h3>
+        <p>Propietario: {{ cardconsulta.usuario?.nombre }} {{ cardconsulta.usuario?.apellidos }}</p>
+      </div>
+    } @else {
+      <h3>Cita para adopción</h3>
     }
+  </div>
+  <div class="service">
+    <dl>
+      <div><dt>Fecha y hora</dt><dd>{{ cardconsulta.fecha }} · {{ cardconsulta.hora }}</dd></div>
+      <div><dt>Servicio</dt><dd>{{ cardconsulta.servicio }}</dd></div>
+    </dl>
+    <span class="state-badge" [class.pending]="status === 'P'" [class.attended]="status === 'A'" [class.absent]="status === 'N'">
+      {{ status === 'P' ? 'Pendiente' : status === 'A' ? 'Asistida' : status === 'N' ? 'No asistida' : status === 'C' ? 'Cancelada' : status }}
+    </span>
+  </div>
+  @if (status == 'P') {
+    <div class="buttons">
+      @if (authService.get_userRol() == 'V') {
+        <button class="primary_button" [routerLink]="'/vet/registrar-consulta/' + cardconsulta.id_cita"><mat-icon aria-hidden="true">add_circle</mat-icon>Crear registro</button>
+        <button class="third_button" [routerLink]="'/vet/edit-appointment/' + cardconsulta.id_cita.toString()">Reagendar</button>
+        <button class="third_button red" (click)="Mark_NOAsistido()">No asistió</button>
+      } @else if (authService.get_userRol() == 'C') {
+        <a class="primary_button" [routerLink]="'/pets/edit-appointment/' + cardconsulta.id_cita.toString()">Reagendar</a>
+        <button class="third_button red" (click)="cancelarCita(cardconsulta.id_cita)">Cancelar</button>
+      }
     </div>
-    <div class="service flex">
-        <div class="info flex">
-            <mat-icon style="color:#375CE2">schedule</mat-icon>
-            <div class="info-descr flex-column">
-                <p>Fecha y Hora:</p>
-                <b>{{cardconsulta.hora}} {{cardconsulta.fecha}}</b>
-            </div>
-        </div>
-        <div class="info flex">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#375CE2"><path d="M480-480Zm0 360q-18 0-34.5-6.5T416-146L148-415q-35-35-51.5-80T80-589q0-103 67-177t167-74q48 0 90.5 19t75.5 53q32-34 74.5-53t90.5-19q100 0 167.5 74T880-590q0 49-17 94t-51 80L543-146q-13 13-29 19.5t-34 6.5Zm40-520q10 0 19 5t14 13l68 102h166q7-17 10.5-34.5T801-590q-2-69-46-118.5T645-758q-31 0-59.5 12T536-711l-27 29q-5 6-13 9.5t-16 3.5q-8 0-16-3.5t-14-9.5l-27-29q-21-23-49-36t-60-13q-66 0-110 50.5T160-590q0 18 3 35.5t10 34.5h187q10 0 19 5t14 13l35 52 54-162q4-12 14.5-20t23.5-8Zm12 130-54 162q-4 12-15 20t-24 8q-10 0-19-5t-14-13l-68-102H236l237 237q2 2 3.5 2.5t3.5.5q2 0 3.5-.5t3.5-2.5l236-237H600q-10 0-19-5t-15-13l-34-52Z"/></svg>
-            <div class="info-descr flex-column">
-                <p>Servicio:</p>
-                <b>{{cardconsulta.servicio}}</b>
-            </div>
-        </div>
-    </div>
-
-    @if (status == "P") {
-       @if (cardconsulta.notas) {
-
-    @let n = getNotasParsed(cardconsulta.notas);
-
-    @if (n) {
-        <div class="notas-container">
-            
-            <p><strong>Estado general:</strong> {{ n.estadoGeneral }}</p>
-            @if (n.sintomas) {
-                <p><strong>Síntomas:</strong></p>
-                <div class="sintomas-list">
-                    @for (s of n.sintomas; track $index) {
-                        <span class="symptom">{{ s }}</span>
-                    }
-                    @if (n.sintomas.length === 0) {
-                        <span class="no-data">No especificado</span>
-                    }
-                </div>
-            }
-            @if (n.medicamentos){
-                <p><strong>Medicamentos:</strong> {{ n.medicamentos }}</p>
-            }
-
-            @if (n.duracionSintomas) {
-                <p><strong>Duración de síntomas:</strong> {{ formatDuracion(n.duracionSintomas) }}</p>
-            }
-
-        </div>
+    @if (cardconsulta.notas) {
+      @let n = getNotasParsed(cardconsulta.notas);
+      @if (n) {
+        <dl class="notas-container">
+          <div><dt>Estado general</dt><dd>{{ n.estadoGeneral }}</dd></div>
+          @if (n.sintomas) {
+            <div><dt>Síntomas</dt><dd class="sintomas-list">
+              @for (s of n.sintomas; track $index) { <span class="symptom">{{ s }}</span> }
+              @if (n.sintomas.length === 0) { <span>No especificado</span> }
+            </dd></div>
+          }
+          @if (n.medicamentos) { <div><dt>Medicamentos</dt><dd>{{ n.medicamentos }}</dd></div> }
+          @if (n.duracionSintomas) { <div><dt>Duración de síntomas</dt><dd>{{ formatDuracion(n.duracionSintomas) }}</dd></div> }
+        </dl>
+      }
     }
-
-}
-
-
-        @if (authService.get_userRol() == 'V'){
-            <div class="buttons flex">
-                <!--<button class="primary_button" (click)="Mark_Asistido()"><mat-icon>check_circle</mat-icon></button>-->
-                <button class="third_button" (click)="Mark_NOAsistido()"><mat-icon>cancel</mat-icon>No Asistio</button>
-                <button class="primary_button" [routerLink]="'/vet/registrar-consulta/'+cardconsulta.id_cita"><mat-icon>add_circle</mat-icon>
-                    Crear Registro
-                </button>
-                <button class="primary_button" [routerLink]="'/vet/edit-appointment/'+cardconsulta.id_cita.toString()"><mat-icon>calendar_month</mat-icon>Reagendar</button>
-            </div>
-            
-        }@else if(authService.get_userRol() == 'C') {
-            <div class="buttons flex">
-                <a class="primary_button" [routerLink]="'/pets/edit-appointment/'+cardconsulta.id_cita.toString()"><mat-icon>calendar_month</mat-icon>Reagendar</a>
-                <button class="third_button red" (click)="cancelarCita(cardconsulta.id_cita)"><mat-icon>cancel</mat-icon>Cancelar</button>
-            </div>
-        }
-
-    }@else{
-        <div class="button">
-            <button class="details_button primary_button">Ver detalles</button>
-        </div>    
-    }
-    
-</div>
+  } @else {
+    <div class="buttons"><button class="third_button details_button">Ver detalles</button></div>
+  }
+</article>

@@ -1,150 +1,23 @@
-.card-container{
-    background-color: 5px solid #F8F8F8;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-    padding: 15px;
-    width: auto;
-    min-width: 300px;
-    gap: 10px;
-    z-index: 1;
-}
-
-.card-container:hover {
-    z-index: 2;
-    transform: translateY(-3px);
-    transition: 0.3s;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
-}
-.img_animal{
-    width: 60px;
-    height: 60px;
-    border: 2px solid var(--bordercolor-input);
-    border-radius: 50%;
-    gap:10px
-}
-
-.info{
-    align-items: center;
-    gap: 6px;
-    
-}
-
-
-.head{
-    gap: 10px;
-}
-
-.names {
-    justify-content: center;
-    width: 100%; /* Define un ancho máximo */
-    max-width: 200px; /* Ajusta según tu diseño */
-}
-
-.names h4,
-.names p {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 100%;
-    margin: 0; /* Opcional: eliminar márgenes */
-}
-
-.buttons{
-    justify-content: space-between;
-    gap: 10px;
-}
-  .button{
-    flex: 1;          /* Se expande */
-    width: 100%;      /* Asegura el 100% */
-}
-
-
-.service{
-  padding-inline: 8px;
-    justify-content: space-between;
-}
-
-.notas-container {
-    background: #f9fafb;
-    border-left: 4px solid #375CE2;
-    padding: 14px 16px;
-    border-radius: 10px;
-    margin-top: 15px;
-    font-size: 0.95rem;
-    color: #374151;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.sintomas-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 4px;
-}
-
-.symptom {
-    background: #e5edff;
-    padding: 3px 9px;
-    border-radius: 12px;
-    color: #375CE2;
-    font-size: 0.85rem;
-    font-weight: 500;
-}
-
-.no-data {
-    font-size: 0.85rem;
-    color: #6b7280;
-    font-style: italic;
-}
-.details_button{
-  width: inherit;
-}
-
-@media (max-width: 768px) {
-
-  .buttons {
-    gap: 10px;
-    flex-direction: column;
-  }
-
-  .primary_button, 
-  .third_button {
-    gap: 10px;
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-/* Móviles */
-@media (max-width: 480px) {
-  .card-container {
-    width: 190px;
-    padding: 12px;
-  }
-
-  .head {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .service {
-    flex-direction: column;
-    justify-content: space-between;
-    
-  }
- 
-  .buttons {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .primary_button, 
-  .third_button {
-    width: 100%;
-  }
-
-}
+:host { display: block; min-width: 0; }
+.card-container { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(0,1fr) minmax(0,1.2fr); gap: 20px 24px; padding: 24px 0; border-bottom: 1px solid var(--cc-border); background: transparent; }
+.head { display: flex; align-items: flex-start; gap: 12px; min-width: 0; }
+.img_animal { width: 48px; height: 48px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
+.names { min-width: 0; }
+.names h3 { font-size: 1.125rem; margin-bottom: 8px; }
+.names p { color: var(--cc-muted); font-size: .875rem; }
+.service { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+.service dl { display: grid; gap: 8px; }
+dt { font-size: .8125rem; color: var(--cc-muted); margin-bottom: 4px; }
+dd { font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.state-badge { font-size: .8125rem; font-weight: 600; padding: 4px 8px; border-radius: 6px; color: var(--cc-cancelled); background: var(--cc-cancelled-surface); }
+.state-badge.pending { color: var(--cc-pending); background: var(--cc-pending-surface); }
+.state-badge.attended { color: var(--cc-attended); background: var(--cc-attended-surface); }
+.state-badge.absent { color: var(--cc-absent); background: var(--cc-absent-surface); }
+.buttons { display: flex; flex-wrap: wrap; align-content: start; align-items: start; justify-content: flex-end; gap: 8px; }
+.buttons > * { font-size: .875rem; padding-inline: 12px; }
+.notas-container { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 24px; padding: 16px; background: var(--cc-surface); border: 1px solid var(--cc-border); border-radius: 8px; font-size: .875rem; }
+.notas-container > div { min-width: 0; }
+.sintomas-list { display: flex; flex-wrap: wrap; gap: 4px 8px; }
+.symptom { background: var(--cc-selected); color: var(--cc-brand); padding: 2px 6px; border-radius: 4px; }
+@media (max-width: 899px) { .card-container { grid-template-columns: minmax(0,1fr) minmax(0,1fr); } .buttons { grid-column: 1 / -1; justify-content: flex-start; } .notas-container { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width: 599px) { .card-container { grid-template-columns: 1fr; } .notas-container { grid-template-columns: 1fr; gap: 16px; } .buttons > * { flex: 1; } }

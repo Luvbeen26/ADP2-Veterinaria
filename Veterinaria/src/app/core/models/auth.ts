@@ -2,14 +2,23 @@ export interface Token{
     access_token:string
 }
 
+export interface TwoFactorChallenge {
+    requires_2fa: true;
+    mfa_token: string;
+    message?: string;
+}
+
+export type LoginResponse = Token | TwoFactorChallenge;
+
 export interface register{
-    user:string,
+    user?:string,
+    usuario?:string,
     nombres:string,
     apellidos:string,
     correo:string,
     contra:string
     confirm:string
-    rol:string
+    rol?:string
 }
 
 export interface login{

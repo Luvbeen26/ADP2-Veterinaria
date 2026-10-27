@@ -1,62 +1,9 @@
-.my-pets-container{
-    padding: 50px;
-    gap: 30px;
-    justify-content: center;
-}
-.container-list-pets{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
-    justify-content: center; /* centra las columnas */
-    gap: 20px;
-}
-/* Estilos CSS */
-.empty-message {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
-  background-color: #f9f9f9;
-  border: 2px dashed #ccc;
-  border-radius: 10px;
-  color: #555;
-  font-family: Arial, sans-serif;
-  font-size: 1.2rem;
-  text-align: center;
-  margin: 20px auto;
-  max-width: 400px;
-}
-
-.empty-icon {
-  font-size: 3rem;
-  margin-bottom: 15px;
-}
-
-.empty-text {
-  font-weight: bold;
-}
-
-/* CSS */
-.fixed-button {
-  position: fixed;       /* Fijo en la pantalla */
-  bottom: 20px;          /* 20px desde el borde inferior */
-  right: 20px;           /* 20px desde el borde derecho */
-  width: 70px;
-  height: 70px;
-  background-color: var(--primary_button_color); /* Verde */
-  color: white;
-  border: none;
-  border-radius: 50px;   /* Redondeado */
-  font-size: 16px;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  transition: background-color 0.3s, transform 0.2s;
-  z-index: 1000;         /* Siempre encima del contenido */
-}
-
-/* Efecto hover */
-.fixed-button:hover {
-  background-color: var(--primary_button_color);
-  transform: translateY(-2px);
-}
-
+:host { display: block; }
+.my-pets-container { max-width: 1200px; margin: auto; padding: 48px 32px 64px; gap: 32px; position: relative; }
+h1 { padding-right: 180px; }
+.container-list-pets { border-top: 1px solid var(--cc-border); }
+.empty-message { padding: 48px 0; color: var(--cc-muted); }
+.empty-icon { display: none; }
+.fixed-button { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 10px 20px; background: var(--cc-brand); color: white; border: 0; border-radius: 8px; font-weight: 600; }
+.fixed-button:hover { background: var(--cc-brand-hover); }
+@media (max-width: 599px) { .my-pets-container { padding: 32px 16px 48px; } h1 { padding-right: 0; } }

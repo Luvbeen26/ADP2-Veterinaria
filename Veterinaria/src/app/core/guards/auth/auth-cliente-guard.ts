@@ -1,41 +1,13 @@
-import { inject, PLATFORM_ID } from '@angular/core';
+import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
+import { map } from 'rxjs';
 import { Auth } from '../../services/auth/auth';
-import { jwtDecode } from 'jwt-decode';
-import { UserData } from '../../models/auth';
-import { map, take } from 'rxjs';
-import { isPlatformBrowser } from '@angular/common';
-
-export const authGuard: CanActivateFn = (route, state) => {
-   const platformId = inject(PLATFORM_ID);
-  
-  if (!isPlatformBrowser(platformId)) {
-    return true;
-  }
-
-  const authservice = inject(Auth);
-  const router = inject(Router);
-
-  const isAuth = authservice.isAuthenticated();
-  const rol = authservice.get_userRol();
-
-  const allowedVetRoutes = ['/pets/register-pet'];
-  const isAllowedVetRoute = allowedVetRoutes.some(allowedRoute => 
-    state.url.startsWith(allowedRoute)
-  );
-
-  if (isAuth && rol === 'V') {
-    if (isAllowedVetRoute) {
-      return true; 
-    }
-    router.navigate(["vet"]);
-    return false;
-  }
-
-  if (!isAuth || rol !== 'C') {
-    router.navigate(['']);
-    return false;
-  }
-
-  return true;
+export const authGuard: CanActivateFn = (_, state) => {
+  const auth = inject(Auth); const router = inject(Router);
+  return auth.restore().pipe(map(ok => {
+    if (!ok) return router.createUrlTree(['/auth/login']);
+    if (auth.get_userRol() === 'C') return true;
+    if (auth.get_userRol() === 'V' && state.url.split(/[?;#]/)[0] === '/pets/register-pet') return true;
+    return router.createUrlTree(['/vet']);
+  }));
 };

@@ -1,35 +1,6 @@
-
-.mascotas-user-item {
-    display: flex;
-    align-items: center;
-    padding: 12px;
-    margin-bottom: 4px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.mascotas-user-item:hover {
-    background-color: #f0f0f0;
-}
-
-.mascotas-user-item.active {
-    background-color: var(--primary_button_color);
-    color: white;
-}
-
-.mascotas-user-item.selected {
-    border: 2px solid var(--primary_button_color);
-    background-color: #ffffff;
-}
-
-
-
-.mascotas-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 12px;
-    background-color: #e0e0e0;
-    object-fit: cover;
-}
+:host { display: block; }
+.mascotas-user-item { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 56px; padding: 10px 12px; text-align: left; background: transparent; border: 1px solid transparent; border-radius: 8px; color: var(--cc-ink); }
+.mascotas-user-item:hover { background: var(--cc-surface); border-color: var(--cc-border); }
+.mascotas-user-item.active { background: var(--cc-selected); border-color: var(--cc-brand); color: var(--cc-brand); font-weight: 600; }
+.mascotas-avatar { width: 32px; height: 32px; border-radius: 50%; }
+.mascotas-user-item span { min-width: 0; overflow-wrap: anywhere; }

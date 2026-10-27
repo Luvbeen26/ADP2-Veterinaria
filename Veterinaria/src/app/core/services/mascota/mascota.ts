@@ -1,13 +1,17 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable, Injector } from '@angular/core';
 import { CartillaMascotaOut, MascotaCreate, MascotaCreatewithID, MascotaDeleteResponse, MascotaOut, MascotaUpdate} from '../../models/mascota';
 import { Observable } from 'rxjs';
+import { Reauthentication } from '../../security/reauthentication';
+import { ZERO_TRUST_ENABLED } from '../../security/contracts';
 import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Mascota {
+  private readonly secure = inject(ZERO_TRUST_ENABLED);
+  private readonly injector = inject(Injector);
   private api=environment.apiurl
   constructor(private http:HttpClient){}
 
@@ -19,7 +23,8 @@ export class Mascota {
     return this.http.get<MascotaOut[]>(`${this.api}pet/petsByUserLogged`);
   }
 
-  public deleteMascota(petId: number): Observable<MascotaDeleteResponse[]> {
+  public deleteMascota(petId: number): Observable<MascotaDeleteResponse[] | void> {
+    if (this.secure) return this.injector.get(Reauthentication).run('pet:delete', String(petId), proof => this.http.delete<void>(`${this.api}pet/delete/${petId}`, {headers: {'X-Reauth-Token': proof}}));
     return this.http.delete<MascotaDeleteResponse[]>(`${this.api}pet/delete/${petId}`);
   }
 

@@ -1,9 +1,9 @@
-<main class="flex-column">
+<main class="auth-page editorial-page flex-column">
     <span class="title"><h1>Crea una cuenta</h1></span>
 
     <form [formGroup]="RegForm" (ngSubmit)="Register()" action="" class="form flex-column">
         <section class="campos flex-column">
-            <label for="" class="campo flex-column">
+            <label class="campo flex-column">
                 <h3>Nombre(s)</h3>
                 <input type="text" formControlName="nombres" class="input" placeholder="Ej: Juan">
                 @if(RegForm.get('nombres')?.hasError("required") && RegForm.get('nombres')?.touched){
@@ -11,7 +11,7 @@
                 }
             </label>
 
-            <label for="" class="campo flex-column">
+            <label class="campo flex-column">
                 <h3>Apellido(s)</h3>
                 <input type="text" formControlName="apellidos" class="input" placeholder="Ej: Castro Zuñiga">
                 @if(RegForm.get('apellidos')?.hasError("required") && RegForm.get('apellidos')?.touched){
@@ -19,28 +19,30 @@
                 }
             </label>
 
-            <label for="" class="campo flex-column">
+            <label class="campo flex-column">
                 <h3>Usuario</h3>
                 <input type="text" formControlName="usuario" class="input" placeholder="Ej: usuario123">
                 @if(RegForm.get('usuario')?.hasError("required") && RegForm.get('usuario')?.touched){
                     <p class="error">Ingrese un nombre de usuario</p>
                 }
             </label>
-            <label for="" class="campo flex-column">
+            <label class="campo flex-column">
                 <h3>Correo electronico</h3>
-                <input type="text" formControlName="correo" class="input" placeholder="Ej: usuario123@gmail.com">
+                <input type="email" autocomplete="email" formControlName="correo" class="input" placeholder="Ej: usuario123@gmail.com">
                 @if(RegForm.get('correo')?.hasError("required") && RegForm.get('correo')?.touched){
                     <p class="error">Ingrese el correo</p>
                 }
             </label> 
-            <label for="" class="campo flex-column">
+            <label class="campo flex-column">
                 <h3>Contraseña</h3>
-                <input type="password" formControlName="contra" class="input" placeholder="Ej: *******">
+                <input type="password" autocomplete="new-password" formControlName="contra" class="input" placeholder="Ej: *******">
                 @if(RegForm.get('contra')?.hasError("required") && RegForm.get('contra')?.touched){
                     <p class="error">Ingrese una contraseña</p>
+                } @else if(RegForm.get('contra')?.hasError("minlength") && RegForm.get('contra')?.touched) {
+                    <p class="error">Usa al menos 15 caracteres.</p>
                 }
             </label>                        
-            <label for="" class="campo flex-column">
+            <label class="campo flex-column">
                 <h3>Confirmar Contraseña</h3>
                 <input type="password" class="input" formControlName="confirm" placeholder="Ej: *******">
                 @if(RegForm.get('confirm')?.hasError("required") && RegForm.get('confirm')?.touched){
@@ -50,10 +52,10 @@
                 }
             </label>     
         </section>
-        <button type="submit" class="primary_button">Registrarse</button>
+        <button [disabled]="busy()" type="submit" class="primary_button">Registrarse</button>
         <span class="text center flex">¿Ya tienes una cuenta?<a routerLink="/auth/login" class="button_link">Iniciar Sesion</a></span>
 
-        <div class="alert flex" [ngClass]="{'hide': !(error$ | async)}">
+        <div role="alert" class="alert flex" [ngClass]="{'hide': !(error$ | async)}">
             <span class="error-msg">{{ error$ | async }}</span>
         </div>
     </form>

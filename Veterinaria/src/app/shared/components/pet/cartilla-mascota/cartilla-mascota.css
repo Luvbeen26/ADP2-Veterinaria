@@ -1,155 +1,18 @@
-.modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.65);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2000;
-  backdrop-filter: blur(4px);
-  animation: fadeIn 0.25s ease-out;
-}
-
-.No-consulta {
-  text-align: center;
-}
-
-.No-consulta td {
-  padding: 40px;
-  color: #6c757d;
-  font-size: 16px;
-  font-style: italic;
-  background: #f8f9fa;
-  border: 2px dashed #dee2e6;
-  border-radius: 8px;
-} 
-
-.modal-container {
-  background: linear-gradient(180deg, #ffffff, #f0f8ff);
-  width: 850px;
-  max-height: 80vh;
-  border-radius: 20px;
-  padding: 25px 35px;
-  box-shadow: 0 15px 45px rgba(0,0,0,0.25);
-  overflow-y: auto;
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 3px solid #0077c2;
-  padding-bottom: 12px;
-}
-
-.modal-header h2 {
-  font-size: 24px;
-  color: #0077c2;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-}
-
-.close-btn {
-  border: none;
-  background: transparent;
-  font-size: 30px;
-  color: #ff4b5c;
-  font-weight: bold;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.modal-body h3 {
-  font-size: 20px;
-  color: #0056a0;
-  border-bottom: 2px solid #0077c2;
-  padding-bottom: 5px;
-  margin-top: 20px;
-}
-
-.section {
-  margin-block: 20px;
-  padding: 15px 20px;
-  border-radius: 12px;
-  background: #e8f4fc;
-  border-left: 6px solid #0077c2;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
-
-.section p {
-  margin: 6px 0;
-  font-size: 15px;
-  color: #333;
-}
-
-.vacunas-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 15px;
-  font-size: 14px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-}
-
-.vacunas-table th, .vacunas-table td {
-  border: 1px solid #cce0f4;
-  padding: 10px 12px;
-}
-
-.vacunas-table th {
-  background: #0077c2;
-  color: white;
-  font-weight: 600;
-  text-align: left;
-}
-
-.vacunas-table tbody tr:nth-child(even) {
-  background: #f0f8ff;
-}
-
-.vacunas-table tbody tr:hover {
-  background: #d0e7fb;
-}
-
-.modal-footer {
-  margin-top: 25px;
-  text-align: right;
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-}
-
-.btn {
-  padding: 12px 18px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.2s ease;
-}
-
-.btn-success {
-  background: linear-gradient(135deg, #28a745, #1e7e34);
-  color: #fff;
-}
-
-.btn-success:hover {
-  background: linear-gradient(135deg, #1e7e34, #28a745);
-}
-
-.btn-secondary {
-  background: linear-gradient(135deg, #6c757d, #495057);
-  color: #fff;
-}
-
-.btn-secondary:hover {
-  background: linear-gradient(135deg, #495057, #6c757d);
-}
-
-/* Animaciones */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px);}
-  to { opacity: 1; transform: translateY(0);}
-}
+.modal-backdrop { position: fixed; inset: 0; z-index: 2000; display: grid; place-items: center; background: rgb(23 51 47 / 55%); padding: 16px; }
+.modal-container { background: white; width: min(960px,100%); max-height: calc(100dvh - 32px); display: flex; flex-direction: column; min-width: 0; border-radius: 12px; }
+.modal-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 24px 32px; border-bottom: 1px solid var(--cc-border); }
+.modal-header h2 { font-family: var(--cc-display-font); font-size: 2rem; font-weight: 500; }
+.close-btn { width: 44px; height: 44px; flex-shrink: 0; background: transparent; border: 0; color: var(--cc-muted); font-size: 1.75rem; }
+.modal-body { padding: 32px; overflow: auto; min-width: 0; }
+h3 { font-size: 1rem; margin: 24px 0 12px; }
+h3:first-child { margin-top: 0; }
+.section { display: grid; gap: 8px; }
+.section strong { font-weight: 600; }
+table { width: 100%; border-collapse: collapse; font-size: .875rem; }
+th { text-align: left; background: var(--cc-selected); padding: 12px; }
+td { padding: 16px 12px; border-bottom: 1px solid var(--cc-border); vertical-align: top; overflow-wrap: anywhere; }
+.No-consulta td { color: var(--cc-muted); }
+.modal-footer { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 12px; padding: 20px 32px; border-top: 1px solid var(--cc-border); }
+.btn { min-height: 44px; border-radius: 8px; padding: 10px 18px; border: 1px solid var(--cc-control-border); background: white; color: var(--cc-brand); font-weight: 600; }
+.btn-success { background: var(--cc-brand); border-color: var(--cc-brand); color: white; }
+@media (max-width: 599px) { .modal-header, .modal-body, .modal-footer { padding: 20px 16px; } .modal-header h2 { font-size: 1.5rem; } }
